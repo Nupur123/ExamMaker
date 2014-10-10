@@ -1,0 +1,13 @@
+c:\users\anshulika\documents\visual studio 2013\Projects\ExamMaker\ExamMaker\bin\Debug\ExamMaker.exe.config
+c:\users\anshulika\documents\visual studio 2013\Projects\ExamMaker\ExamMaker\bin\Debug\ExamMaker.exe
+c:\users\anshulika\documents\visual studio 2013\Projects\ExamMaker\ExamMaker\bin\Debug\ExamMaker.pdb
+c:\users\anshulika\documents\visual studio 2013\Projects\ExamMaker\ExamMaker\obj\Debug\ExamMaker.csprojResolveAssemblyReference.cache
+c:\users\anshulika\documents\visual studio 2013\Projects\ExamMaker\ExamMaker\obj\Debug\App.g.cs
+c:\users\anshulika\documents\visual studio 2013\Projects\ExamMaker\ExamMaker\obj\Debug\ExamMaker_MarkupCompile.cache
+c:\users\anshulika\documents\visual studio 2013\Projects\ExamMaker\ExamMaker\obj\Debug\ExamMaker.g.resources
+c:\users\anshulika\documents\visual studio 2013\Projects\ExamMaker\ExamMaker\obj\Debug\ExamMaker.Properties.Resources.resources
+c:\users\anshulika\documents\visual studio 2013\Projects\ExamMaker\ExamMaker\obj\Debug\ExamMaker.csproj.GenerateResource.Cache
+c:\users\anshulika\documents\visual studio 2013\Projects\ExamMaker\ExamMaker\obj\Debug\ExamMaker.exe
+c:\users\anshulika\documents\visual studio 2013\Projects\ExamMaker\ExamMaker\obj\Debug\ExamMaker.pdb
+c:\users\anshulika\documents\visual studio 2013\Projects\ExamMaker\ExamMaker\obj\Debug\MainWindow.baml
+c:\users\anshulika\documents\visual studio 2013\Projects\ExamMaker\ExamMaker\obj\Debug\MainWindow.g.cs
