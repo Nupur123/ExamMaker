@@ -259,6 +259,9 @@ namespace ExamMaker
                         TreeViewItem.Items.Add(newNode);
                         break;
                     case XmlNodeType.EndElement: // if EndElement, move up tree
+                        if ((reader.Name == "Questi")) // rather than showing the Questi Element i decided to show only the TextNode inside that element
+                            break;
+                        else
                         TreeViewItem = (TreeViewItem)TreeViewItem.Parent;
                         break;
                     // if new element, add name and traverse tree
@@ -268,28 +271,30 @@ namespace ExamMaker
                         {
                             // assign node text, add newNode as child
                             if (reader.HasAttributes)
-                            {
-                                if(reader.GetAttribute("id") != null)
-                                {
-                                    newNode.Header = reader.Name + " no. " + reader.GetAttribute("id");
-                                }
-                                else if(reader.GetAttribute("Correct") != null)
-                                    newNode.Header = reader.Name +" " + reader.GetAttribute("Correct");
+                            {//QuizId
+                                if (reader.GetAttribute("id") != null)
+                                    newNode.Header = reader.GetAttribute("id");
+                                    //newNode.Header = reader.Name + " no. " + reader.GetAttribute("id");
+                                else if (reader.GetAttribute("Correct") != null)
+                                    newNode.Header = reader.Name + " [Correct Answer]";
+                                else if (reader.GetAttribute("QuizId") != null)
+                                    newNode.Header = reader.Name + " id: " + reader.GetAttribute("QuizId");
                                 else
                                     newNode.Header = reader.Name;
                             }
                             else{
+                                if ((reader.Name == "Questi"))
+                                    break;
+                                else
                                 newNode.Header = reader.Name;
                             }
-                               
-                            TreeViewItem.Items.Add(newNode);
-                            // set TreeViewItem to last child
-                            TreeViewItem = newNode;
-                        } // end if
+                                TreeViewItem.Items.Add(newNode);
+                                // set TreeViewItem to last child
+                                TreeViewItem = newNode;     
+                        }
                         else // do not traverse empty elements
                         {
-                            // assign NodeType string to newNode
-                            // and add it to tree
+                            
                             newNode.Header = reader.NodeType.ToString();
                             TreeViewItem.Items.Add(newNode);
                         } // end else
@@ -298,10 +303,26 @@ namespace ExamMaker
                         //newNode.Header = reader.NodeType.ToString();
                        // TreeViewItem.Items.Add(newNode);
                         break;
-                } // end switch
+                }
                 newNode = new TreeViewItem();
             }
-        } // end
+        }
 
+        private void TreeViewItem_Selected(object sender, RoutedEventArgs e)
+        {
+            TreeViewItem item = sender as TreeViewItem;
+            
+            if (item == e.OriginalSource)
+            {
+                status.Text = item.Header.ToString();
+                
+            }
+            else
+            {
+                Console.WriteLine("Parent of selected");
+                Console.WriteLine(item.Header);
+                Console.WriteLine(item.Items.Count);
+            }
+        }
     }
 }

@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="ExamMaker.MainWindow"
         Title="MainWindow" Height="727" Width="1064" WindowStartupLocation="CenterScreen">
+    
     <Grid Margin="0,0,22,9">
         <Grid x:Name="gridFillBlanks" Visibility="Hidden" HorizontalAlignment="Left" Height="140" Margin="30,365,0,0" VerticalAlignment="Top" Width="495" RenderTransformOrigin="0.5,0.258">
             <Label Content="Fill Blanks:" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top"/>
@@ -71,10 +72,32 @@
             </MenuItem>
             <MenuItem Header="_Help" />
         </Menu>
-        <TreeView Name="QuizTree" HorizontalAlignment="Left" Height="510" Margin="10,100,0,0" VerticalAlignment="Top" Width="225"/>
-        <TextBox x:Name="status" HorizontalAlignment="Left" Height="60" Margin="10,615,0,0" TextWrapping="Wrap" Text="status" VerticalAlignment="Top" Width="1014"/>
-        <Label Content="Quiz Summary" HorizontalAlignment="Left" Margin="10,69,0,0" VerticalAlignment="Top" Width="215"/>
+        
+        <DockPanel LastChildFill="True">
+            <DockPanel.Resources>
+                <Style TargetType="{x:Type TreeViewItem}">
+                    <EventSetter Event="Selected" Handler="TreeViewItem_Selected" />
+                </Style>
+            </DockPanel.Resources>
+            <TreeView Name="QuizTree" HorizontalAlignment="Left" Height="510" Margin="10,100,0,0" VerticalAlignment="Top" Width="225" ItemsSource="{Binding PackageView}" >
 
+                <TreeView.ItemContainerStyle>
+                    <Style TargetType="{x:Type TreeViewItem}">
+                        <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
+                        <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+                        <Setter Property="FontWeight" Value="Normal" />
+                        <Style.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="FontWeight" Value="Bold" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </TreeView.ItemContainerStyle>
+
+            </TreeView>
+            <TextBox x:Name="status" HorizontalAlignment="Left" Height="60" Margin="10,615,0,0" TextWrapping="Wrap" Text="status" VerticalAlignment="Top" Width="1014"/>
+            <Label Content="Quiz Summary" HorizontalAlignment="Left" Margin="10,69,0,0" VerticalAlignment="Top" Width="215"/>
+        </DockPanel>
     </Grid>
 
 </Window>
