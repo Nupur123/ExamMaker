@@ -5,14 +5,7 @@
         Title="MainWindow" Height="900" Width="800">
     <Grid Margin="0,0,2,0">
 
-        <Button x:Name="btnSubmit" Content="Submit" HorizontalAlignment="Left" Margin="500,435,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.431,-0.233" Click="btnSubmit_Click"/>
-
-        <TextBox x:Name="txtQuestion" HorizontalAlignment="Left" Height="23" Margin="90,244,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="341"/>
-        <TextBox x:Name="txtOption1" HorizontalAlignment="Left" Height="23" Margin="85,295,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="txtOption2" HorizontalAlignment="Left" Height="23" Margin="85,342,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="txtOption3" HorizontalAlignment="Left" Height="23" Margin="85,385,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="txtOption4" HorizontalAlignment="Left" Height="23" Margin="85,435,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-
+        <Button x:Name="btnSubmit" Content="Submit" HorizontalAlignment="Left" Margin="246,213,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.431,-0.233" Click="btnSubmit_Click"/>
 
         <TextBox x:Name="txtTitle" HorizontalAlignment="Left" Height="23" Margin="57,115,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="68"/>
         <TextBox x:Name="txtSubject" HorizontalAlignment="Left" Height="23" Margin="363,115,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="68"/>
@@ -20,10 +13,8 @@
         <TextBox x:Name="txtTime" HorizontalAlignment="Left" Height="23" Margin="489,117,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="66"/>
         <TextBox x:Name="txtDifficulty" HorizontalAlignment="Left" Height="23" Margin="636,117,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="61" RenderTransformOrigin="0.945,0.391"/>
         <TextBlock HorizontalAlignment="Left" Margin="52,30,0,0" FontSize="30" TextWrapping="Wrap" Text="Welcome to Robertson Exam Maker!" VerticalAlignment="Top" RenderTransformOrigin="0.476,0.526"/>
-        <WrapPanel HorizontalAlignment="Left" Height="415" Margin="20,90,0,0" VerticalAlignment="Top" Width="725">
-            <Label Content="Create Tests/ Quizzes for Students" FontSize="16" RenderTransformOrigin="0.734,1.097" Width="290"/>
 
-        </WrapPanel>
+
         <Label Content="Title" HorizontalAlignment="Left" Margin="20,112,0,0" VerticalAlignment="Top"/>
         <Label Content="Category" HorizontalAlignment="Left" Margin="294,112,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.421,0.115"/>
         <Label Content="Subject" HorizontalAlignment="Left" Margin="146,112,0,0" VerticalAlignment="Top"/>
@@ -35,20 +26,38 @@
             <ComboBoxItem Content="Fill Blanks"  HorizontalAlignment="Left" Width="95"/>
             <ComboBoxItem Content="True False" HorizontalAlignment="Left" Width="110"/>
         </ComboBox>
+        <Grid x:Name="gridMultipleChoice"  HorizontalAlignment="Left" Height="150" Margin="30,200,0,0" VerticalAlignment="Top" Width="495">
+            <Label Content="Multiple Choice Question:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.395,0.192" Width="155" Height="30"/>
+            <TextBox x:Name="txtOption1" HorizontalAlignment="Left" Height="23" Margin="105,72,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+            <RadioButton x:Name="rbOption1" Content="Option 1" HorizontalAlignment="Left" Margin="20,80,0,0" VerticalAlignment="Top"/>
+            <RadioButton x:Name="rbOption2" Content="Option 2" HorizontalAlignment="Left" Margin="20,120,0,0" VerticalAlignment="Top"/>
+            <TextBox x:Name="txtOption2" HorizontalAlignment="Left" Height="23" Margin="105,112,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+            <RadioButton x:Name="rbOption3" Content="Option 3" HorizontalAlignment="Left" Margin="260,80,0,0" VerticalAlignment="Top"/>
+            <RadioButton x:Name="rbOption4" Content="Option 4" HorizontalAlignment="Left" Margin="260,120,0,0" VerticalAlignment="Top"/>
+            <TextBox x:Name="txtOption3" HorizontalAlignment="Left" Height="23" Margin="340,72,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+            <TextBox x:Name="txtOption4" HorizontalAlignment="Left" Height="23" Margin="340,112,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+            <TextBox x:Name="txtQuestion" HorizontalAlignment="Left" Height="23" Margin="55,40,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="415"/>
+        </Grid>
+        <Grid x:Name="gridFillBlanks" Visibility="Hidden" HorizontalAlignment="Left" Height="140" Margin="30,365,0,0" VerticalAlignment="Top" Width="495" RenderTransformOrigin="0.5,0.258">
+            <Label Content="Fill Blanks:" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top"/>
+            <TextBox x:Name="txtFillBlanks" TextWrapping="Wrap" HorizontalAlignment="Left" Height="23" Margin="50,31,0,0" Text="" VerticalAlignment="Top" Width="420"/>
+            <Label Content="1." HorizontalAlignment="Left" Margin="10,62,0,0" VerticalAlignment="Top"/>
+            <Label Content="2." HorizontalAlignment="Left" Margin="10,98,0,0" VerticalAlignment="Top"/>
+            <Label Content="3." HorizontalAlignment="Left" Margin="229,65,0,0" VerticalAlignment="Top"/>
+            <Label Content="4." HorizontalAlignment="Left" Margin="229,98,0,0" VerticalAlignment="Top"/>
+            <TextBox x:Name="txtChoice1" HorizontalAlignment="Left" Height="23" Margin="68,65,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+            <TextBox x:Name="txtChoice2" HorizontalAlignment="Left" Height="23" Margin="68,101,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+            <TextBox x:Name="txtChoice3" HorizontalAlignment="Left" Height="23" Margin="268,65,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.917,0.652"/>
+            <TextBox x:Name="txtChoice4" HorizontalAlignment="Left" Height="23" Margin="268,101,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" RenderTransformOrigin="2.208,0.304"/>
+        </Grid>
 
-        <WrapPanel x:Name="pnlMultipleChoice" HorizontalAlignment="Left" Height="231" Margin="29,244,0,0" VerticalAlignment="Top" Width="455" Orientation="Vertical" RenderTransformOrigin="0.486,0.589">
-            <Label Content="Question" RenderTransformOrigin="2.605,2.192" Height="35" Width="63"/>
-            <RadioButton x:Name="rbOption1" Content="a." HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" Height="48" RenderTransformOrigin="-0.918,1.625" Padding="10,-1,0,0" Width="55"/>
-            <RadioButton x:Name="rbOption2" Content="b." HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" Height="48" RenderTransformOrigin="-0.918,1.625" Padding="10,-1,0,0" Width="55"/>
-            <RadioButton x:Name="rbOption3" Content="c." HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" Height="48" RenderTransformOrigin="-0.918,1.625" Padding="10,-1,0,0" Width="55"/>
-            <RadioButton x:Name="rbOption4" Content="d." HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" Height="48" RenderTransformOrigin="-0.918,1.625" Padding="10,-1,0,0" Width="55"/>
-        </WrapPanel>
-        <Grid HorizontalAlignment="Left" Margin="57,610,0,0" Width="593" Height="140" VerticalAlignment="Top">
-            <WrapPanel HorizontalAlignment="Left" Height="65" Margin="28,-87,0,162" VerticalAlignment="Bottom" Width="455" Orientation="Vertical">
-                <Label Content="Question" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top"/>
-                <TextBox x:Name="txtFillBlanks" HorizontalAlignment="Left" Height="23" Margin="70,-20,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="341"/>
-            </WrapPanel>
+        <Grid x:Name="gridTrueFalse" Visibility="Hidden" HorizontalAlignment="Left" Height="100" Margin="20,510,0,0" VerticalAlignment="Top" Width="454" RenderTransformOrigin="0.485,0.35">
+            <Label Content="True or False:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+            <RadioButton x:Name="rbTrue" Content="True" HorizontalAlignment="Left" Margin="95,75,0,0" VerticalAlignment="Top"/>
+            <RadioButton x:Name="rbFalse" Content="False" HorizontalAlignment="Left" Margin="255,75,0,0" VerticalAlignment="Top"/>
+            <TextBox x:Name="txtTrueFalse" HorizontalAlignment="Left" Height="23" Margin="75,35,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="365"/>
         </Grid>
 
     </Grid>
+
 </Window>
