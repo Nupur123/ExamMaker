@@ -1,0 +1,46 @@
+﻿<?xml version="1.0"?>
+
+<!--<Quiz QuizId="1"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns="urn:Question-Schema"
+      xsi:noNamespaceSchemaLocation="validator.xsd">-->
+  <Quiz QuizId="1"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns="urn:Question-Schema">
+  
+  <Details>
+    <Title>Sample Title</Title>
+    <Subject>PHP</Subject>
+    <Course>Programming</Course>
+    <Time>30</Time>
+    <Difficulty>intermediate</Difficulty>
+  </Details>
+  <Questions>
+    <MultipleChoice>
+      <Question id="1">
+        <Questi>Question</Questi>
+        <Options>
+          <Option>a</Option>
+          <Option>b</Option>
+          <Option>c</Option>
+          <Option Correct="yes">d</Option>
+        </Options>
+      </Question>
+      <Question id="2">
+        <Questi>Question</Questi>
+        <Options>
+          <Option>a</Option>
+          <Option Correct="yes">b</Option>
+          <Option>c</Option>
+          <Option>d</Option>
+        
+      </Options>
+      </Question>
+    </MultipleChoice>
+
+    <fillin>
+    </fillin>
+
+    <longAnswer></longAnswer>
+  </Questions>
+</Quiz>
