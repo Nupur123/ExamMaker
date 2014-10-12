@@ -267,10 +267,21 @@ namespace ExamMaker
                         if (!reader.IsEmptyElement)
                         {
                             // assign node text, add newNode as child
-                            if (!reader.HasAttributes)
+                            if (reader.HasAttributes)
+                            {
+                                if(reader.GetAttribute("id") != null)
+                                {
+                                    newNode.Header = reader.Name + " no. " + reader.GetAttribute("id");
+                                }
+                                else if(reader.GetAttribute("Correct") != null)
+                                    newNode.Header = reader.Name +" " + reader.GetAttribute("Correct");
+                                else
+                                    newNode.Header = reader.Name;
+                            }
+                            else{
                                 newNode.Header = reader.Name;
-                            else
-                                newNode.Header = reader.Name + reader.ReadAttributeValue();
+                            }
+                               
                             TreeViewItem.Items.Add(newNode);
                             // set TreeViewItem to last child
                             TreeViewItem = newNode;
