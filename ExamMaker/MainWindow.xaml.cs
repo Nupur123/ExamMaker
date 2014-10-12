@@ -23,6 +23,8 @@ namespace ExamMaker
     /// </summary>
     public partial class MainWindow : Window
     {
+        private bool failed = false;
+        public string filename;
         XmlDocument xmlDoc = new XmlDocument();
         XmlNode rootNode = null;
         XmlNode QuestionsNode;
@@ -189,6 +191,41 @@ namespace ExamMaker
             xmlDoc.Save(@"C:\Users\anshulika\Documents\testQuiz.xml");
 
             // xmlDoc.Save(XmlPath + txtTitle.Text + ".xml");
+        }
+
+        private void Open_Click(object sender, RoutedEventArgs e)
+        {
+            // Create OpenFileDialog
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+
+            // Set filter for file extension and default file extension
+            dlg.DefaultExt = ".xml";
+            dlg.Filter = "Xml File (.xml)|*.xml";
+
+
+            // Display OpenFileDialog by calling ShowDialog method
+            Nullable<bool> result = dlg.ShowDialog();
+
+            // Get the selected file name and display in a TextBox
+            if (result == true)
+            {
+                // Open document
+                status.Text = "";
+                failed = false;
+                filename = dlg.FileName;
+                string xsd = AppDomain.CurrentDomain.BaseDirectory + "validator.xsd";
+                OpenValidate OV = new OpenValidate();
+                OV.ValidateXml(filename, xsd);
+                if (!OV.failed)
+                {
+                    MessageBox.Show("File Validation Status: Success");
+                    status.Text = "File is valid";
+                }
+                //Paragraph paragraph = new Paragraph();
+                //paragraph.Inlines.Add(System.IO.File.ReadAllText(filename));
+                //FlowDocument document = new FlowDocument(paragraph);
+                //FlowDocReader.Document = document;
+            }
         }
 
     }

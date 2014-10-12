@@ -39,6 +39,7 @@ namespace ExamMaker
             // Set filter for file extension and default file extension
             dlg.DefaultExt = ".xml";
             dlg.Filter = "Xml File (.xml)|*.xml";
+            
 
             // Display OpenFileDialog by calling ShowDialog method
             Nullable<bool> result = dlg.ShowDialog();
@@ -51,8 +52,9 @@ namespace ExamMaker
                 failed = false;
                 filename = dlg.FileName;
                 string xsd = AppDomain.CurrentDomain.BaseDirectory + "validator.xsd";
-                ValidateXml(filename, xsd);
-                if(!failed)
+                OpenValidate OV = new OpenValidate();
+                OV.ValidateXml(filename, xsd);
+                if(!OV.failed)
                 {
                     MessageBox.Show("File Validation Status: Success");
                     status.Text = "File is valid";
@@ -62,31 +64,6 @@ namespace ExamMaker
                 //FlowDocument document = new FlowDocument(paragraph);
                 //FlowDocReader.Document = document;
             }
-        }
-        private void ValidationCallBack(object sender, ValidationEventArgs args)
-        {
-            if (args.Severity == XmlSeverityType.Warning)
-                status.Text += "\nWarning: Matching schema not found.  No validation occurred." + args.Message;
-            else
-                status.Text = "\tValidation error: " + args.Message;
-            failed = true;
-           
-
-        }
-        public void ValidateXml(string xmlFilename, string schemaFilename)
-        {
-            XmlReaderSettings settings = new XmlReaderSettings();
-            settings.ValidationType |= ValidationType.Schema;
-            settings.ValidationFlags |= XmlSchemaValidationFlags.ProcessInlineSchema;
-            settings.ValidationFlags |= XmlSchemaValidationFlags.ProcessSchemaLocation;
-            settings.ValidationFlags |= XmlSchemaValidationFlags.ReportValidationWarnings;
-            settings.ValidationEventHandler += new ValidationEventHandler(ValidationCallBack);
-            //XmlSchemaSet schemas = new XmlSchemaSet();
-            //settings.Schemas = schemas;
-            settings.Schemas.Add("urn:Question-Schema", schemaFilename);
-
-            XmlReader validator = XmlReader.Create(xmlFilename, settings);
-            while (validator.Read()) ;
         }
     }
 }
