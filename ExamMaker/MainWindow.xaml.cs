@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,6 +26,8 @@ namespace ExamMaker
     {
         private bool failed = false;
         public string filename;
+        private TreeViewItem tree;
+
         XmlDocument xmlDoc = new XmlDocument();
         XmlNode rootNode = null;
         XmlNode QuestionsNode;
@@ -40,11 +43,11 @@ namespace ExamMaker
 
         private void LoadQuiz()
         {
-            if (File.Exists(@"C:\Users\anshulika\Documents\testQuiz.xml"))
-            {
-                xmlDoc.Load(@"C:\Users\anshulika\Documents\testQuiz.xml");
-                rootNode = xmlDoc.DocumentElement;
-            }
+            //if (File.Exists(@"C:\Users\anshulika\Documents\testQuiz.xml"))
+            //{
+            //    xmlDoc.Load(@"C:\Users\anshulika\Documents\testQuiz.xml");
+            //    rootNode = xmlDoc.DocumentElement;
+            //}
         }
 
  
@@ -181,10 +184,10 @@ namespace ExamMaker
 
         private void btnSubmit_Click(object sender, RoutedEventArgs e)
         {
-            if (!File.Exists(@"C:\Users\anshulika\Documents\testQuiz.xml"))
-            {
-                CreateQuiz();
-            }
+            //if (!File.Exists(@"C:\Users\anshulika\Documents\testQuiz.xml"))
+            //{
+            //    CreateQuiz();
+            //}
 
             AddQuestion();
 
@@ -218,15 +221,76 @@ namespace ExamMaker
                 OV.ValidateXml(filename, xsd);
                 if (!OV.failed)
                 {
-                    MessageBox.Show("File Validation Status: Success");
+                    MessageBox.Show("File Open Status: Success");
                     status.Text = "File is valid";
+                    LoadTreeView();
                 }
+                else
+                    status.Text = OV.status;
                 //Paragraph paragraph = new Paragraph();
                 //paragraph.Inlines.Add(System.IO.File.ReadAllText(filename));
                 //FlowDocument document = new FlowDocument(paragraph);
                 //FlowDocReader.Document = document;
             }
         }
+        public void LoadTreeView()
+        {
+            XmlReaderSettings settings = new XmlReaderSettings();
+            settings.IgnoreWhitespace = true;
+            // create XmlReader object
+            XmlReader reader = XmlReader.Create(filename, settings);
+            tree = new TreeViewItem(); // instantiate TreeViewItem
+            tree.Header = "Quiz"; // assign name to TreeViewItem
+            QuizTree.Items.Add(tree); // add TreeViewItem to TreeView
+            BuildTree(reader, tree); // build node and tree hierarchy
+        }
+        private void BuildTree(XmlReader reader, TreeViewItem TreeViewItem)
+        {
+            // TreeViewItem to add to existing tree
+            TreeViewItem newNode = new TreeViewItem();
+            while (reader.Read())
+            {
+                // build tree based on node type
+                switch (reader.NodeType)
+                {
+                    // if Text node, add its value to tree
+                    case XmlNodeType.Text:
+                        newNode.Header = reader.Value;
+                        TreeViewItem.Items.Add(newNode);
+                        break;
+                    case XmlNodeType.EndElement: // if EndElement, move up tree
+                        TreeViewItem = (TreeViewItem)TreeViewItem.Parent;
+                        break;
+                    // if new element, add name and traverse tree
+                    case XmlNodeType.Element:
+                        // determine if element contains content
+                        if (!reader.IsEmptyElement)
+                        {
+                            // assign node text, add newNode as child
+                            if (!reader.HasAttributes)
+                                newNode.Header = reader.Name;
+                            else
+                                newNode.Header = reader.Name + reader.ReadAttributeValue();
+                            TreeViewItem.Items.Add(newNode);
+                            // set TreeViewItem to last child
+                            TreeViewItem = newNode;
+                        } // end if
+                        else // do not traverse empty elements
+                        {
+                            // assign NodeType string to newNode
+                            // and add it to tree
+                            newNode.Header = reader.NodeType.ToString();
+                            TreeViewItem.Items.Add(newNode);
+                        } // end else
+                        break;
+                    default: // all other types, display node type
+                        //newNode.Header = reader.NodeType.ToString();
+                       // TreeViewItem.Items.Add(newNode);
+                        break;
+                } // end switch
+                newNode = new TreeViewItem();
+            }
+        } // end
 
     }
 }

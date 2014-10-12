@@ -16,7 +16,7 @@ namespace ExamMaker
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            Window1 wnd = new Window1();
+            MainWindow wnd = new MainWindow();
             if (e.Args.Length == 1)
                 MessageBox.Show("Now opening file: \n\n" + e.Args[0]);
             wnd.Show();

@@ -21,7 +21,7 @@ namespace ExamMaker
     class OpenValidate
     {
         public bool failed = false;
-        private string status = null;
+        public string status = null;
 
         private void ValidationCallBack(object sender, ValidationEventArgs args)
         {

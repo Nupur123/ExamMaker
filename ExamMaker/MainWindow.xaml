@@ -2,8 +2,8 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="ExamMaker.MainWindow"
-        Title="MainWindow" Height="900" Width="1064">
-    <Grid Margin="0,0,22,0">
+        Title="MainWindow" Height="727" Width="1064" WindowStartupLocation="CenterScreen">
+    <Grid Margin="0,0,22,9">
         <Grid x:Name="gridFillBlanks" Visibility="Hidden" HorizontalAlignment="Left" Height="140" Margin="30,365,0,0" VerticalAlignment="Top" Width="495" RenderTransformOrigin="0.5,0.258">
             <Label Content="Fill Blanks:" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top"/>
             <TextBox x:Name="txtFillBlanks" TextWrapping="Wrap" HorizontalAlignment="Left" Height="23" Margin="50,31,0,0" Text="" VerticalAlignment="Top" Width="420"/>
@@ -23,7 +23,7 @@
             <RadioButton x:Name="rbFalse" Content="False" HorizontalAlignment="Left" Margin="255,75,0,0" VerticalAlignment="Top"/>
             <TextBox x:Name="txtTrueFalse" HorizontalAlignment="Left" Height="23" Margin="75,35,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="365"/>
         </Grid>
-        <Grid x:Name="MainGrid" HorizontalAlignment="Left" Height="750" Margin="245,45,0,0" VerticalAlignment="Top" Width="779">
+        <Grid x:Name="MainGrid" HorizontalAlignment="Left" Height="565" Margin="245,45,0,0" VerticalAlignment="Top" Width="779">
             <Button x:Name="btnSubmit" Content="Submit" HorizontalAlignment="Left" Margin="251,199,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.431,-0.233" Click="btnSubmit_Click"/>
 
             <TextBox x:Name="txtTitle" HorizontalAlignment="Left" Height="23" Margin="62,101,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="68"/>
@@ -71,8 +71,8 @@
             </MenuItem>
             <MenuItem Header="_Help" />
         </Menu>
-        <TreeView HorizontalAlignment="Left" Height="695" Margin="0,100,0,0" VerticalAlignment="Top" Width="225"/>
-        <TextBox x:Name="status" HorizontalAlignment="Left" Height="30" Margin="0,835,0,0" TextWrapping="Wrap" Text="status" VerticalAlignment="Top" Width="1024"/>
+        <TreeView Name="QuizTree" HorizontalAlignment="Left" Height="510" Margin="10,100,0,0" VerticalAlignment="Top" Width="225"/>
+        <TextBox x:Name="status" HorizontalAlignment="Left" Height="60" Margin="10,615,0,0" TextWrapping="Wrap" Text="status" VerticalAlignment="Top" Width="1014"/>
         <Label Content="Quiz Summary" HorizontalAlignment="Left" Margin="10,69,0,0" VerticalAlignment="Top" Width="215"/>
 
     </Grid>
