@@ -109,7 +109,6 @@ namespace ExamMaker
                         foreach(XmlNode xno2 in xno)
                         {
                             _option[x] = xno2.InnerText;
-
                             if ((xno2.Attributes["Correct"] != null) && (xno2.Attributes["Correct"].Value) == "yes")
                             {
                                 switch (x)
@@ -126,7 +125,10 @@ namespace ExamMaker
                             }
                             x++;
                         }
-                        
+                        txtOption1.Text = _option[0];
+                        txtOption2.Text = _option[1];
+                        txtOption3.Text = _option[2];
+                        txtOption4.Text = _option[3]; //temporary method!
                     }
                     
                 }
@@ -361,6 +363,28 @@ namespace ExamMaker
                 Console.WriteLine("Parent of selected");
                 Console.WriteLine(item.Header);
                 Console.WriteLine(item.Items.Count);
+            }
+        }
+
+        private void cmbQuestionType_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            
+        }
+
+        private void cmbQuestionType_DropDownClosed(object sender, EventArgs e)
+        {
+            if (cmbQuestionType.SelectedValue != null)
+            {
+                switch (cmbQuestionType.SelectedValue.ToString())
+                {
+                    case "Mutiple Choice":
+                        gridMultipleChoice.Visibility = System.Windows.Visibility.Visible;
+                        break;
+                    case "Fill in the blanks":
+                        gridMultipleChoice.Visibility = System.Windows.Visibility.Hidden;
+                        break;
+
+                }
             }
         }
     }
