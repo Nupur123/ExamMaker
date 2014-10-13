@@ -27,6 +27,7 @@ namespace ExamMaker
         private bool failed = false;
         public string filename;
         private TreeViewItem tree;
+        
 
         XmlDocument xmlDoc = new XmlDocument();
         XmlNode rootNode = null;
@@ -48,6 +49,14 @@ namespace ExamMaker
             //    xmlDoc.Load(@"C:\Users\anshulika\Documents\testQuiz.xml");
             //    rootNode = xmlDoc.DocumentElement;
             //}
+            
+
+        }
+        private void LoadItemsFromTreeView()
+        {
+            xmlDoc.Load(filename);
+            XmlNodeList nodes = xmlDoc.SelectNodes("//Quiz[@QuizId='1']");
+            status.Text = nodes.Count.ToString(); 
         }
 
  
@@ -200,12 +209,9 @@ namespace ExamMaker
         {
             // Create OpenFileDialog
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
-
             // Set filter for file extension and default file extension
             dlg.DefaultExt = ".xml";
             dlg.Filter = "Xml File (.xml)|*.xml";
-
-
             // Display OpenFileDialog by calling ShowDialog method
             Nullable<bool> result = dlg.ShowDialog();
 
@@ -216,7 +222,7 @@ namespace ExamMaker
                 status.Text = "";
                 failed = false;
                 filename = dlg.FileName;
-                string xsd = AppDomain.CurrentDomain.BaseDirectory + "validator.xsd";
+                string xsd = AppDomain.CurrentDomain.BaseDirectory + "validator.xsd";   //this is always default
                 OpenValidate OV = new OpenValidate();
                 OV.ValidateXml(filename, xsd);
                 if (!OV.failed)
@@ -235,6 +241,7 @@ namespace ExamMaker
         }
         public void LoadTreeView()
         {
+            ClearAll();
             XmlReaderSettings settings = new XmlReaderSettings();
             settings.IgnoreWhitespace = true;
             // create XmlReader object
@@ -242,71 +249,16 @@ namespace ExamMaker
             tree = new TreeViewItem(); // instantiate TreeViewItem
             tree.Header = "Quiz"; // assign name to TreeViewItem
             QuizTree.Items.Add(tree); // add TreeViewItem to TreeView
-            BuildTree(reader, tree); // build node and tree hierarchy
+            BuildTreeView BT = new BuildTreeView();
+            BT.BuildTree(reader, tree); // build node and tree hierarchy
         }
-        private void BuildTree(XmlReader reader, TreeViewItem TreeViewItem)
+        public void ClearAll()
         {
-            // TreeViewItem to add to existing tree
-            TreeViewItem newNode = new TreeViewItem();
-            while (reader.Read())
-            {
-                // build tree based on node type
-                switch (reader.NodeType)
-                {
-                    // if Text node, add its value to tree
-                    case XmlNodeType.Text:
-                        newNode.Header = reader.Value;
-                        TreeViewItem.Items.Add(newNode);
-                        break;
-                    case XmlNodeType.EndElement: // if EndElement, move up tree
-                        if ((reader.Name == "Questi")) // rather than showing the Questi Element i decided to show only the TextNode inside that element
-                            break;
-                        else
-                        TreeViewItem = (TreeViewItem)TreeViewItem.Parent;
-                        break;
-                    // if new element, add name and traverse tree
-                    case XmlNodeType.Element:
-                        // determine if element contains content
-                        if (!reader.IsEmptyElement)
-                        {
-                            // assign node text, add newNode as child
-                            if (reader.HasAttributes)
-                            {//QuizId
-                                if (reader.GetAttribute("id") != null)
-                                    newNode.Header = reader.GetAttribute("id");
-                                    //newNode.Header = reader.Name + " no. " + reader.GetAttribute("id");
-                                else if (reader.GetAttribute("Correct") != null)
-                                    newNode.Header = reader.Name + " [Correct Answer]";
-                                else if (reader.GetAttribute("QuizId") != null)
-                                    newNode.Header = reader.Name + " id: " + reader.GetAttribute("QuizId");
-                                else
-                                    newNode.Header = reader.Name;
-                            }
-                            else{
-                                if ((reader.Name == "Questi"))
-                                    break;
-                                else
-                                newNode.Header = reader.Name;
-                            }
-                                TreeViewItem.Items.Add(newNode);
-                                // set TreeViewItem to last child
-                                TreeViewItem = newNode;     
-                        }
-                        else // do not traverse empty elements
-                        {
-                            
-                            newNode.Header = reader.NodeType.ToString();
-                            TreeViewItem.Items.Add(newNode);
-                        } // end else
-                        break;
-                    default: // all other types, display node type
-                        //newNode.Header = reader.NodeType.ToString();
-                       // TreeViewItem.Items.Add(newNode);
-                        break;
-                }
-                newNode = new TreeViewItem();
-            }
+            QuizTree.Items.Clear();
+            failed = false;
+            filename = "";
         }
+       
 
         private void TreeViewItem_Selected(object sender, RoutedEventArgs e)
         {
@@ -314,7 +266,10 @@ namespace ExamMaker
             
             if (item == e.OriginalSource)
             {
-                status.Text = item.Header.ToString();
+                int i =item.Header.ToString().IndexOf("Question no.");
+                if( i == 0 )
+                status.Text = item.Header.ToString().Replace("Question no. ","");
+                LoadItemsFromTreeView();
                 
             }
             else
