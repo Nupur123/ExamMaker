@@ -52,8 +52,8 @@
         <Grid x:Name="MainGrid" HorizontalAlignment="Left" Height="565" Margin="245,45,0,0" VerticalAlignment="Top" Width="779">
 
             <TextBox x:Name="txtTitle" HorizontalAlignment="Left" Height="23" Margin="62,129,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="68"/>
-            <TextBox x:Name="txtSubject" HorizontalAlignment="Left" Height="23" Margin="368,129,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="68"/>
-            <TextBox x:Name="txtCategory" HorizontalAlignment="Left" Height="23" Margin="205,131,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="68"/>
+            <TextBox x:Name="txtSubject" HorizontalAlignment="Left" Height="23" Margin="205,129,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="68" RenderTransformOrigin="-1.956,2.217"/>
+            <TextBox x:Name="txtCategory" HorizontalAlignment="Left" Height="23" Margin="362,129,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="68"/>
             <TextBox x:Name="txtTime" HorizontalAlignment="Left" Height="23" Margin="494,131,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="66"/>
             <TextBox x:Name="txtDifficulty" HorizontalAlignment="Left" Height="23" Margin="641,131,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="128" RenderTransformOrigin="0.945,0.391"/>
             <TextBlock HorizontalAlignment="Left" Margin="57,16,0,0" FontSize="30" TextWrapping="Wrap" Text="Welcome to Robertson Exam Maker!" VerticalAlignment="Top" RenderTransformOrigin="0.476,0.526"/>

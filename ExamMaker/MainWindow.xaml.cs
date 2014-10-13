@@ -54,9 +54,24 @@ namespace ExamMaker
         }
         private void LoadItemsFromTreeView()
         {
+            XmlNamespaceManager ns = new XmlNamespaceManager(xmlDoc.NameTable);
+            ns.AddNamespace("ns", "urn:Question-Schema");
             xmlDoc.Load(filename);
-            XmlNodeList nodes = xmlDoc.SelectNodes("//Quiz[@QuizId='1']");
-            status.Text = nodes.Count.ToString(); 
+            XmlNode test = xmlDoc.SelectSingleNode("/ns:Quiz/ns:Details/ns:Title",ns);
+            //ns or namespace is IMPORTANT on retrieving Values from XML file with Namespaces
+            string title = test.InnerText;
+
+            XmlNodeList nodes = xmlDoc.SelectNodes("/ns:Quiz/ns:Details", ns);
+            foreach (XmlNode xn in nodes)
+            {
+                
+                txtTitle.Text = xn["Title"].InnerText;
+                txtSubject.Text = xn["Subject"].InnerText;
+                status.Text = xn["Course"].InnerText;
+                txtTime.Text = xn["Time"].InnerText;
+                txtDifficulty.Text = xn["Difficulty"].InnerText;
+            }
+            
         }
 
  
@@ -256,7 +271,7 @@ namespace ExamMaker
         {
             QuizTree.Items.Clear();
             failed = false;
-            filename = "";
+            //filename = "";
         }
        
 
