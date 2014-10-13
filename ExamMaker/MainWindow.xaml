@@ -5,6 +5,12 @@
         Title="MainWindow" Height="727" Width="1064" WindowStartupLocation="CenterScreen">
     <Window.Resources>
 
+        <x:Array x:Key="Difficulty" Type="sys:String" xmlns:sys="clr-namespace:System;assembly=mscorlib">
+            <sys:String>Beginner</sys:String>
+            <sys:String>Intermediate</sys:String>
+            <sys:String>Advanced</sys:String>
+        </x:Array>
+        <!--Im trying to use the binding methods here in xaml but it will take time on learning new stuffs so im sticking on doing what i know now-->
     </Window.Resources>
     <Grid Margin="0,0,22,9">
         <DockPanel LastChildFill="True">
@@ -65,7 +71,7 @@
             <Label Content="Time" HorizontalAlignment="Left" Margin="219,167,0,0" VerticalAlignment="Top"/>
             <Label Content="Difficulty:" HorizontalAlignment="Left" Margin="579,126,0,0" VerticalAlignment="Top"/>
             <Label Content="Select Question Type" HorizontalAlignment="Left" Margin="205,208,0,0" VerticalAlignment="Top"/>
-            <ComboBox x:Name="cmbQuestionType"  HorizontalAlignment="Left" Margin="349,208,0,0" VerticalAlignment="Top" RenderTransformOrigin="4.036,0.682" Width="140" SelectedValuePath="Content" SelectionChanged="cmbQuestionType_SelectionChanged" DropDownClosed="cmbQuestionType_DropDownClosed" >
+            <ComboBox x:Name="cmbQuestionType"  HorizontalAlignment="Left" Margin="349,208,0,0" VerticalAlignment="Top" RenderTransformOrigin="4.036,0.682" Width="140" SelectedValuePath="Content" SelectionChanged="cmbQuestionType_SelectionChanged">
                 <ComboBoxItem Content="Mutiple Choice"  HorizontalAlignment="Left" Width="95"/>
                 <ComboBoxItem Content="Fill in the blanks"  HorizontalAlignment="Left" Width="95"/>
                 <ComboBoxItem Content="Matching Type"  HorizontalAlignment="Left" Width="95"/>

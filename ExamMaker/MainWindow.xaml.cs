@@ -368,14 +368,10 @@ namespace ExamMaker
 
         private void cmbQuestionType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            
-        }
-
-        private void cmbQuestionType_DropDownClosed(object sender, EventArgs e)
-        {
-            if (cmbQuestionType.SelectedValue != null)
+            string Type = (e.AddedItems[0] as ComboBoxItem).Content as string;
+            if (Type != null)
             {
-                switch (cmbQuestionType.SelectedValue.ToString())
+                switch (Type)
                 {
                     case "Mutiple Choice":
                         gridMultipleChoice.Visibility = System.Windows.Visibility.Visible;
@@ -386,6 +382,11 @@ namespace ExamMaker
 
                 }
             }
+        }
+
+        private void cmbQuestionType_DropDownClosed(object sender, EventArgs e)
+        {
+            
         }
     }
 }
