@@ -36,7 +36,7 @@
 
             </TreeView>
         </DockPanel>
-        <Grid x:Name="gridFillBlanks" Visibility="Hidden" HorizontalAlignment="Left" Height="140" Margin="30,365,0,0" VerticalAlignment="Top" Width="495" RenderTransformOrigin="0.5,0.258">
+        <Grid x:Name="gridFillBlanks" HorizontalAlignment="Left" Height="140" Margin="30,365,0,0" VerticalAlignment="Top" Width="495" RenderTransformOrigin="0.5,0.258">
             <Label Content="Fill Blanks:" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top"/>
             <TextBox x:Name="txtFillBlanks" TextWrapping="Wrap" HorizontalAlignment="Left" Height="23" Margin="50,31,0,0" Text="" VerticalAlignment="Top" Width="420"/>
             <Label Content="1." HorizontalAlignment="Left" Margin="10,62,0,0" VerticalAlignment="Top"/>
@@ -49,7 +49,7 @@
             <TextBox x:Name="txtChoice4" HorizontalAlignment="Left" Height="23" Margin="268,101,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" RenderTransformOrigin="2.208,0.304"/>
         </Grid>
 
-        <Grid x:Name="gridTrueFalse" Visibility="Hidden" HorizontalAlignment="Left" Height="100" Margin="20,510,0,0" VerticalAlignment="Top" Width="454" RenderTransformOrigin="0.485,0.35">
+        <Grid x:Name="gridTrueFalse" HorizontalAlignment="Left" Height="100" Margin="20,510,0,0" VerticalAlignment="Top" Width="454" RenderTransformOrigin="0.485,0.35">
             <Label Content="True or False:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
             <RadioButton x:Name="rbTrue" Content="True" HorizontalAlignment="Left" Margin="95,75,0,0" VerticalAlignment="Top"/>
             <RadioButton x:Name="rbFalse" Content="False" HorizontalAlignment="Left" Margin="255,75,0,0" VerticalAlignment="Top"/>

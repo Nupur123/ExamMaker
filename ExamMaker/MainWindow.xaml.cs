@@ -33,7 +33,7 @@ namespace ExamMaker
         XmlNode rootNode = null;
         XmlNode QuestionsNode;
         int ID;
-        string XmlPath = @"C:\Users\anshulika\Documents\";
+        //string XmlPath = @"C:\Users\anshulika\Documents\";
 
         public MainWindow()
         {
@@ -373,11 +373,22 @@ namespace ExamMaker
             {
                 switch (Type)
                 {
-                    case "Mutiple Choice":
+                    case "Multiple Choice":
+                        gridFillBlanks.Visibility = System.Windows.Visibility.Hidden;
+                        gridTrueFalse.Visibility = System.Windows.Visibility.Hidden;
                         gridMultipleChoice.Visibility = System.Windows.Visibility.Visible;
                         break;
+
                     case "Fill in the blanks":
                         gridMultipleChoice.Visibility = System.Windows.Visibility.Hidden;
+                        gridTrueFalse.Visibility = System.Windows.Visibility.Hidden;
+                        gridFillBlanks.Visibility = System.Windows.Visibility.Visible;
+                        break;
+
+                    case "True False":
+                        gridMultipleChoice.Visibility = System.Windows.Visibility.Hidden;
+                        gridFillBlanks.Visibility = System.Windows.Visibility.Hidden;
+                        gridTrueFalse.Visibility = System.Windows.Visibility.Visible;
                         break;
 
                 }
