@@ -39,7 +39,7 @@ namespace ExamMaker
         {
             InitializeComponent();
 
-            LoadQuiz();
+          //  LoadQuiz();
         }
 
         private void LoadQuiz()
@@ -47,7 +47,8 @@ namespace ExamMaker
             //if (File.Exists(@"C:\Users\anshulika\Documents\testQuiz.xml"))
             //{
             //    xmlDoc.Load(@"C:\Users\anshulika\Documents\testQuiz.xml");
-            //    rootNode = xmlDoc.DocumentElement;
+
+              //  rootNode = xmlDoc.DocumentElement;
             //}
 
 
@@ -172,9 +173,9 @@ namespace ExamMaker
 
             Title.InnerText = txtTitle.Text;
             Subject.InnerText = txtSubject.Text;
-            Category.InnerText = txtCategory.Text;
+            Category.InnerText = cmbCourse.SelectedItem.ToString();
             Time.InnerText = txtTime.Text;
-            Difficulty.InnerText = txtDifficulty.Text;
+            Difficulty.InnerText = cmbDiff.SelectedItem.ToString();
 
             //trying to append questions node to root node
             QuestionsNode = xmlDoc.CreateElement("Questions");
@@ -182,7 +183,7 @@ namespace ExamMaker
 
         }
 
-        private void AddQuestion()
+        private void AddMultipleChoice()
         {
             //setting object reference here before using it
             QuestionsNode = xmlDoc.DocumentElement;
@@ -239,36 +240,64 @@ namespace ExamMaker
             }
         }
 
+        private void AddFillBlanks()
+        {           
+                //setting object reference here before using it
+                QuestionsNode = xmlDoc.DocumentElement;
+
+                XmlElement FillBlanksNode = xmlDoc.CreateElement("FillBlanks");
+                QuestionsNode.AppendChild(FillBlanksNode);
+
+                XmlElement Question = xmlDoc.CreateElement("Question");
+                FillBlanksNode.AppendChild(Question);
+
+                XmlAttribute QuestionID = xmlDoc.CreateAttribute("ID");
+                QuestionID.Value = ID++.ToString();
+                Question.Attributes.Append(QuestionID);
+                Question.InnerText = txtFillBlanks.Text;
+
+                XmlElement Choice = xmlDoc.CreateElement("Choice");
+                FillBlanksNode.AppendChild(Choice);
+
+                XmlElement Choice1 = xmlDoc.CreateElement("Choice");
+                XmlElement Choice2 = xmlDoc.CreateElement("Choice");
+                XmlElement Choice3 = xmlDoc.CreateElement("Choice");
+                XmlElement Choice4 = xmlDoc.CreateElement("Choice");
+
+                Choice1.InnerText = txtChoice1.Text;
+                Choice.AppendChild(Choice1);
+                Choice2.InnerText = txtChoice2.Text;
+                Choice.AppendChild(Choice2);
+                Choice3.InnerText = txtChoice3.Text;
+                Choice.AppendChild(Choice3);
+                Choice4.InnerText = txtChoice4.Text;
+                Choice.AppendChild(Choice4);
+
+                XmlAttribute Correct = xmlDoc.CreateAttribute("Correct");
+                Correct.Value = "Yes";
+
+            if (cboChoice1.IsChecked == true)
+            {
+                Choice1.Attributes.Append(Correct);
+            }
+
+            if (cboChoice2.IsChecked == true)
+            {
+                Choice2.Attributes.Append(Correct);
+            }
 
 
+            if (cboChoice3.IsChecked == true)
+            {
+                Choice3.Attributes.Append(Correct);
+            }
 
-        //if (cmbQuestionType.SelectedItem == "Fill Blanks")
-        //{
-        //    //setting object reference here before using it
-        //    QuestionsNode = xmlDoc.DocumentElement;
-
-        //    XmlElement FillBlanksNode = xmlDoc.CreateElement("FillBlanks");
-        //    QuestionsNode.AppendChild(FillBlanksNode);
-
-        //    XmlElement Question = xmlDoc.CreateElement("Question");
-        //    FillBlanksNode.AppendChild(Question);
-
-        //    XmlAttribute QuestionID = xmlDoc.CreateAttribute("ID");
-        //    QuestionID.Value = ID++.ToString();
-        //    Question.Attributes.Append(QuestionID);
-        //    Question.InnerText = txtFillBlanks.Text;
-
-        //    XmlElement Choice = xmlDoc.CreateElement("Choice");
-        //    FillBlanksNode.AppendChild(Choice);
-
-        //    XmlElement Choice1 = xmlDoc.CreateElement("Choice");
-        //    XmlElement Choice2 = xmlDoc.CreateElement("Choice");
-
-        //Choice1.InnerText = txtOption1.Text;
-        //Choice.AppendChild(Choice1);
-        //Choice2.InnerText = txtOption2.Text;
-        //Choice.AppendChild(Choice2);
-        //}
+            if (cboChoice4.IsChecked == true)
+            {
+                Choice4.Attributes.Append(Correct);
+            }
+            
+        }
 
         private void btnSubmit_Click(object sender, RoutedEventArgs e)
         {
@@ -277,8 +306,19 @@ namespace ExamMaker
             //    CreateQuiz();
             //}
 
-            AddQuestion();
+            CreateQuiz();
+            
+            if (cmbQuestionType.Uid == "1")
+            {
+                AddMultipleChoice();
+            }
 
+            if (cmbQuestionType.Uid == "2")
+            {
+                AddFillBlanks();
+
+            }
+           
             xmlDoc.Save(@"C:\Users\anshulika\Documents\testQuiz.xml");
 
             // xmlDoc.Save(XmlPath + txtTitle.Text + ".xml");

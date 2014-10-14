@@ -19,7 +19,7 @@
                     <EventSetter Event="TreeViewItem.Selected" Handler="TreeViewItem_Selected" />
                 </Style>
             </DockPanel.Resources>
-            <TreeView x:Name="QuizTree" HorizontalAlignment="Left" Height="495" Margin="10,100,0,0" VerticalAlignment="Top" Width="225" ItemsSource="{Binding PackageView}" >
+            <TreeView x:Name="QuizTree" HorizontalAlignment="Left" Height="495" Margin="10,100,0,0" VerticalAlignment="Top" Width="225" >
 
                 <TreeView.ItemContainerStyle>
                     <Style TargetType="{x:Type TreeViewItem}">
@@ -36,49 +36,47 @@
 
             </TreeView>
         </DockPanel>
-        <Grid x:Name="gridFillBlanks" HorizontalAlignment="Left" Height="140" Margin="30,365,0,0" VerticalAlignment="Top" Width="495" RenderTransformOrigin="0.5,0.258">
-            <Label Content="Fill Blanks:" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top"/>
-            <TextBox x:Name="txtFillBlanks" TextWrapping="Wrap" HorizontalAlignment="Left" Height="23" Margin="50,31,0,0" Text="" VerticalAlignment="Top" Width="420"/>
-            <Label Content="1." HorizontalAlignment="Left" Margin="10,62,0,0" VerticalAlignment="Top"/>
-            <Label Content="2." HorizontalAlignment="Left" Margin="10,98,0,0" VerticalAlignment="Top"/>
-            <Label Content="3." HorizontalAlignment="Left" Margin="229,65,0,0" VerticalAlignment="Top"/>
-            <Label Content="4." HorizontalAlignment="Left" Margin="229,98,0,0" VerticalAlignment="Top"/>
-            <TextBox x:Name="txtChoice1" HorizontalAlignment="Left" Height="23" Margin="68,65,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-            <TextBox x:Name="txtChoice2" HorizontalAlignment="Left" Height="23" Margin="68,101,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-            <TextBox x:Name="txtChoice3" HorizontalAlignment="Left" Height="23" Margin="268,65,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.917,0.652"/>
-            <TextBox x:Name="txtChoice4" HorizontalAlignment="Left" Height="23" Margin="268,101,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" RenderTransformOrigin="2.208,0.304"/>
-        </Grid>
-
-        <Grid x:Name="gridTrueFalse" HorizontalAlignment="Left" Height="100" Margin="20,510,0,0" VerticalAlignment="Top" Width="454" RenderTransformOrigin="0.485,0.35">
-            <Label Content="True or False:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-            <RadioButton x:Name="rbTrue" Content="True" HorizontalAlignment="Left" Margin="95,75,0,0" VerticalAlignment="Top"/>
-            <RadioButton x:Name="rbFalse" Content="False" HorizontalAlignment="Left" Margin="255,75,0,0" VerticalAlignment="Top"/>
-            <TextBox x:Name="txtTrueFalse" HorizontalAlignment="Left" Height="23" Margin="75,35,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="365"/>
-        </Grid>
         <Grid x:Name="MainGrid" HorizontalAlignment="Left" Height="565" Margin="221,45,0,0" VerticalAlignment="Top" Width="779">
 
-            <TextBox x:Name="txtTitle" HorizontalAlignment="Left" Height="23" Margin="62,129,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="232"/>
-            <TextBox x:Name="txtSubject" HorizontalAlignment="Left" Height="23" Margin="87,172,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="113" RenderTransformOrigin="-1.956,2.217"/>
-            <TextBox x:Name="txtCategory" HorizontalAlignment="Left" Height="23" Margin="550,211,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="68"/>
-            <TextBox x:Name="txtTime" HorizontalAlignment="Left" Height="23" Margin="260,172,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="66"/>
-            <TextBox x:Name="txtDifficulty" HorizontalAlignment="Left" Height="23" Margin="641,211,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="128" RenderTransformOrigin="0.945,0.391"/>
-            <TextBlock HorizontalAlignment="Left" Margin="57,16,0,0" FontSize="30" TextWrapping="Wrap" Text="Welcome to Robertson Exam Maker!" VerticalAlignment="Top" RenderTransformOrigin="0.476,0.526"/>
+            <TextBox x:Name="txtTitle" HorizontalAlignment="Left" Height="23" Margin="65,95,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="232"/>
+            <TextBox x:Name="txtSubject" HorizontalAlignment="Left" Height="23" Margin="82,138,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="113" RenderTransformOrigin="-1.956,2.217"/>
+            <TextBox x:Name="txtTime" HorizontalAlignment="Left" Height="23" Margin="260,141,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="66"/>
+            <TextBlock HorizontalAlignment="Left" Margin="62,10,0,0" FontSize="30" TextWrapping="Wrap" Text="Welcome to Robertson Exam Maker!" VerticalAlignment="Top" RenderTransformOrigin="0.476,0.526"/>
 
 
-            <Label Content="Title:" HorizontalAlignment="Left" Margin="25,126,0,0" VerticalAlignment="Top"/>
-            <Label Content="Course:" HorizontalAlignment="Left" Margin="320,126,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.421,0.115"/>
-            <Label Content="Subject:" HorizontalAlignment="Left" Margin="33,169,0,0" VerticalAlignment="Top"/>
-            <Label Content="Time" HorizontalAlignment="Left" Margin="219,167,0,0" VerticalAlignment="Top"/>
-            <Label Content="Difficulty:" HorizontalAlignment="Left" Margin="579,126,0,0" VerticalAlignment="Top"/>
-            <Label Content="Select Question Type" HorizontalAlignment="Left" Margin="205,208,0,0" VerticalAlignment="Top"/>
-            <ComboBox x:Name="cmbQuestionType"  HorizontalAlignment="Left" Margin="349,208,0,0" VerticalAlignment="Top" RenderTransformOrigin="4.036,0.682" Width="140" SelectedValuePath="Content" SelectionChanged="cmbQuestionType_SelectionChanged">
-                <ComboBoxItem Content="Mutiple Choice"  HorizontalAlignment="Left" Width="95"/>
-                <ComboBoxItem Content="Fill in the blanks"  HorizontalAlignment="Left" Width="95"/>
-                <ComboBoxItem Content="Matching Type"  HorizontalAlignment="Left" Width="95"/>
-                <ComboBoxItem Content="Long Answer"  HorizontalAlignment="Left" Width="95"/>
-                <ComboBoxItem Content="True False" HorizontalAlignment="Left" Width="110"/>
+            <Label Content="Title:" HorizontalAlignment="Left" Margin="25,92,0,0" VerticalAlignment="Top"/>
+            <Label Content="Course:" HorizontalAlignment="Left" Margin="320,100,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.421,0.115"/>
+            <Label Content="Subject:" HorizontalAlignment="Left" Margin="25,135,0,0" VerticalAlignment="Top"/>
+            <Label Content="Time" HorizontalAlignment="Left" Margin="219,138,0,0" VerticalAlignment="Top"/>
+            <Label Content="Difficulty:" HorizontalAlignment="Left" Margin="590,96,0,0" VerticalAlignment="Top"/>
+            <Label Content="Select Question Type" HorizontalAlignment="Left" Margin="34,177,0,0" VerticalAlignment="Top"/>
+            <ComboBox x:Name="cmbQuestionType"  HorizontalAlignment="Left" Margin="160,181,0,0" VerticalAlignment="Top" RenderTransformOrigin="4.036,0.682" Width="140" SelectedValuePath="Content" SelectionChanged="cmbQuestionType_SelectionChanged">
+                <ComboBoxItem x:Uid="1" Content="Multiple Choice" HorizontalAlignment="Left" Width="95"/>
+                <ComboBoxItem x:Uid="2" Content="Fill in the blanks"  HorizontalAlignment="Left" Width="95"/>
+                <ComboBoxItem x:Uid="3" Content="True False" HorizontalAlignment="Left" Width="110"/>
+                <ComboBoxItem x:Uid="4" Content="Matching Type"  HorizontalAlignment="Left" Width="95"/>
+                <ComboBoxItem x:Uid="5" Content="Long Answer" HorizontalAlignment="Left" Width="95"/>
+              
             </ComboBox>
-            <Grid x:Name="gridMultipleChoice"  HorizontalAlignment="Left" Height="205" Margin="25,260,0,0" VerticalAlignment="Top" Width="695">
+            <Grid x:Name="gridFillBlanks" HorizontalAlignment="Left" Height="140" Margin="65,239,0,0" VerticalAlignment="Top" Width="495" RenderTransformOrigin="0.5,0.258">
+                <Label Content="Fill Blanks:" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top"/>
+                <TextBox x:Name="txtFillBlanks" TextWrapping="Wrap" HorizontalAlignment="Left" Height="23" Margin="49,26,0,0" Text="" VerticalAlignment="Top" Width="420"/>
+                <TextBox x:Name="txtChoice1" HorizontalAlignment="Left" Height="23" Margin="79,63,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+                <TextBox x:Name="txtChoice2" HorizontalAlignment="Left" Height="23" Margin="79,101,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+                <TextBox x:Name="txtChoice3" HorizontalAlignment="Left" Height="23" Margin="268,63,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.917,0.652"/>
+                <TextBox x:Name="txtChoice4" HorizontalAlignment="Left" Height="23" Margin="268,101,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" RenderTransformOrigin="2.208,0.304"/>
+                <CheckBox x:Name="cboChoice1" Content="1." HorizontalAlignment="Left" Margin="35,65,0,0" VerticalAlignment="Top"/>
+                <CheckBox x:Name="cboChoice2" Content="2." HorizontalAlignment="Left" Margin="224,68,0,0" VerticalAlignment="Top"/>
+                <CheckBox x:Name="cboChoice3" Content="3." HorizontalAlignment="Left" Margin="35,109,0,0" VerticalAlignment="Top"/>
+                <CheckBox x:Name="cboChoice4" Content="4." HorizontalAlignment="Left" Margin="224,109,0,0" VerticalAlignment="Top"/>
+            </Grid>
+            <Grid x:Name="gridTrueFalse" HorizontalAlignment="Left" Height="100" Margin="65,260,0,0" VerticalAlignment="Top" Width="454" RenderTransformOrigin="0.485,0.35" d:IsHidden="True">
+                <Label Content="True or False:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+                <RadioButton x:Name="rbTrue" Content="True" HorizontalAlignment="Left" Margin="95,75,0,0" VerticalAlignment="Top"/>
+                <RadioButton x:Name="rbFalse" Content="False" HorizontalAlignment="Left" Margin="255,75,0,0" VerticalAlignment="Top"/>
+                <TextBox x:Name="txtTrueFalse" HorizontalAlignment="Left" Height="23" Margin="75,35,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="365"/>
+            </Grid>
+            <Grid x:Name="gridMultipleChoice"  HorizontalAlignment="Left" Height="205" Margin="49,205,0,0" VerticalAlignment="Top" Width="695" RenderTransformOrigin="0.42,-0.044">
                 <Label Content="Multiple Choice Question:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.395,0.192" Width="155" Height="30"/>
                 <TextBox x:Name="txtOption1" HorizontalAlignment="Left" Height="23" Margin="136,80,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="204"/>
                 <RadioButton x:Name="rbOption1" Content="Option 1" HorizontalAlignment="Left" Margin="51,88,0,0" VerticalAlignment="Top"/>
@@ -89,17 +87,18 @@
                 <TextBox x:Name="txtOption3" HorizontalAlignment="Left" Height="23" Margin="460,80,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="205"/>
                 <TextBox x:Name="txtOption4" HorizontalAlignment="Left" Height="23" Margin="460,120,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="205"/>
                 <TextBox x:Name="txtQuestion" HorizontalAlignment="Left" Height="23" Margin="55,40,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="610"/>
-                <Button x:Name="btnSubmit" Content="Submit" HorizontalAlignment="Left" Margin="315,175,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.431,-0.233" Click="btnSubmit_Click"/>
+
             </Grid>
-            <Label Content="Quiz Summary" HorizontalAlignment="Left" Margin="25,89,0,0" VerticalAlignment="Top" Width="215"/>
-            <ComboBox x:Name="cmbCourse" HorizontalAlignment="Left" Margin="374,130,0,0" VerticalAlignment="Top" Width="200" SelectedValuePath="Content">
+            <Label Content="Quiz Summary" HorizontalAlignment="Left" Margin="25,61,0,0" VerticalAlignment="Top" Width="215"/>
+            <ComboBox x:Name="cmbCourse" HorizontalAlignment="Left" Margin="374,96,0,0" VerticalAlignment="Top" Width="200" SelectedValuePath="Content">
                 <ComboBoxItem Content="Software Developer"  HorizontalAlignment="Left" Width="200"/>
             </ComboBox>
-            <ComboBox x:Name="cmbDiff" HorizontalAlignment="Left" Margin="641,130,0,0" VerticalAlignment="Top" Width="120" SelectedValuePath="Content">
+            <ComboBox x:Name="cmbDiff" HorizontalAlignment="Left" Margin="654,96,0,0" VerticalAlignment="Top" Width="120" SelectedValuePath="Content">
                 <ComboBoxItem Content="Beginner"  HorizontalAlignment="Left" Width="95"/>
                 <ComboBoxItem Content="Intermediate"  HorizontalAlignment="Left" Width="95"/>
                 <ComboBoxItem Content="Advance"  HorizontalAlignment="Left" Width="95"/>
             </ComboBox>
+            <Button x:Name="btnSubmit" Content="Submit" HorizontalAlignment="Left" Margin="344,181,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.431,-0.233" Click="btnSubmit_Click"/>
         </Grid>
         <Menu x:Name="MenuBar" Height="25" Margin="0,0,-26,0" VerticalAlignment="Top" >
             <MenuItem x:Name="File" Header="_File" >
