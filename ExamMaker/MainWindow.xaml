@@ -9,6 +9,13 @@
             <sys:String>Intermediate</sys:String>
             <sys:String>Advanced</sys:String>
         </x:Array>
+        <Style TargetType="Grid" x:Key="MultipleGrid">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=Status, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Value="false">
+                    <Setter Property="Visibility" Value="Hidden" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
         <!--Im trying to use the binding methods here in xaml but it will take time on learning new stuffs so im sticking on doing what i know now-->
     </Window.Resources>
     <Grid Margin="0,0,22,9">

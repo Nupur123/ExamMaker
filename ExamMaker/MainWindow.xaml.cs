@@ -376,9 +376,11 @@ namespace ExamMaker
                 {
                     case "Mutiple Choice":
                         gridMultipleChoice.Visibility = System.Windows.Visibility.Visible;
+                        gridFillBlanks.Visibility = System.Windows.Visibility.Hidden;
                         break;
                     case "Fill in the blanks":
                         gridMultipleChoice.Visibility = System.Windows.Visibility.Hidden;
+                        gridFillBlanks.Visibility = System.Windows.Visibility.Visible;
                         break;
 
                 }
