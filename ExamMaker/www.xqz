@@ -1,0 +1,19 @@
+<Quiz>
+  <Details>
+    <Title>weaw</Title>
+    <Subject>aweaw</Subject>
+    <Category>Software Developer</Category>
+    <Time>aweaw</Time>
+    <Difficulty>Beginner</Difficulty>
+  </Details>
+  <Questions>
+    <MultipleChoice />
+  </Questions>
+  <Question ID="1">aweawe</Question>
+  <Options>
+    <Option>aweaw</Option>
+    <Option Correct="Yes">eaweawe</Option>
+    <Option>aweaw</Option>
+    <Option>eaweawe</Option>
+  </Options>
+</Quiz>

@@ -1,0 +1,43 @@
+<Quiz>
+  <Details>
+    <Title>test</Title>
+    <Subject>lskdkf</Subject>
+    <Category>Software Developer</Category>
+    <Time>60</Time>
+    <Difficulty>Beginner</Difficulty>
+  </Details>
+  <Questions>
+    <MultipleChoice>
+      <Question ID="3">skjdhflhfhklagjfa?</Question>
+      <Options>
+        <Option>.asdkfjal;dk</Option>
+        <Option>klj</Option>
+        <Option>e;ljrl</Option>
+        <Option Correct="Yes">wesdlkjf</Option>
+      </Options>
+    </MultipleChoice>
+    <FillBlanks>
+      <Question ID="1">what is klfjalkrj'wej'_____________d;lkfj;lefj?</Question>
+      <Choice>
+        <Choice Correct="Yes">dlkfd;jk</Choice>
+        <Choice>qwiuq</Choice>
+        <Choice>weoruipo</Choice>
+        <Choice>ooiuo</Choice>
+      </Choice>
+      <Question ID="2">_______________ sjhdkjkwe?</Question>
+      <Choice>
+        <Choice>11</Choice>
+        <Choice>3</Choice>
+        <Choice Correct="Yes">980</Choice>
+        <Choice>09</Choice>
+      </Choice>
+      <Question ID="4">eiort__________?</Question>
+      <Choice>
+        <Choice>11</Choice>
+        <Choice>3</Choice>
+        <Choice Correct="Yes">980</Choice>
+        <Choice>09</Choice>
+      </Choice>
+    </FillBlanks>
+  </Questions>
+</Quiz>
