@@ -33,7 +33,7 @@ namespace ExamMaker
         XmlNode rootNode = null;
         XmlNode QuestionsNode;
         int ID;
-        //string XmlPath = @"C:\Users\anshulika\Documents\";
+        string XmlPath = @"C:\Users\anshulika\Documents\";
 
         public MainWindow()
         {
@@ -329,8 +329,8 @@ namespace ExamMaker
             // Create OpenFileDialog
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
             // Set filter for file extension and default file extension
-            dlg.DefaultExt = ".xml";
-            dlg.Filter = "Xml File (.xml)|*.xml";
+            dlg.DefaultExt = ".xqz";
+            dlg.Filter = "Exam File (.xqz)|*.xqz";
             // Display OpenFileDialog by calling ShowDialog method
             Nullable<bool> result = dlg.ShowDialog();
 
@@ -383,7 +383,8 @@ namespace ExamMaker
         private void TreeViewItem_Selected(object sender, RoutedEventArgs e)
         {
             TreeViewItem item = sender as TreeViewItem;
-            if (item == e.OriginalSource)
+            //if (item == e.OriginalSource)
+            if (item !=null)
             {
                 if (item.Header.ToString().IndexOf("MultipleChoice") == 0) //if it is a multiple type
                     cmbQuestionType.SelectedValue = "Mutiple Choice";
@@ -413,22 +414,13 @@ namespace ExamMaker
             {
                 switch (Type)
                 {
-                    case "Multiple Choice":
-                        gridFillBlanks.Visibility = System.Windows.Visibility.Hidden;
-                        gridTrueFalse.Visibility = System.Windows.Visibility.Hidden;
+                    case "Mutiple Choice":
                         gridMultipleChoice.Visibility = System.Windows.Visibility.Visible;
+                        gridFillBlanks.Visibility = System.Windows.Visibility.Hidden;
                         break;
-
                     case "Fill in the blanks":
                         gridMultipleChoice.Visibility = System.Windows.Visibility.Hidden;
-                        gridTrueFalse.Visibility = System.Windows.Visibility.Hidden;
                         gridFillBlanks.Visibility = System.Windows.Visibility.Visible;
-                        break;
-
-                    case "True False":
-                        gridMultipleChoice.Visibility = System.Windows.Visibility.Hidden;
-                        gridFillBlanks.Visibility = System.Windows.Visibility.Hidden;
-                        gridTrueFalse.Visibility = System.Windows.Visibility.Visible;
                         break;
 
                 }

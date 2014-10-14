@@ -4,12 +4,18 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="ExamMaker.MainWindow"
         Title="MainWindow" Height="727" Width="1064" WindowStartupLocation="CenterScreen">
     <Window.Resources>
-
         <x:Array x:Key="Difficulty" Type="sys:String" xmlns:sys="clr-namespace:System;assembly=mscorlib">
             <sys:String>Beginner</sys:String>
             <sys:String>Intermediate</sys:String>
             <sys:String>Advanced</sys:String>
         </x:Array>
+        <Style TargetType="Grid" x:Key="MultipleGrid">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=Status, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Value="false">
+                    <Setter Property="Visibility" Value="Hidden" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
         <!--Im trying to use the binding methods here in xaml but it will take time on learning new stuffs so im sticking on doing what i know now-->
     </Window.Resources>
     <Grid Margin="0,0,22,9">
@@ -36,6 +42,28 @@
 
             </TreeView>
         </DockPanel>
+<<<<<<< HEAD
+=======
+        <Grid x:Name="gridFillBlanks" Visibility="Hidden" HorizontalAlignment="Left" Height="140" Margin="30,365,0,0" VerticalAlignment="Top" Width="495" RenderTransformOrigin="0.5,0.258">
+            <Label Content="Fill Blanks:" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top"/>
+            <TextBox x:Name="txtFillBlanks" TextWrapping="Wrap" HorizontalAlignment="Left" Height="23" Margin="50,31,0,0" Text="" VerticalAlignment="Top" Width="420"/>
+            <Label Content="1." HorizontalAlignment="Left" Margin="10,62,0,0" VerticalAlignment="Top"/>
+            <Label Content="2." HorizontalAlignment="Left" Margin="10,98,0,0" VerticalAlignment="Top"/>
+            <Label Content="3." HorizontalAlignment="Left" Margin="229,65,0,0" VerticalAlignment="Top"/>
+            <Label Content="4." HorizontalAlignment="Left" Margin="229,98,0,0" VerticalAlignment="Top"/>
+            <TextBox x:Name="txtChoice1" HorizontalAlignment="Left" Height="23" Margin="68,65,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+            <TextBox x:Name="txtChoice2" HorizontalAlignment="Left" Height="23" Margin="68,101,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+            <TextBox x:Name="txtChoice3" HorizontalAlignment="Left" Height="23" Margin="268,65,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.917,0.652"/>
+            <TextBox x:Name="txtChoice4" HorizontalAlignment="Left" Height="23" Margin="268,101,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" RenderTransformOrigin="2.208,0.304"/>
+        </Grid>
+
+        <Grid x:Name="gridTrueFalse" Visibility="Hidden" HorizontalAlignment="Left" Height="100" Margin="20,510,0,0" VerticalAlignment="Top" Width="454" RenderTransformOrigin="0.485,0.35">
+            <Label Content="True or False:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+            <RadioButton x:Name="rbTrue" Content="True" HorizontalAlignment="Left" Margin="95,75,0,0" VerticalAlignment="Top"/>
+            <RadioButton x:Name="rbFalse" Content="False" HorizontalAlignment="Left" Margin="255,75,0,0" VerticalAlignment="Top"/>
+            <TextBox x:Name="txtTrueFalse" HorizontalAlignment="Left" Height="23" Margin="75,35,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="365"/>
+        </Grid>
+>>>>>>> origin/master
         <Grid x:Name="MainGrid" HorizontalAlignment="Left" Height="565" Margin="221,45,0,0" VerticalAlignment="Top" Width="779">
 
             <TextBox x:Name="txtTitle" HorizontalAlignment="Left" Height="23" Margin="65,95,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="232"/>
