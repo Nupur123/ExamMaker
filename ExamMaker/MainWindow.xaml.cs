@@ -34,23 +34,23 @@ namespace ExamMaker
         XmlDocument xmlDoc = new XmlDocument();
         XmlNode rootNode = null;
         XmlNode QuestionsNode;
-        string ID;
+        int ID;
         
         public MainWindow()
         {
             InitializeComponent();
 
-          //  LoadQuiz();
+           // LoadQuiz();
         }
 
         private void LoadQuiz()
         {
-            //if (File.Exists(@"C:\Users\anshulika\Documents\testQuiz.xml"))
-            //{
-            //    xmlDoc.Load(@"C:\Users\anshulika\Documents\testQuiz.xml");
+            if (File.Exists(NewFilePath))
+            {
+                xmlDoc.Load(NewFilePath);
 
-              //  rootNode = xmlDoc.DocumentElement;
-            //}
+                rootNode = xmlDoc.DocumentElement;
+            }
         }
     
 
@@ -205,7 +205,7 @@ namespace ExamMaker
             xn.AppendChild(Question);
 
             XmlAttribute QuestionID = xmlDoc.CreateAttribute("ID");
-            QuestionID.Value = Convert.ToInt16(ID)++.ToString();
+            QuestionID.Value = ID++.ToString();
             Question.Attributes.Append(QuestionID);
             Question.InnerText = txtQuestion.Text;
 
@@ -365,8 +365,7 @@ namespace ExamMaker
             }
            
             xmlDoc.Save(NewFilePath);
-
-            // xmlDoc.Save(XmlPath + txtTitle.Text + ".xml");
+           
         }
 
         private void Open_Click(object sender, RoutedEventArgs e)
