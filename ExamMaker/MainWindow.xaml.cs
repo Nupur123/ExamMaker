@@ -289,8 +289,8 @@ namespace ExamMaker
             // Create OpenFileDialog
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
             // Set filter for file extension and default file extension
-            dlg.DefaultExt = ".xml";
-            dlg.Filter = "Xml File (.xml)|*.xml";
+            dlg.DefaultExt = ".xqz";
+            dlg.Filter = "Exam File (.xqz)|*.xqz";
             // Display OpenFileDialog by calling ShowDialog method
             Nullable<bool> result = dlg.ShowDialog();
 
@@ -343,7 +343,8 @@ namespace ExamMaker
         private void TreeViewItem_Selected(object sender, RoutedEventArgs e)
         {
             TreeViewItem item = sender as TreeViewItem;
-            if (item == e.OriginalSource)
+            //if (item == e.OriginalSource)
+            if (item !=null)
             {
                 if (item.Header.ToString().IndexOf("MultipleChoice") == 0) //if it is a multiple type
                     cmbQuestionType.SelectedValue = "Mutiple Choice";

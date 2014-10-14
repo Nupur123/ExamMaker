@@ -4,7 +4,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="ExamMaker.MainWindow"
         Title="MainWindow" Height="727" Width="1064" WindowStartupLocation="CenterScreen">
     <Window.Resources>
-
         <x:Array x:Key="Difficulty" Type="sys:String" xmlns:sys="clr-namespace:System;assembly=mscorlib">
             <sys:String>Beginner</sys:String>
             <sys:String>Intermediate</sys:String>
