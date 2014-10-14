@@ -34,10 +34,8 @@ namespace ExamMaker
         XmlDocument xmlDoc = new XmlDocument();
         XmlNode rootNode = null;
         XmlNode QuestionsNode;
-        XmlNode MultipleChoiceNode;
-        int ID;
-        string XmlPath = @"C:\Users\anshulika\Documents\";
-
+        string ID;
+        
         public MainWindow()
         {
             InitializeComponent();
@@ -207,7 +205,7 @@ namespace ExamMaker
             xn.AppendChild(Question);
 
             XmlAttribute QuestionID = xmlDoc.CreateAttribute("ID");
-            QuestionID.Value = ID++.ToString();
+            QuestionID.Value = Convert.ToInt16(ID)++.ToString();
             Question.Attributes.Append(QuestionID);
             Question.InnerText = txtQuestion.Text;
 
@@ -443,7 +441,9 @@ namespace ExamMaker
 
                 int i = item.Header.ToString().IndexOf("Question no.");
                 if (i == 0)
-                    LoadItemsFromTreeView(item.Header.ToString().Replace("Question no. ", ""));
+                    ID = Convert.ToInt16(item.Header.ToString().Replace("Question no. ", ""));
+                    LoadItemsFromTreeView(ID.ToString());
+               
                 //status.Text = item.Header.ToString().Replace("Question no. ", "");  //extract the item Id
 
             }
