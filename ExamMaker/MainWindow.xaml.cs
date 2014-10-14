@@ -26,6 +26,7 @@ namespace ExamMaker
     {
         private bool failed = false;
         public string filename;
+        public string ItemID;
         private TreeViewItem tree;
 
 
@@ -50,9 +51,9 @@ namespace ExamMaker
 
               //  rootNode = xmlDoc.DocumentElement;
             //}
-
-
         }
+    
+
         private void LoadItem()
         {
             XmlNamespaceManager ns = new XmlNamespaceManager(xmlDoc.NameTable);
@@ -60,6 +61,7 @@ namespace ExamMaker
             xmlDoc.Load(filename);
             XmlNodeList nodes = xmlDoc.SelectNodes("/ns:Quiz/ns:Details", ns);
         }
+
         private void LoadItemsFromTreeView(string QuestionId = null)
         {
             XmlNamespaceManager ns = new XmlNamespaceManager(xmlDoc.NameTable);
@@ -308,15 +310,14 @@ namespace ExamMaker
 
             CreateQuiz();
             
-            if (cmbQuestionType.Uid == "1")
+            if (ItemID == "1")
             {
                 AddMultipleChoice();
             }
 
-            if (cmbQuestionType.Uid == "2")
+            if (ItemID == "2")
             {
                 AddFillBlanks();
-
             }
            
             xmlDoc.Save(@"C:\Users\anshulika\Documents\testQuiz.xml");
@@ -387,7 +388,7 @@ namespace ExamMaker
             if (item !=null)
             {
                 if (item.Header.ToString().IndexOf("MultipleChoice") == 0) //if it is a multiple type
-                    cmbQuestionType.SelectedValue = "Mutiple Choice";
+                    cmbQuestionType.SelectedValue = "Multiple Choice";
                 else if (item.Header.ToString().IndexOf("fillin") == 0) //if it is a fill in type
                     cmbQuestionType.SelectedValue = "Fill in the blanks";
                 else if (item.Header.ToString().IndexOf("longAnswer") == 0) //if it is a long Answer type
@@ -422,9 +423,20 @@ namespace ExamMaker
                         gridMultipleChoice.Visibility = System.Windows.Visibility.Hidden;
                         gridFillBlanks.Visibility = System.Windows.Visibility.Visible;
                         break;
-
                 }
             }
+
+            // retrieving ItemID or UID from selected ComboBox Item and saving it in a public string
+            var comboBox = sender as ComboBox;
+            if (null != comboBox)
+            {
+                var item = comboBox.SelectedItem as ComboBoxItem;
+                if (null != item)
+                {
+                   ItemID = item.Uid;
+                }
+            }
+
         }
 
         private void cmbQuestionType_DropDownClosed(object sender, EventArgs e)
