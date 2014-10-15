@@ -24,6 +24,7 @@ namespace ExamMaker
     /// </summary>
     public partial class MainWindow : Window
     {
+        const string xmlNS = "urn:Question-Schema";
         private bool failed = false;
         public string filename;
         public string ItemID;
@@ -39,8 +40,6 @@ namespace ExamMaker
         public MainWindow()
         {
             InitializeComponent();
-
-           // LoadQuiz();
         }
 
         private void LoadQuiz()
@@ -70,7 +69,6 @@ namespace ExamMaker
             XmlNodeList nodes = xmlDoc.SelectNodes("/ns:Quiz/ns:Details", ns);
             foreach (XmlNode xn in nodes)
             {
-
                 txtTitle.Text = xn["Title"].InnerText;
                 txtSubject.Text = xn["Subject"].InnerText;
                 txtTime.Text = xn["Time"].InnerText;
@@ -144,35 +142,30 @@ namespace ExamMaker
         private void CreateQuiz()
         {
             ID = 1;
-
             xmlDoc.PrependChild(xmlDoc.CreateXmlDeclaration("1.0", "utf-8", ""));
-            //rootNode = xmlDoc.CreateElement("Quiz");    
-            //xmlDoc.AppendChild(rootNode);
-            //rootNode = xmlDoc.DocumentElement;
-
-            XmlElement rootNode = xmlDoc.CreateElement("Quiz");
+            XmlElement rootNode = xmlDoc.CreateElement("Quiz",xmlNS);
             rootNode.SetAttribute("QuizId", "1");
             rootNode.SetAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
-            rootNode.SetAttribute("xmlns", "urn:Question-Schema");
+            //rootNode.SetAttribute("xmlns", "urn:Question-Schema");
             xmlDoc.AppendChild(rootNode);
             rootNode = xmlDoc.DocumentElement;
 
-            XmlNode detailsNode = xmlDoc.CreateElement("Details");
+            XmlNode detailsNode = xmlDoc.CreateElement("Details", xmlNS);
             rootNode.AppendChild(detailsNode);
 
-            XmlElement Title = xmlDoc.CreateElement("Title");
+            XmlElement Title = xmlDoc.CreateElement("Title", xmlNS);
             detailsNode.AppendChild(Title);
 
-            XmlElement Subject = xmlDoc.CreateElement("Subject");
+            XmlElement Subject = xmlDoc.CreateElement("Subject", xmlNS);
             detailsNode.AppendChild(Subject);
 
-            XmlElement Category = xmlDoc.CreateElement("Course");
+            XmlElement Category = xmlDoc.CreateElement("Course", xmlNS);
             detailsNode.AppendChild(Category);
 
-            XmlElement Time = xmlDoc.CreateElement("Time");
+            XmlElement Time = xmlDoc.CreateElement("Time", xmlNS);
             detailsNode.AppendChild(Time);
 
-            XmlElement Difficulty = xmlDoc.CreateElement("Difficulty");
+            XmlElement Difficulty = xmlDoc.CreateElement("Difficulty", xmlNS);
             detailsNode.AppendChild(Difficulty);
 
             Title.InnerText = txtTitle.Text;
@@ -182,33 +175,37 @@ namespace ExamMaker
             Difficulty.InnerText = cmbDiff.SelectedValue.ToString();
 
             //trying to append questions node to root node
-            QuestionsNode = xmlDoc.CreateElement("Questions");
+            QuestionsNode = xmlDoc.CreateElement("Questions", xmlNS);
             rootNode.AppendChild(QuestionsNode);
 
-            XmlElement MultipleChoiceNode = xmlDoc.CreateElement("MultipleChoice");
+            XmlElement MultipleChoiceNode = xmlDoc.CreateElement("MultipleChoice", xmlNS);
             QuestionsNode.AppendChild(MultipleChoiceNode);
 
-            XmlElement FillBlanksNode = xmlDoc.CreateElement("FillBlanks");
+            XmlElement FillBlanksNode = xmlDoc.CreateElement("FillBlanks", xmlNS);
             QuestionsNode.AppendChild(FillBlanksNode);
 
-            XmlElement TrueFalseNode = xmlDoc.CreateElement("TrueFalse");
+            XmlElement TrueFalseNode = xmlDoc.CreateElement("TrueFalse", xmlNS);
             QuestionsNode.AppendChild(TrueFalseNode);
 
-            XmlElement longAnswer = xmlDoc.CreateElement("longAnswer");
+            XmlElement longAnswer = xmlDoc.CreateElement("longAnswer", xmlNS);
             QuestionsNode.AppendChild(longAnswer);
 
         }
 
         private void AddMultipleChoice()
-        {
+        { //im in editing the questions and the id number should be fix!!!
+            XmlNamespaceManager ns = new XmlNamespaceManager(xmlDoc.NameTable);
+            ns.AddNamespace("ns", "urn:Question-Schema");
+            //ns or namespace is IMPORTANT on retrieving Values from XML file with Namespaces
+            XmlNodeList nodes = xmlDoc.SelectNodes("/ns:Quiz/ns:Details", ns);
+
             //setting object reference here before using it
-            QuestionsNode = xmlDoc.DocumentElement;
+            //QuestionsNode = xmlDoc.DocumentElement;
         
             //XmlNodeList xnList = xmlDoc.SelectNodes("/Quiz/Questions/MultipleChoice");
-           
-           XmlNode Multi =  xmlDoc.SelectSingleNode("/Quiz/Questions/MultipleChoice");
+           XmlNode Multi =  xmlDoc.SelectSingleNode("/ns:Quiz/ns:Questions/ns:MultipleChoice",ns);
 
-            XmlElement Question = xmlDoc.CreateElement("Question");
+           XmlElement Question = xmlDoc.CreateElement("Question", xmlNS);
             Multi.AppendChild(Question);
 
             XmlAttribute QuestionID = xmlDoc.CreateAttribute("ID");
@@ -216,19 +213,19 @@ namespace ExamMaker
             Question.Attributes.Append(QuestionID);
             //Question.InnerText = txtQuestion.Text;
 
-            XmlNode Questio = xmlDoc.SelectSingleNode("/Quiz/Questions/MultipleChoice/Question");
+            XmlNode Questio = xmlDoc.SelectSingleNode("/ns:Quiz/ns:Questions/ns:MultipleChoice/ns:Question",ns);
 
-            XmlElement Questi = xmlDoc.CreateElement("Questi");
+            XmlElement Questi = xmlDoc.CreateElement("Questi", xmlNS);
             Questi.InnerText = txtQuestion.Text;
             Questio.AppendChild(Questi);
 
-            XmlElement Options = xmlDoc.CreateElement("Options");
+            XmlElement Options = xmlDoc.CreateElement("Options", xmlNS);
             Questio.AppendChild(Options);
 
-            XmlElement Option1 = xmlDoc.CreateElement("Option");
-            XmlElement Option2 = xmlDoc.CreateElement("Option");
-            XmlElement Option3 = xmlDoc.CreateElement("Option");
-            XmlElement Option4 = xmlDoc.CreateElement("Option");
+            XmlElement Option1 = xmlDoc.CreateElement("Option", xmlNS);
+            XmlElement Option2 = xmlDoc.CreateElement("Option", xmlNS);
+            XmlElement Option3 = xmlDoc.CreateElement("Option", xmlNS);
+            XmlElement Option4 = xmlDoc.CreateElement("Option", xmlNS);
 
             Option1.InnerText = txtOption1.Text;
             Options.AppendChild(Option1);
@@ -304,37 +301,20 @@ namespace ExamMaker
             Correct.Value = "Yes";
 
             if (cboChoice1.IsChecked == true)
-            {
                 Choice1.Attributes.Append(Correct);
-            }
-
             if (cboChoice2.IsChecked == true)
-            {
                 Choice2.Attributes.Append(Correct);
-            }
-
-
             if (cboChoice3.IsChecked == true)
-            {
                 Choice3.Attributes.Append(Correct);
-            }
-
             if (cboChoice4.IsChecked == true)
-            {
                 Choice4.Attributes.Append(Correct);
-            }
-
         }
 
         private void AddTrueFalse()
         {
             QuestionsNode = xmlDoc.DocumentElement;
-
             XmlNodeList xnList = xmlDoc.SelectNodes("/Quiz/Questions/TrueFalse");
-
             XmlNode xn = xmlDoc.SelectSingleNode("/Quiz/Questions/TrueFalse");
-
-
             XmlElement Question = xmlDoc.CreateElement("Question");
             xn.AppendChild(Question);
 
@@ -361,27 +341,16 @@ namespace ExamMaker
         private void btnSubmit_Click(object sender, RoutedEventArgs e)
         {
             if (!File.Exists(NewFilePath))
-            {   
                 CreateQuiz();
-            }
-            
             if (ItemID == "1")
-            {
                 AddMultipleChoice();
-            }
-
             if (ItemID == "2")
-            {
                 AddFillBlanks();
-            }
-
             if (ItemID == "3")
-            {
                 AddTrueFalse();
-            }
-           
             xmlDoc.Save(NewFilePath);
-           
+            filename = NewFilePath;
+            LoadTreeView();
         }
 
         private void Open_Click(object sender, RoutedEventArgs e)
@@ -409,6 +378,7 @@ namespace ExamMaker
                 {
                     MessageBox.Show("File Open Status: Success");
                     status.Text = "File is valid";
+                    NewFilePath = filename;
                     LoadTreeView();
                     LoadItemsFromTreeView();
                 }
@@ -520,6 +490,7 @@ namespace ExamMaker
             {
                 string filename = dlg.FileName;
                 NewFilePath = filename;
+                this.filename = NewFilePath;
             }
         }
 
