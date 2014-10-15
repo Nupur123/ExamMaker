@@ -43,7 +43,7 @@
             </TreeView>
         </DockPanel>
            
-        <Grid x:Name="MainGrid" HorizontalAlignment="Left" Height="565" Margin="221,45,0,0" VerticalAlignment="Top" Width="779">
+        <Grid x:Name="MainGrid" HorizontalAlignment="Left" Height="565" Margin="245,45,0,0" VerticalAlignment="Top" Width="779">
 
             <TextBox x:Name="txtTitle" HorizontalAlignment="Left" Height="23" Margin="65,95,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="232"/>
             <TextBox x:Name="txtSubject" HorizontalAlignment="Left" Height="23" Margin="82,138,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="113" RenderTransformOrigin="-1.956,2.217"/>

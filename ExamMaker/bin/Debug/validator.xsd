@@ -43,13 +43,14 @@
                             </xs:complexType>
                           </xs:element>
                         </xs:sequence>
-                        <xs:attribute name="id" type="xs:int"></xs:attribute>
+                        <xs:attribute name="ID" type="xs:int"></xs:attribute>
                       </xs:complexType>
                     </xs:element>
                   </xs:sequence>
                 </xs:complexType>
               </xs:element>
-              <xs:element name="fillin" maxOccurs="1"></xs:element>
+              <xs:element name="FillBlanks" maxOccurs="1"></xs:element>
+              <xs:element name="TrueFalse" maxOccurs="1"></xs:element>
               <xs:element name="longAnswer" maxOccurs="1"></xs:element>
             </xs:sequence>
           </xs:complexType>

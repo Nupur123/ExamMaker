@@ -38,8 +38,8 @@ namespace ExamMaker
                             // assign node text, add newNode as child
                             if (reader.HasAttributes)
                             {//QuizId
-                                if (reader.GetAttribute("id") != null)
-                                     newNode.Header = reader.Name + " no. " + reader.GetAttribute("id");
+                                if (reader.GetAttribute("ID") != null)
+                                     newNode.Header = reader.Name + " no. " + reader.GetAttribute("ID");
                                     //newNode.Header = reader.GetAttribute("id");
                                
                                 else if (reader.GetAttribute("Correct") != null)

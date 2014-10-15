@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Quiz QuizId="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema">
+  <Details>
+    <Title>asdzxc</Title>
+    <Subject>zc</Subject>
+    <Course>Software Developer</Course>
+    <Time>2</Time>
+    <Difficulty>Intermediate</Difficulty>
+  </Details>
+  <Questions>
+    <MultipleChoice>
+      <Question ID="1">
+        <Questi>a</Questi>
+        <Options>
+          <Option>b</Option>
+          <Option Correct="yes">c</Option>
+          <Option>d</Option>
+          <Option>e</Option>
+        </Options>
+      </Question>
+      <Question ID="2">
+        <Questi>b</Questi>
+        <Options>
+          <Option>c</Option>
+          <Option Correct="yes">s</Option>
+          <Option>x</Option>
+          <Option>a</Option>
+        </Options>
+      </Question>
+    </MultipleChoice>
+    <FillBlanks />
+    <TrueFalse />
+    <longAnswer />
+  </Questions>
+</Quiz>

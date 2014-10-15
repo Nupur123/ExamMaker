@@ -12,7 +12,7 @@
   </Details>
   <Questions>
     <MultipleChoice>
-      <Question id="1">
+      <Question ID="1">
         <Questi>What is the biggest number?</Questi>
         <Options>
           <Option>1</Option>
@@ -21,7 +21,7 @@
           <Option Correct="yes">4</Option>
         </Options>
       </Question>
-      <Question id="2">
+      <Question ID="2">
         <Questi>100 times 10 is?</Questi>
         <Options>
           <Option>1</Option>
@@ -33,9 +33,8 @@
       </Question>
     </MultipleChoice>
 
-    <fillin>
-    </fillin>
-
-    <longAnswer></longAnswer>
+    <FillBlanks />
+    <TrueFalse />
+    <longAnswer />
   </Questions>
 </Quiz>
