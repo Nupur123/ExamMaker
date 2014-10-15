@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Quiz QuizId="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema">
+  <Details>
+    <Title>q</Title>
+    <Subject>q</Subject>
+    <Course>Software Developer</Course>
+    <Time>1</Time>
+    <Difficulty>Beginner</Difficulty>
+  </Details>
+  <Questions>
+    <MultipleChoice>
+      <Question ID="1">
+        <Questi>q</Questi>
+        <Options>
+          <Option>q</Option>
+          <Option>q</Option>
+          <Option>q</Option>
+          <Option>q</Option>
+        </Options>
+      </Question>
+      <Question ID="2">
+        <Questi>q</Questi>
+        <Options>
+          <Option>q</Option>
+          <Option>q</Option>
+          <Option Correct="yes">q</Option>
+          <Option>q</Option>
+        </Options>
+      </Question>
+      <Question ID="3">
+        <Questi>q3</Questi>
+        <Options>
+          <Option>q3</Option>
+          <Option Correct="yes">q3</Option>
+          <Option>q3</Option>
+          <Option>q3</Option>
+        </Options>
+      </Question>
+      <Question ID="4">
+        <Questi>qa</Questi>
+        <Options>
+          <Option Correct="yes">qa</Option>
+          <Option>qa</Option>
+          <Option>qa</Option>
+          <Option>qa</Option>
+        </Options>
+      </Question>
+    </MultipleChoice>
+    <FillBlanks />
+    <TrueFalse />
+    <longAnswer />
+  </Questions>
+</Quiz>

@@ -12,6 +12,7 @@ namespace ExamMaker
     {
         public void BuildTree(XmlReader reader, TreeViewItem TreeViewItem)
         {
+            int QuestionIdGetMax =0;
             // TreeViewItem to add to existing tree
             TreeViewItem newNode = new TreeViewItem();
             while (reader.Read())
@@ -37,11 +38,17 @@ namespace ExamMaker
                         {
                             // assign node text, add newNode as child
                             if (reader.HasAttributes)
-                            {//QuizId
+                            {
                                 if (reader.GetAttribute("ID") != null)
-                                     newNode.Header = reader.Name + " no. " + reader.GetAttribute("ID");
-                                    //newNode.Header = reader.GetAttribute("id");
-                               
+                                {
+                                    newNode.Header = reader.Name + " no. " + reader.GetAttribute("ID");
+                                    if(QuestionIdGetMax <= Convert.ToInt16 (reader.GetAttribute("ID")))
+                                    {
+                                        QuestionIdGetMax =Convert.ToInt16 (reader.GetAttribute("ID"));
+                                    }
+                                }
+                                //newNode.Header = reader.GetAttribute("id");
+
                                 else if (reader.GetAttribute("Correct") != null)
                                     newNode.Header = reader.Name + " [Correct Answer]";
                                 else if (reader.GetAttribute("QuizId") != null)
@@ -74,6 +81,9 @@ namespace ExamMaker
                 }
                 newNode = new TreeViewItem();
             }
+            AddQuestion.CielingId = QuestionIdGetMax;
+            //AddQuestion aq = new AddQuestion();
+            //aq.CielingId = QuestionIdGetMax;
         }
     }
 }

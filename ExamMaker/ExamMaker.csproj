@@ -68,6 +68,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AddQuestion.cs" />
     <Compile Include="BuildTreeView.cs" />
     <Compile Include="OpenValidate.cs" />
     <Compile Include="Window1.xaml.cs">
@@ -138,7 +139,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="XMLFile1.xqz" />
+    <None Include="XMLFile1.xqz">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
