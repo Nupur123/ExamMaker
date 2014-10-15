@@ -105,11 +105,11 @@
                 <Label Content="Quiz Summary" Foreground="SlateGray"  FontWeight="Bold" FontSize="16" HorizontalAlignment="Left" Margin="304,0,0,0" VerticalAlignment="Top" Width="215"/>
                 <Label Content="Total items:" HorizontalAlignment="Left" Margin="549,82,0,0" VerticalAlignment="Top" Width="80"/>
                 <Label x:Name="QuizItemCount" Content="0" HorizontalAlignment="Left" Margin="629,82,0,0" VerticalAlignment="Top"/>
-                <Button x:Name="btnAddNew" Content="Add" HorizontalAlignment="Left" Margin="181.268,122.651,0,0" VerticalAlignment="Top" Width="75" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
-                <Button x:Name="btnEdit" Content="Edit" HorizontalAlignment="Left" Margin="297.547,122.651,0,0" VerticalAlignment="Top" Width="75" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+                <Button x:Name="btnAddNew" Content="Add" HorizontalAlignment="Left" Margin="181.268,122.651,0,0" VerticalAlignment="Top" Width="75" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Click="btnAddNew_Click"/>
+                <Button x:Name="btnEdit" Content="Edit" HorizontalAlignment="Left" Margin="297.547,122.651,0,0" VerticalAlignment="Top" Width="75" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Click="btnEdit_Click"/>
                 <Button x:Name="btnDelete" Content="Delete" HorizontalAlignment="Left" Margin="411.119,122.651,0,0" VerticalAlignment="Top" Width="75" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
             </Grid>
-            <Grid x:Name="GridQuestionType" HorizontalAlignment="Left" Height="32.671" Margin="0,194.53,-24,0" VerticalAlignment="Top" Width="788" Grid.ColumnSpan="2">
+            <Grid x:Name="GridQuestionType" HorizontalAlignment="Left" Height="32.671" Margin="0,194.53,-24,0" VerticalAlignment="Top" Width="788" Grid.ColumnSpan="2" Visibility="Hidden">
             	<Grid.ColumnDefinitions>
             		<ColumnDefinition Width="275*"/>
             		<ColumnDefinition Width="504*"/>
