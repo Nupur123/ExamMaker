@@ -204,7 +204,7 @@ namespace ExamMaker
 
             XmlAttribute QuestionID = xmlDoc.CreateAttribute("ID");
             if (!isNew)
-                QuestionID.Value = (AddQuestion.CielingId +1).ToString();
+                QuestionID.Value = (AddQuestion.CielingId +1).ToString();       
             else
                 QuestionID.Value = ID++.ToString();
             Question.Attributes.Append(QuestionID);
@@ -339,15 +339,9 @@ namespace ExamMaker
         private void btnSubmit_Click(object sender, RoutedEventArgs e)
         {
             if (!File.Exists(NewFilePath))
-            {
                 CreateQuiz();
-<<<<<<< HEAD
             else
                 isNew = false;
-=======
-            }
-
->>>>>>> origin/master
             if (ItemID == "1")
                 AddMultipleChoice();
                    
@@ -437,6 +431,7 @@ namespace ExamMaker
             QuizTree.Items.Add(tree); // add TreeViewItem to TreeView
             BuildTreeView BT = new BuildTreeView();
             BT.BuildTree(reader, tree); // build node and tree hierarchy
+            QuizItemCount.Content = AddQuestion.CielingId;        
         }
         public void ClearAll()
         {

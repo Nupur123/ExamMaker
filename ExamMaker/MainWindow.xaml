@@ -84,7 +84,7 @@
                 <Button x:Name="btnSubmit" Content="Submit Question" HorizontalAlignment="Left" Margin="295,160,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.431,-0.233" Click="btnSubmit_Click" Height="25"/>
 
             </Grid>
-            <Grid x:Name="gridQuizSummary" Visibility="Hidden" HorizontalAlignment="Left" Height="175" Margin="15,55,0,0" VerticalAlignment="Top" Width="749" RenderTransformOrigin="0.497,0.323" Grid.ColumnSpan="2">
+            <Grid x:Name="gridQuizSummary" Visibility="Visible"  HorizontalAlignment="Left" Height="175" Margin="15,55,0,0" VerticalAlignment="Top" Width="749" RenderTransformOrigin="0.497,0.323" Grid.ColumnSpan="2">
                 <Label Content="Select Question Type:" FontSize="14" HorizontalAlignment="Left" Margin="49,130,0,0" VerticalAlignment="Top"/>
                 <ComboBox x:Name="cmbQuestionType"  HorizontalAlignment="Left" Margin="209,137,0,0" VerticalAlignment="Top" RenderTransformOrigin="4.036,0.682" Width="140" SelectedValuePath="Content" SelectionChanged="cmbQuestionType_SelectionChanged">
                     <ComboBoxItem x:Uid="1" Content="Multiple Choice" HorizontalAlignment="Left" Width="95"/>
@@ -111,6 +111,8 @@
                     <ComboBoxItem Content="Advance"  HorizontalAlignment="Left" Width="95"/>
                 </ComboBox>
                 <Label Content="Quiz Summary" Foreground="SlateGray"  FontWeight="Bold" FontSize="16" HorizontalAlignment="Left" Margin="304,0,0,0" VerticalAlignment="Top" Width="215"/>
+                <Label Content="Total items:" HorizontalAlignment="Left" Margin="549,101,0,0" VerticalAlignment="Top" Width="80"/>
+                <Label x:Name="QuizItemCount" Content="0" HorizontalAlignment="Left" Margin="629,101,0,0" VerticalAlignment="Top"/>
             </Grid>
         </Grid>
         <Menu x:Name="MenuBar" Height="25" Margin="0,0,-26,0" VerticalAlignment="Top" >
