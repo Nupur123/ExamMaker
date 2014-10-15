@@ -335,22 +335,55 @@ namespace ExamMaker
             }
         }
 
+        // this button adds Multiple choice question
         private void btnSubmit_Click(object sender, RoutedEventArgs e)
         {
             if (!File.Exists(NewFilePath))
+            {
                 CreateQuiz();
+<<<<<<< HEAD
             else
                 isNew = false;
+=======
+            }
+
+>>>>>>> origin/master
             if (ItemID == "1")
                 AddMultipleChoice();
-            if (ItemID == "2")
-                AddFillBlanks();
-            if (ItemID == "3")
-                AddTrueFalse();
+                   
             xmlDoc.Save(NewFilePath);
             filename = NewFilePath;
             LoadTreeView();
         }
+
+        // this button adds True False Question
+        private void btnTrueFalse_Click(object sender, RoutedEventArgs e)
+        {
+            if (!File.Exists(NewFilePath))
+            {
+                CreateQuiz();
+            }
+
+            AddTrueFalse();
+            xmlDoc.Save(NewFilePath);
+            filename = NewFilePath;
+            LoadTreeView();
+        }
+
+        // this button adds Fill Blanks Question
+        private void btnFillBlanks_Click(object sender, RoutedEventArgs e)
+        {
+            if (!File.Exists(NewFilePath))
+            {
+                CreateQuiz();
+            }
+
+            AddFillBlanks();
+            xmlDoc.Save(NewFilePath);
+            filename = NewFilePath;
+            LoadTreeView();
+        }
+
 
         private void Open_Click(object sender, RoutedEventArgs e)
         {
@@ -388,6 +421,8 @@ namespace ExamMaker
                 //paragraph.Inlines.Add(System.IO.File.ReadAllText(filename));
                 //FlowDocument document = new FlowDocument(paragraph);
                 //FlowDocReader.Document = document;
+
+                gridQuizSummary.Visibility = System.Windows.Visibility.Visible;
             }
         }
         public void LoadTreeView()
@@ -481,7 +516,7 @@ namespace ExamMaker
         }
 
         private void New_Click(object sender, RoutedEventArgs e)
-        {
+        {        
             Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
             dlg.DefaultExt = ".xqz";
             dlg.Filter = "Exam File (.xqz)|*.xqz";
@@ -492,7 +527,12 @@ namespace ExamMaker
                 NewFilePath = filename;
                 this.filename = NewFilePath;
             }
+
+            gridQuizSummary.Visibility = System.Windows.Visibility.Visible;
         }
+
+       
+       
 
        
     }
