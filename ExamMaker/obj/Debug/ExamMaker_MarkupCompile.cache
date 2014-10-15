@@ -9,12 +9,19 @@ ExamMaker
 none
 false
 DEBUG;TRACE
+<<<<<<< HEAD
+C:\Users\anshulika\Documents\GitHub\ExamMaker\ExamMaker\App.xaml
+31958604762
+
+9-2072825408
+=======
 C:\Users\KevinEmmanuel\Documents\GitHub\ExamMaker\ExamMaker\App.xaml
 2462529049
 
 9348526170
+>>>>>>> origin/master
 12-1401562060
-MainWindow.xaml;Window1.xaml;
+HelpWindow.xaml;MainWindow.xaml;Window1.xaml;
 
 False
 

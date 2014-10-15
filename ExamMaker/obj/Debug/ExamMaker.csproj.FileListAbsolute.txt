@@ -41,3 +41,5 @@ C:\Users\KevinEmmanuel\Documents\GitHub\ExamMaker\ExamMaker\obj\Debug\ExamMaker.
 C:\Users\KevinEmmanuel\Documents\GitHub\ExamMaker\ExamMaker\obj\Debug\ExamMaker.csproj.GenerateResource.Cache
 C:\Users\anshulika\Documents\GitHub\ExamMaker\ExamMaker\obj\Debug\Window1.baml
 C:\Users\anshulika\Documents\GitHub\ExamMaker\ExamMaker\obj\Debug\Window1.g.cs
+C:\Users\anshulika\Documents\GitHub\ExamMaker\ExamMaker\obj\Debug\HelpWindow.baml
+C:\Users\anshulika\Documents\GitHub\ExamMaker\ExamMaker\obj\Debug\HelpWindow.g.cs
