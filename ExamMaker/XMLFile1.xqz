@@ -1,8 +1,5 @@
-﻿<?xml version="1.0"?>
-<Quiz QuizId="1"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns="urn:Question-Schema">
-
+<?xml version="1.0"?>
+<Quiz QuizId="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema">
   <Details>
     <Title>Sample Title</Title>
     <Subject>PHP</Subject>
@@ -28,11 +25,9 @@
           <Option Correct="yes">1000</Option>
           <Option>10000</Option>
           <Option>-1000</Option>
-
         </Options>
       </Question>
     </MultipleChoice>
-
     <FillBlanks />
     <TrueFalse />
     <longAnswer />

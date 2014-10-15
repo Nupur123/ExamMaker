@@ -26,6 +26,7 @@ namespace ExamMaker
     {
         const string xmlNS = "urn:Question-Schema";
         private bool failed = false;
+        private bool isNew = false;
         public string filename;
         public string ItemID;
         private TreeViewItem tree;
@@ -35,22 +36,14 @@ namespace ExamMaker
         XmlDocument xmlDoc = new XmlDocument();
         XmlNode rootNode = null;
         XmlNode QuestionsNode;
-        int ID;
+        private int ID = 0;
+
         
         public MainWindow()
         {
             InitializeComponent();
+            
         }
-
-        private void LoadQuiz()
-        {
-            if (File.Exists(NewFilePath))
-            {
-                xmlDoc.Load(NewFilePath);
-                rootNode = xmlDoc.DocumentElement;
-            }
-        }
-    
 
         private void LoadItem()
         {
@@ -142,6 +135,7 @@ namespace ExamMaker
         private void CreateQuiz()
         {
             ID = 1;
+            isNew = true;
             xmlDoc.PrependChild(xmlDoc.CreateXmlDeclaration("1.0", "utf-8", ""));
             XmlElement rootNode = xmlDoc.CreateElement("Quiz",xmlNS);
             rootNode.SetAttribute("QuizId", "1");
@@ -209,7 +203,10 @@ namespace ExamMaker
             Multi.AppendChild(Question);
 
             XmlAttribute QuestionID = xmlDoc.CreateAttribute("ID");
-            QuestionID.Value = ID++.ToString();
+            if (!isNew)
+                QuestionID.Value = (AddQuestion.CielingId +1).ToString();       
+            else
+                QuestionID.Value = ID++.ToString();
             Question.Attributes.Append(QuestionID);
             //Question.InnerText = txtQuestion.Text;
 
@@ -342,10 +339,9 @@ namespace ExamMaker
         private void btnSubmit_Click(object sender, RoutedEventArgs e)
         {
             if (!File.Exists(NewFilePath))
-            {
                 CreateQuiz();
-            }
-
+            else
+                isNew = false;
             if (ItemID == "1")
                 AddMultipleChoice();
                    
@@ -411,6 +407,7 @@ namespace ExamMaker
                     NewFilePath = filename;
                     LoadTreeView();
                     LoadItemsFromTreeView();
+                    
                 }
                 else
                     status.Text = OV.status;
@@ -434,6 +431,7 @@ namespace ExamMaker
             QuizTree.Items.Add(tree); // add TreeViewItem to TreeView
             BuildTreeView BT = new BuildTreeView();
             BT.BuildTree(reader, tree); // build node and tree hierarchy
+            QuizItemCount.Content = AddQuestion.CielingId;        
         }
         public void ClearAll()
         {
