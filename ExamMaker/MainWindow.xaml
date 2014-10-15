@@ -84,7 +84,7 @@
                 <Button x:Name="btnSubmit" Content="Submit Question" HorizontalAlignment="Left" Margin="295,160,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.431,-0.233" Click="btnSubmit_Click" Height="25"/>
 
             </Grid>
-            <Grid HorizontalAlignment="Left" Height="175" Margin="15,55,0,0" VerticalAlignment="Top" Width="749" RenderTransformOrigin="0.497,0.323" Grid.ColumnSpan="2">
+            <Grid x:Name="gridQuizSummary" Visibility="Hidden" HorizontalAlignment="Left" Height="175" Margin="15,55,0,0" VerticalAlignment="Top" Width="749" RenderTransformOrigin="0.497,0.323" Grid.ColumnSpan="2">
                 <Label Content="Select Question Type:" FontSize="14" HorizontalAlignment="Left" Margin="49,130,0,0" VerticalAlignment="Top"/>
                 <ComboBox x:Name="cmbQuestionType"  HorizontalAlignment="Left" Margin="209,137,0,0" VerticalAlignment="Top" RenderTransformOrigin="4.036,0.682" Width="140" SelectedValuePath="Content" SelectionChanged="cmbQuestionType_SelectionChanged">
                     <ComboBoxItem x:Uid="1" Content="Multiple Choice" HorizontalAlignment="Left" Width="95"/>
@@ -124,7 +124,14 @@
                 <Separator />
                 <MenuItem x:Name="Exit" Header="_Exit" />
             </MenuItem>
-            <MenuItem Header="_Help" />
+            <MenuItem x:Name="View" Header="_View" >
+                <MenuItem x:Name="ErrorLog" Header="_Error Log..." />
+            </MenuItem>
+            <MenuItem x:Name="Help" Header="_Help" >
+                <MenuItem x:Name="AddNew" Header="_How to Add a New File..." />
+                <Separator />
+                <MenuItem x:Name="OpenExisting" Header="_How to Open Existing File..." />
+            </MenuItem>
         </Menu>
 
         <Label Content="Quiz Tree view:" FontSize="14" FontWeight="Bold" Foreground="SlateGray" HorizontalAlignment="Left" Margin="20,165,0,0" VerticalAlignment="Top" Width="110"/>

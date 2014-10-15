@@ -418,6 +418,8 @@ namespace ExamMaker
                 //paragraph.Inlines.Add(System.IO.File.ReadAllText(filename));
                 //FlowDocument document = new FlowDocument(paragraph);
                 //FlowDocReader.Document = document;
+
+                gridQuizSummary.Visibility = System.Windows.Visibility.Visible;
             }
         }
         public void LoadTreeView()
@@ -511,7 +513,7 @@ namespace ExamMaker
         }
 
         private void New_Click(object sender, RoutedEventArgs e)
-        {
+        {        
             Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
             dlg.DefaultExt = ".xqz";
             dlg.Filter = "Exam File (.xqz)|*.xqz";
@@ -522,6 +524,8 @@ namespace ExamMaker
                 NewFilePath = filename;
                 this.filename = NewFilePath;
             }
+
+            gridQuizSummary.Visibility = System.Windows.Visibility.Visible;
         }
 
        
