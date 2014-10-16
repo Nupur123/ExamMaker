@@ -368,6 +368,7 @@ namespace ExamMaker
         }
         private void UpdateQuestion()
         {
+            xmlDoc.Load(filename);
             XmlNamespaceManager ns = new XmlNamespaceManager(xmlDoc.NameTable);
             ns.AddNamespace("ns", "urn:Question-Schema");
 
@@ -413,7 +414,7 @@ namespace ExamMaker
                         }
                     }
                 }
-                xmlDoc.Save(NewFilePath);
+                xmlDoc.Save(filename);
             }
         }
 
