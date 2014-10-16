@@ -1,43 +1,35 @@
-<Quiz>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Quiz QuizId="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema">
   <Details>
-    <Title>test</Title>
-    <Subject>lskdkf</Subject>
-    <Category>Software Developer</Category>
-    <Time>60</Time>
+    <Title>New</Title>
+    <Subject>New</Subject>
+    <Course>Software Developer</Course>
+    <Time>13</Time>
     <Difficulty>Beginner</Difficulty>
   </Details>
   <Questions>
     <MultipleChoice>
-      <Question ID="3">skjdhflhfhklagjfa?</Question>
-      <Options>
-        <Option>.asdkfjal;dk</Option>
-        <Option>klj</Option>
-        <Option>e;ljrl</Option>
-        <Option Correct="Yes">wesdlkjf</Option>
-      </Options>
+      <Question ID="1">
+        <Questi>1</Questi>
+        <Options>
+          <Option>2</Option>
+          <Option>3</Option>
+          <Option>4</Option>
+          <Option Correct="yes">5</Option>
+        </Options>
+      </Question>
+      <Question ID="2">
+        <Questi>new1</Questi>
+        <Options>
+          <Option Correct="yes">wa1131</Option>
+          <Option>wwa123312</Option>
+          <Option>wwwa13331</Option>
+          <Option>wwwwa143asd</Option>
+        </Options>
+      </Question>
     </MultipleChoice>
-    <FillBlanks>
-      <Question ID="1">what is klfjalkrj'wej'_____________d;lkfj;lefj?</Question>
-      <Choice>
-        <Choice Correct="Yes">dlkfd;jk</Choice>
-        <Choice>qwiuq</Choice>
-        <Choice>weoruipo</Choice>
-        <Choice>ooiuo</Choice>
-      </Choice>
-      <Question ID="2">_______________ sjhdkjkwe?</Question>
-      <Choice>
-        <Choice>11</Choice>
-        <Choice>3</Choice>
-        <Choice Correct="Yes">980</Choice>
-        <Choice>09</Choice>
-      </Choice>
-      <Question ID="4">eiort__________?</Question>
-      <Choice>
-        <Choice>11</Choice>
-        <Choice>3</Choice>
-        <Choice Correct="Yes">980</Choice>
-        <Choice>09</Choice>
-      </Choice>
-    </FillBlanks>
+    <FillBlanks />
+    <TrueFalse />
+    <longAnswer />
   </Questions>
 </Quiz>
