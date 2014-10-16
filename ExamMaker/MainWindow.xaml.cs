@@ -611,10 +611,6 @@ namespace ExamMaker
             txtOption4.IsReadOnly = false;
 
         }
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/master
         private void HowTo_Click(object sender, RoutedEventArgs e)
         {
             HelpWindow win2 = new HelpWindow();
@@ -629,14 +625,12 @@ namespace ExamMaker
             else
                 e.Cancel = true;
         }
-<<<<<<< HEAD
-       
-=======
+
 
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
         }
->>>>>>> origin/master
+
     }
 }
