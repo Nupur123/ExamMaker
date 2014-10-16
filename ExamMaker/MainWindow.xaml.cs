@@ -39,7 +39,6 @@ namespace ExamMaker
         XmlNode QuestionsNode;
         private int ID = 0;
 
-
         public MainWindow()
         {
             InitializeComponent();

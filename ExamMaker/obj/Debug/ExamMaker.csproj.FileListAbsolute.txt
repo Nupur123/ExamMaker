@@ -31,9 +31,7 @@ C:\Users\KevinEmmanuel\Documents\GitHub\ExamMaker\ExamMaker\bin\Debug\ExamMaker.
 C:\Users\KevinEmmanuel\Documents\GitHub\ExamMaker\ExamMaker\bin\Debug\ExamMaker.pdb
 C:\Users\KevinEmmanuel\Documents\GitHub\ExamMaker\ExamMaker\obj\Debug\ExamMaker.csprojResolveAssemblyReference.cache
 C:\Users\KevinEmmanuel\Documents\GitHub\ExamMaker\ExamMaker\obj\Debug\MainWindow.baml
-C:\Users\KevinEmmanuel\Documents\GitHub\ExamMaker\ExamMaker\obj\Debug\Window1.baml
 C:\Users\KevinEmmanuel\Documents\GitHub\ExamMaker\ExamMaker\obj\Debug\MainWindow.g.cs
-C:\Users\KevinEmmanuel\Documents\GitHub\ExamMaker\ExamMaker\obj\Debug\Window1.g.cs
 C:\Users\KevinEmmanuel\Documents\GitHub\ExamMaker\ExamMaker\obj\Debug\App.g.cs
 C:\Users\KevinEmmanuel\Documents\GitHub\ExamMaker\ExamMaker\obj\Debug\ExamMaker_MarkupCompile.cache
 C:\Users\KevinEmmanuel\Documents\GitHub\ExamMaker\ExamMaker\obj\Debug\ExamMaker.g.resources
