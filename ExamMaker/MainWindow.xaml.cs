@@ -583,7 +583,7 @@ namespace ExamMaker
             gridQuizSummary.Visibility = System.Windows.Visibility.Visible;
         }
 
-<<<<<<< HEAD
+
         private void btnAddNew_Click(object sender, RoutedEventArgs e)
         {
             GridQuestionType.Visibility = System.Windows.Visibility.Visible;
@@ -598,13 +598,13 @@ namespace ExamMaker
        
        
 
-=======
+
         private void HowTo_Click(object sender, RoutedEventArgs e)
         {
             HelpWindow win2 = new HelpWindow();
             win2.Show();           
         }
->>>>>>> origin/master
+
        
     }
 }
