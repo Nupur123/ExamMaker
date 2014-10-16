@@ -48,10 +48,20 @@
                 <ColumnDefinition Width="275*"/>
                 <ColumnDefinition Width="504*"/>
             </Grid.ColumnDefinitions>
+<<<<<<< HEAD
+            <TextBlock HorizontalAlignment="Left" Margin="5,10,0,0" FontSize="30" Foreground="#F62217"  TextWrapping="Wrap" Text="Welcome to Robertson Quiz Maker!" VerticalAlignment="Top" RenderTransformOrigin="0.476,0.526" Grid.ColumnSpan="2"/>
+            <TextBlock HorizontalAlignment="Left" FontSize="30" Foreground="#F62217"  TextWrapping="Wrap" Text="Welcome to Robertson Exam Maker!" VerticalAlignment="Top" RenderTransformOrigin="0.476,0.526" Grid.ColumnSpan="2"/>
+=======
 
             <TextBlock HorizontalAlignment="Left" FontSize="30" Foreground="#F62217"  TextWrapping="Wrap" Text="Welcome to Robertson Quiz Maker!" VerticalAlignment="Top" RenderTransformOrigin="0.476,0.526" Grid.ColumnSpan="2"/>
 
+<<<<<<< HEAD
             <Grid Visibility="Hidden" x:Name="gridFillBlanks" HorizontalAlignment="Left" Height="195" Margin="39,235,0,0" VerticalAlignment="Top" Width="555" RenderTransformOrigin="0.5,0.258" Grid.ColumnSpan="2" d:IsHidden="True">
+=======
+>>>>>>> origin/master
+
+            <Grid x:Name="gridFillBlanks" Visibility="Hidden" HorizontalAlignment="Left" Height="195" Margin="29,235,0,0" VerticalAlignment="Top" Width="575" RenderTransformOrigin="0.5,0.258" Grid.ColumnSpan="2">
+>>>>>>> origin/master
                 <Label Content="Fill Blanks Question Text:" FontSize="14" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Width="170"/>
                 <TextBox x:Name="txtFillBlanks" TextWrapping="Wrap" HorizontalAlignment="Left" Height="23" Margin="50,34,0,0" Text="" VerticalAlignment="Top" Width="496"/>
                 <TextBox x:Name="txtChoice1" HorizontalAlignment="Left" Height="23" Margin="135,68,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
