@@ -68,5 +68,32 @@ namespace ExamMaker
             "Tree View functionality is meant to provide easy navigation and browsing of questions." + "\r\n" +
             "It is also ideal to browse and select specific questions to edit them.";
         }
+
+        //  5. How do I EDIT or UPDATE existing questions in a Quiz?
+        private void Hyperlink_Click_4(object sender, RoutedEventArgs e)
+        {
+            gridAnswer.Visibility = System.Windows.Visibility.Visible;
+            lblAnswer.Content = "To EDIT or UPDATE existing questions in a quiz, please follow these steps-" + "\r\n" +
+            "->  You'll have to Open an Existing File from the File Menu (See 'How to Open Existing File')" +
+             "\r\n" + "->  Once the file is open, the Tree View Navigation panel on left side of app will show up." +
+             "\r\n" + "->  Browse through the treeview and select the question you want to edit or update." +
+             "\r\n" + "->  When you select a specific question, edit panel with values in textboxes will load up." +
+             "\r\n" + "->  The panel defaults to READ-ONLY and to make changes your have to click 'EDIT' button." +
+             "\r\n" + "->  Clicking the EDIT button will allow you to make any changes that you want." +
+             "\r\n" + "->  Click 'Submit Question' to save your changes when you are done.";
+        }
+
+        //   6. How do I DELETE existing questions in a Quiz?
+        private void Hyperlink_Click_5(object sender, RoutedEventArgs e)
+        {
+            gridAnswer.Visibility = System.Windows.Visibility.Visible;
+
+            lblAnswer.Content = "To DELETE an existing questions in a quiz, please follow these steps-" + "\r\n" +
+         "->  You'll have to Open an Existing File from the File Menu (See 'How to Open Existing File')" +
+          "\r\n" + "->  Once the file is open, the Tree View Navigation panel on left side of app will show up." +
+          "\r\n" + "->  Browse through the treeview and select the question you want to DELETE." +
+          "\r\n" + "->  When you select a specific question, edit/ delete panel with values in textboxes will load up." +
+          "\r\n" + "->  Click on 'DELETE' button to delete the selected question from quiz.";
+        }
     }
 }

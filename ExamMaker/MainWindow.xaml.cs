@@ -97,13 +97,13 @@ namespace ExamMaker
                 }
             }
             if (QuestionId != null)
-            {
-                gridEditDelete.Visibility = System.Windows.Visibility.Visible;
+            {               
                 txtQuestion.IsReadOnly = true;
                 txtOption1.IsReadOnly = true;
                 txtOption2.IsReadOnly = true;
                 txtOption3.IsReadOnly = true;
                 txtOption4.IsReadOnly = true;
+                gridEditDelete.Visibility = System.Windows.Visibility.Visible;
 
                 XmlNodeList GetQuestionMulti = xmlDoc.SelectNodes("/ns:Quiz/ns:Questions/ns:MultipleChoice/ns:Question[@ID=" + QuestionId + "]", ns);
                 foreach (XmlNode xn in GetQuestionMulti)
@@ -597,10 +597,6 @@ namespace ExamMaker
             gridQuizSummary.Visibility = System.Windows.Visibility.Visible;
         }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/master
         private void btnAddNew_Click(object sender, RoutedEventArgs e)
         {
             GridQuestionType.Visibility = System.Windows.Visibility.Visible;
@@ -620,22 +616,11 @@ namespace ExamMaker
 
         }
 
-       
-<<<<<<< HEAD
-=======
-       
-
-
->>>>>>> origin/master
         private void HowTo_Click(object sender, RoutedEventArgs e)
         {
             HelpWindow win2 = new HelpWindow();
             win2.Show();           
         }
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/master
        
     }
 }
