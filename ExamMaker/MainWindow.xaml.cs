@@ -39,11 +39,11 @@ namespace ExamMaker
         XmlNode QuestionsNode;
         private int ID = 0;
 
-        
+
         public MainWindow()
         {
             InitializeComponent();
-            
+
         }
 
         private void LoadItem()
@@ -100,7 +100,7 @@ namespace ExamMaker
                     {
                         string[] _option = new string[5];
                         int x = 0;
-                        foreach(XmlNode xno2 in xno)
+                        foreach (XmlNode xno2 in xno)
                         {
                             _option[x] = xno2.InnerText;
                             if ((xno2.Attributes["Correct"] != null) && (xno2.Attributes["Correct"].Value) == "yes")
@@ -124,7 +124,7 @@ namespace ExamMaker
                         txtOption3.Text = _option[2];
                         txtOption4.Text = _option[3]; //temporary method!
                     }
-                    
+
                 }
             }
 
@@ -138,7 +138,7 @@ namespace ExamMaker
             ID = 1;
             isNew = true;
             xmlDoc.PrependChild(xmlDoc.CreateXmlDeclaration("1.0", "utf-8", ""));
-            XmlElement rootNode = xmlDoc.CreateElement("Quiz",xmlNS);
+            XmlElement rootNode = xmlDoc.CreateElement("Quiz", xmlNS);
             rootNode.SetAttribute("QuizId", "1");
             rootNode.SetAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
             //rootNode.SetAttribute("xmlns", "urn:Question-Schema");
@@ -196,21 +196,21 @@ namespace ExamMaker
 
             //setting object reference here before using it
             //QuestionsNode = xmlDoc.DocumentElement;
-        
-            //XmlNodeList xnList = xmlDoc.SelectNodes("/Quiz/Questions/MultipleChoice");
-           XmlNode Multi =  xmlDoc.SelectSingleNode("/ns:Quiz/ns:Questions/ns:MultipleChoice",ns);
 
-           XmlElement Question = xmlDoc.CreateElement("Question", xmlNS);
+            //XmlNodeList xnList = xmlDoc.SelectNodes("/Quiz/Questions/MultipleChoice");
+            XmlNode Multi = xmlDoc.SelectSingleNode("/ns:Quiz/ns:Questions/ns:MultipleChoice", ns);
+
+            XmlElement Question = xmlDoc.CreateElement("Question", xmlNS);
             Multi.AppendChild(Question);
 
             XmlAttribute QuestionID = xmlDoc.CreateAttribute("ID");
             if (!isNew)//not newly create file
-                QuestionID.Value = (AddQuestion.CielingId + 1).ToString();           
+                QuestionID.Value = (AddQuestion.CielingId + 1).ToString();
             else//new File
                 QuestionID.Value = ID++.ToString();
             Question.Attributes.Append(QuestionID);
 
-            XmlNode Questio = xmlDoc.SelectSingleNode("/ns:Quiz/ns:Questions/ns:MultipleChoice/ns:Question",ns);
+            XmlNode Questio = xmlDoc.SelectSingleNode("/ns:Quiz/ns:Questions/ns:MultipleChoice/ns:Question", ns);
 
             XmlElement Questi = xmlDoc.CreateElement("Questi", xmlNS);
             Questi.InnerText = txtQuestion.Text;
@@ -257,7 +257,7 @@ namespace ExamMaker
             }
             Question.AppendChild(Questi);
             Question.AppendChild(Options);
-            
+
         }
 
         private void AddFillBlanks()
@@ -347,7 +347,7 @@ namespace ExamMaker
                     UpdateQuestion();
                 else
                     AddMultipleChoice();
-                   
+
             xmlDoc.Save(NewFilePath);
             filename = NewFilePath;
             LoadTreeView();
@@ -357,58 +357,47 @@ namespace ExamMaker
             XmlNamespaceManager ns = new XmlNamespaceManager(xmlDoc.NameTable);
             ns.AddNamespace("ns", "urn:Question-Schema");
 
-            XmlNodeList nodes = xmlDoc.SelectNodes("/ns:Quiz/ns:Questions/ns:MultipleChoice/ns:Question[@ID="+ID+"]", ns);
+            XmlNodeList nodes = xmlDoc.SelectNodes("/ns:Quiz/ns:Questions/ns:MultipleChoice/ns:Question[@ID=" + ID + "]", ns);
             foreach (XmlNode xn in nodes)
             {
                 XmlNode NewQuesti = xmlDoc.CreateElement("Questi", xmlNS);
                 NewQuesti.InnerText = txtQuestion.Text;
                 xn.ReplaceChild(NewQuesti, xn["Questi"]);
-
-                
-
-                foreach(XmlNode xn2 in xn)
+                foreach (XmlNode xn2 in xn)
                 {
-                    //XmlElement Options = xmlDoc.CreateElement("Options", xmlNS);
-                    //Questio.AppendChild(Options);
-
-                    //XmlElement Option1 = xmlDoc.CreateElement("Option", xmlNS);
-                    //XmlElement Option2 = xmlDoc.CreateElement("Option", xmlNS);
-                    //XmlElement Option3 = xmlDoc.CreateElement("Option", xmlNS);
-                    //XmlElement Option4 = xmlDoc.CreateElement("Option", xmlNS);
-
-                    //Option1.InnerText = txtOption1.Text;
-                    //Options.AppendChild(Option1);
-                    //Option2.InnerText = txtOption2.Text;
-                    //Options.AppendChild(Option2);
-                    //Option3.InnerText = txtOption3.Text;
-                    //Options.AppendChild(Option3);
-                    //Option4.InnerText = txtOption4.Text;
-                    //Options.AppendChild(Option4);
-
-                    //XmlAttribute Correct = xmlDoc.CreateAttribute("Correct");
-                    //Correct.Value = "yes";
-
-                    //if (rbOption1.IsChecked == true)
-                    //{
-                    //    Option1.Attributes.Append(Correct);
-                    //}
-
-                    //if (rbOption2.IsChecked == true)
-                    //{
-                    //    Option2.Attributes.Append(Correct);
-                    //}
-
-                    //if (rbOption3.IsChecked == true)
-                    //{
-                    //    Option3.Attributes.Append(Correct);
-                    //}
-
-                    //if (rbOption4.IsChecked == true)
-                    //{
-                    //    Option4.Attributes.Append(Correct);
-                    //}
+                    if (xn2.Name == "Options")
+                    {
+                        for (int Counter = 0; Counter <= 3; Counter++)
+                        {
+                            
+                            XmlNode y = xmlDoc.GetElementsByTagName("Option")[Counter];
+                            XmlAttribute Correct = xmlDoc.CreateAttribute("Correct");
+                            Correct.Value = "yes";
+                            XmlNode Option = xmlDoc.CreateElement("Option", xmlNS);
+                            switch (Counter)
+                            {
+                                case 0: Option.InnerText = txtOption1.Text;
+                                    if (rbOption1.IsChecked == true)
+                                        Option.Attributes.Append(Correct);
+                                    break;
+                                case 1: Option.InnerText = txtOption2.Text;
+                                    if (rbOption2.IsChecked == true)
+                                        Option.Attributes.Append(Correct);
+                                    break;
+                                case 2: Option.InnerText = txtOption3.Text;
+                                    if (rbOption3.IsChecked == true)
+                                        Option.Attributes.Append(Correct);
+                                    break;
+                                case 3: Option.InnerText = txtOption4.Text;
+                                    if (rbOption4.IsChecked == true)
+                                        Option.Attributes.Append(Correct);
+                                    break;
+                            }
+                            xn2.ReplaceChild(Option, y);
+                        }
+                    }
                 }
-                xmlDoc.Save(NewFilePath);
+                //xmlDoc.Save(NewFilePath);
             }
         }
 
@@ -458,7 +447,7 @@ namespace ExamMaker
                 status.Text = "";
                 failed = false;
                 filename = dlg.FileName;
-                
+
                 string xsd = FilePath + "validator.xsd";   //this is always default
                 OpenValidate OV = new OpenValidate();
                 OV.ValidateXml(filename, xsd);
@@ -469,7 +458,7 @@ namespace ExamMaker
                     NewFilePath = filename;
                     LoadTreeView();
                     LoadItemsFromTreeView();
-                    
+
                 }
                 else
                     status.Text = OV.status;
@@ -488,7 +477,7 @@ namespace ExamMaker
             QuizTree.Items.Add(tree); // add TreeViewItem to TreeView
             BuildTreeView BT = new BuildTreeView();
             BT.BuildTree(reader, tree); // build node and tree hierarchy
-            QuizItemCount.Content = AddQuestion.CielingId;        
+            QuizItemCount.Content = AddQuestion.CielingId;
         }
         public void ClearAll()
         {
@@ -502,7 +491,7 @@ namespace ExamMaker
         {
             TreeViewItem item = sender as TreeViewItem;
             //if (item == e.OriginalSource)
-            if (item !=null)
+            if (item != null)
             {
                 if (item.Header.ToString().IndexOf("MultipleChoice") == 0) //if it is a multiple type
                     cmbQuestionType.SelectedValue = "Multiple Choice";
@@ -514,8 +503,8 @@ namespace ExamMaker
                 int i = item.Header.ToString().IndexOf("Question no.");
                 if (i == 0)
                     ID = Convert.ToInt16(item.Header.ToString().Replace("Question no. ", ""));
-                    LoadItemsFromTreeView(ID.ToString());
-               
+                LoadItemsFromTreeView(ID.ToString());
+
                 //status.Text = item.Header.ToString().Replace("Question no. ", "");  //extract the item Id
 
             }
@@ -543,7 +532,7 @@ namespace ExamMaker
                     case "Fill in the blanks":
                         gridFillBlanks.Visibility = System.Windows.Visibility.Visible;
                         gridMultipleChoice.Visibility = System.Windows.Visibility.Hidden;
-                        gridTrueFalse.Visibility = System.Windows.Visibility.Hidden;  
+                        gridTrueFalse.Visibility = System.Windows.Visibility.Hidden;
                         break;
 
                     case "True False":
@@ -561,14 +550,14 @@ namespace ExamMaker
                 var item = comboBox.SelectedItem as ComboBoxItem;
                 if (null != item)
                 {
-                   ItemID = item.Uid;
+                    ItemID = item.Uid;
                 }
             }
 
         }
 
         private void New_Click(object sender, RoutedEventArgs e)
-        {        
+        {
             Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
             dlg.DefaultExt = ".xqz";
             dlg.Filter = "Exam File (.xqz)|*.xqz";
@@ -591,20 +580,15 @@ namespace ExamMaker
 
         private void btnEdit_Click(object sender, RoutedEventArgs e)
         {
-            status.Text = ID.ToString() ;
+            status.Text = ID.ToString();
             isEdit = true;
         }
-
-       
-       
-
-
         private void HowTo_Click(object sender, RoutedEventArgs e)
         {
             HelpWindow win2 = new HelpWindow();
-            win2.Show();           
+            win2.Show();
         }
 
-       
+
     }
 }
