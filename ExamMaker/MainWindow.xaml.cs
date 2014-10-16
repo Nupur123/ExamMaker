@@ -27,6 +27,7 @@ namespace ExamMaker
         const string xmlNS = "urn:Question-Schema";
         private bool failed = false;
         private bool isNew = false;
+        private bool isEdit = false;
         public string filename;
         public string ItemID;
         private TreeViewItem tree;
@@ -203,12 +204,11 @@ namespace ExamMaker
             Multi.AppendChild(Question);
 
             XmlAttribute QuestionID = xmlDoc.CreateAttribute("ID");
-            if (!isNew)
-                QuestionID.Value = (AddQuestion.CielingId +1).ToString();       
-            else
+            if (!isNew)//not newly create file
+                QuestionID.Value = (AddQuestion.CielingId + 1).ToString();           
+            else//new File
                 QuestionID.Value = ID++.ToString();
             Question.Attributes.Append(QuestionID);
-            //Question.InnerText = txtQuestion.Text;
 
             XmlNode Questio = xmlDoc.SelectSingleNode("/ns:Quiz/ns:Questions/ns:MultipleChoice/ns:Question",ns);
 
@@ -343,11 +343,73 @@ namespace ExamMaker
             else
                 isNew = false;
             if (ItemID == "1")
-                AddMultipleChoice();
+                if (isEdit)
+                    UpdateQuestion();
+                else
+                    AddMultipleChoice();
                    
             xmlDoc.Save(NewFilePath);
             filename = NewFilePath;
             LoadTreeView();
+        }
+        private void UpdateQuestion()
+        {
+            XmlNamespaceManager ns = new XmlNamespaceManager(xmlDoc.NameTable);
+            ns.AddNamespace("ns", "urn:Question-Schema");
+
+            XmlNodeList nodes = xmlDoc.SelectNodes("/ns:Quiz/ns:Questions/ns:MultipleChoice/ns:Question[@ID="+ID+"]", ns);
+            foreach (XmlNode xn in nodes)
+            {
+                XmlNode NewQuesti = xmlDoc.CreateElement("Questi", xmlNS);
+                NewQuesti.InnerText = txtQuestion.Text;
+                xn.ReplaceChild(NewQuesti, xn["Questi"]);
+
+                
+
+                foreach(XmlNode xn2 in xn)
+                {
+                    //XmlElement Options = xmlDoc.CreateElement("Options", xmlNS);
+                    //Questio.AppendChild(Options);
+
+                    //XmlElement Option1 = xmlDoc.CreateElement("Option", xmlNS);
+                    //XmlElement Option2 = xmlDoc.CreateElement("Option", xmlNS);
+                    //XmlElement Option3 = xmlDoc.CreateElement("Option", xmlNS);
+                    //XmlElement Option4 = xmlDoc.CreateElement("Option", xmlNS);
+
+                    //Option1.InnerText = txtOption1.Text;
+                    //Options.AppendChild(Option1);
+                    //Option2.InnerText = txtOption2.Text;
+                    //Options.AppendChild(Option2);
+                    //Option3.InnerText = txtOption3.Text;
+                    //Options.AppendChild(Option3);
+                    //Option4.InnerText = txtOption4.Text;
+                    //Options.AppendChild(Option4);
+
+                    //XmlAttribute Correct = xmlDoc.CreateAttribute("Correct");
+                    //Correct.Value = "yes";
+
+                    //if (rbOption1.IsChecked == true)
+                    //{
+                    //    Option1.Attributes.Append(Correct);
+                    //}
+
+                    //if (rbOption2.IsChecked == true)
+                    //{
+                    //    Option2.Attributes.Append(Correct);
+                    //}
+
+                    //if (rbOption3.IsChecked == true)
+                    //{
+                    //    Option3.Attributes.Append(Correct);
+                    //}
+
+                    //if (rbOption4.IsChecked == true)
+                    //{
+                    //    Option4.Attributes.Append(Correct);
+                    //}
+                }
+                xmlDoc.Save(NewFilePath);
+            }
         }
 
         // this button adds True False Question
@@ -411,11 +473,6 @@ namespace ExamMaker
                 }
                 else
                     status.Text = OV.status;
-                //Paragraph paragraph = new Paragraph();
-                //paragraph.Inlines.Add(System.IO.File.ReadAllText(filename));
-                //FlowDocument document = new FlowDocument(paragraph);
-                //FlowDocReader.Document = document;
-
                 gridQuizSummary.Visibility = System.Windows.Visibility.Visible;
             }
         }
@@ -526,11 +583,28 @@ namespace ExamMaker
             gridQuizSummary.Visibility = System.Windows.Visibility.Visible;
         }
 
+<<<<<<< HEAD
+        private void btnAddNew_Click(object sender, RoutedEventArgs e)
+        {
+            GridQuestionType.Visibility = System.Windows.Visibility.Visible;
+        }
+
+        private void btnEdit_Click(object sender, RoutedEventArgs e)
+        {
+            status.Text = ID.ToString() ;
+            isEdit = true;
+        }
+
+       
+       
+
+=======
         private void HowTo_Click(object sender, RoutedEventArgs e)
         {
             HelpWindow win2 = new HelpWindow();
             win2.Show();           
         }
+>>>>>>> origin/master
        
     }
 }
