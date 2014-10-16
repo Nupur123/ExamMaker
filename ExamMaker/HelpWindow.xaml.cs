@@ -52,9 +52,9 @@ namespace ExamMaker
         {
             gridAnswer.Visibility = System.Windows.Visibility.Visible;
 
-            lblAnswer.Content = "To Add More Questions or make changes to an existing file/ quiz, please follow these steps-" +
+            lblAnswer.Content = "To Add More Questions to an existing file/ quiz, please follow these steps-" +
             "\r\n" + "->  You'll have to Open an Existing File from the File Menu (See 'How to Open Existing File')" +
-            "\r\n" + "->  Once the file is open, it will give you access to the edit/ update panel where you can add more data.";
+            "\r\n" + "->  Once the file is open, it will give you access to the add panel where you can add more questions.";
 
         }
 
@@ -64,7 +64,7 @@ namespace ExamMaker
             gridAnswer.Visibility = System.Windows.Visibility.Visible;
 
             lblAnswer.Content = "Tree View Navigation is located on the left side of app page." + "\r\n" +
-            "You can open an exixting file from File Menu to browse file contents in the tree view." + "\r\n" +
+            "You can open an existing file from File Menu to browse file contents in the tree view." + "\r\n" +
             "Tree View functionality is meant to provide easy navigation and browsing of questions." + "\r\n" +
             "It is also ideal to browse and select specific questions to edit them.";
         }
