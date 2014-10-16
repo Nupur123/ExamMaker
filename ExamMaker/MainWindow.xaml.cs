@@ -494,12 +494,17 @@ namespace ExamMaker
             QuizTree.Items.Add(tree); // add TreeViewItem to TreeView
             BuildTreeView BT = new BuildTreeView();
             BT.BuildTree(reader, tree); // build node and tree hierarchy
-            QuizItemCount.Content = AddQuestion.CielingId;
+            QuizItemCount.Content = AddQuestion.CielingId;// the highest ID found on the file
         }
         public void ClearAll()
         {
             QuizTree.Items.Clear();
             failed = false;
+            txtOption1.Clear();
+            txtOption2.Clear();
+            txtOption3.Clear();
+            txtOption4.Clear();
+
             //filename = "";
         }
 
@@ -615,18 +620,11 @@ namespace ExamMaker
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-
             if (MessageBox.Show("Do you want to close this window?",
-
                "Confirmation", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-            {
                 e.Cancel = false;
-            }
-
             else
-            {
                 e.Cancel = true;
-            }
         }
 
         private void Exit_Click(object sender, RoutedEventArgs e)
