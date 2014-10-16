@@ -612,5 +612,26 @@ namespace ExamMaker
             HelpWindow win2 = new HelpWindow();
             win2.Show();
         }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+
+            if (MessageBox.Show("Do you want to close this window?",
+
+               "Confirmation", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+                e.Cancel = false;
+            }
+
+            else
+            {
+                e.Cancel = true;
+            }
+        }
+
+        private void Exit_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
     }
 }
