@@ -383,8 +383,10 @@ namespace ExamMaker
                     {
                         for (int Counter = 0; Counter <= 3; Counter++)
                         {
-                            
-                            XmlNode y = xmlDoc.GetElementsByTagName("Option")[Counter];
+                            XmlNodeList xna = xn2.ChildNodes;
+                            XmlNode ab = xna.Item(Counter);
+                            //XmlNode y = xmlDoc.GetElementsByTagName("Option")[Counter];
+                            XmlNode y = xna.Item(Counter);
                             XmlAttribute Correct = xmlDoc.CreateAttribute("Correct");
                             Correct.Value = "yes";
                             XmlNode Option = xmlDoc.CreateElement("Option", xmlNS);
@@ -411,7 +413,7 @@ namespace ExamMaker
                         }
                     }
                 }
-                //xmlDoc.Save(NewFilePath);
+                xmlDoc.Save(NewFilePath);
             }
         }
 
@@ -586,10 +588,6 @@ namespace ExamMaker
             gridQuizSummary.Visibility = System.Windows.Visibility.Visible;
         }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/master
         private void btnAddNew_Click(object sender, RoutedEventArgs e)
         {
             GridQuestionType.Visibility = System.Windows.Visibility.Visible;
@@ -608,30 +606,10 @@ namespace ExamMaker
             txtOption4.IsReadOnly = false;
 
         }
-<<<<<<< HEAD
-=======
-
-       
-<<<<<<< HEAD
-=======
-       
-
-
->>>>>>> origin/master
->>>>>>> origin/master
         private void HowTo_Click(object sender, RoutedEventArgs e)
         {
             HelpWindow win2 = new HelpWindow();
             win2.Show();
         }
-<<<<<<< HEAD
-=======
-
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/master
-       
->>>>>>> origin/master
     }
 }
