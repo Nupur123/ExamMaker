@@ -63,6 +63,13 @@ namespace ExamMaker
             XmlNodeList nodes = xmlDoc.SelectNodes("/ns:Quiz/ns:Details", ns);
             foreach (XmlNode xn in nodes)
             {
+                txtTitle.IsReadOnly = true;
+                txtSubject.IsReadOnly = true;
+                txtTime.IsReadOnly = true;
+                cmbDiff.IsReadOnly = true;
+                cmbCourse.IsReadOnly = true;
+                cmbQuestionType.IsReadOnly = true;
+
                 txtTitle.Text = xn["Title"].InnerText;
                 txtSubject.Text = xn["Subject"].InnerText;
                 txtTime.Text = xn["Time"].InnerText;
@@ -91,6 +98,13 @@ namespace ExamMaker
             }
             if (QuestionId != null)
             {
+                gridEditDelete.Visibility = System.Windows.Visibility.Visible;
+                txtQuestion.IsReadOnly = true;
+                txtOption1.IsReadOnly = true;
+                txtOption2.IsReadOnly = true;
+                txtOption3.IsReadOnly = true;
+                txtOption4.IsReadOnly = true;
+
                 XmlNodeList GetQuestionMulti = xmlDoc.SelectNodes("/ns:Quiz/ns:Questions/ns:MultipleChoice/ns:Question[@ID=" + QuestionId + "]", ns);
                 foreach (XmlNode xn in GetQuestionMulti)
                 {
@@ -583,28 +597,31 @@ namespace ExamMaker
             gridQuizSummary.Visibility = System.Windows.Visibility.Visible;
         }
 
-<<<<<<< HEAD
         private void btnAddNew_Click(object sender, RoutedEventArgs e)
         {
             GridQuestionType.Visibility = System.Windows.Visibility.Visible;
+            
         }
 
         private void btnEdit_Click(object sender, RoutedEventArgs e)
         {
             status.Text = ID.ToString() ;
             isEdit = true;
+
+            txtQuestion.IsReadOnly = false;
+            txtOption1.IsReadOnly = false;
+            txtOption2.IsReadOnly = false;
+            txtOption3.IsReadOnly = false;
+            txtOption4.IsReadOnly = false;
+
         }
 
        
-       
-
-=======
         private void HowTo_Click(object sender, RoutedEventArgs e)
         {
             HelpWindow win2 = new HelpWindow();
             win2.Show();           
         }
->>>>>>> origin/master
        
     }
 }
