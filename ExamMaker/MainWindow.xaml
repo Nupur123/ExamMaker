@@ -48,8 +48,14 @@
                 <ColumnDefinition Width="275*"/>
                 <ColumnDefinition Width="504*"/>
             </Grid.ColumnDefinitions>
+<<<<<<< HEAD
             <TextBlock HorizontalAlignment="Left" Margin="5,10,0,0" FontSize="30" Foreground="#F62217"  TextWrapping="Wrap" Text="Welcome to Robertson Quiz Maker!" VerticalAlignment="Top" RenderTransformOrigin="0.476,0.526" Grid.ColumnSpan="2"/>
             <TextBlock HorizontalAlignment="Left" FontSize="30" Foreground="#F62217"  TextWrapping="Wrap" Text="Welcome to Robertson Exam Maker!" VerticalAlignment="Top" RenderTransformOrigin="0.476,0.526" Grid.ColumnSpan="2"/>
+=======
+
+            <TextBlock HorizontalAlignment="Left" FontSize="30" Foreground="#F62217"  TextWrapping="Wrap" Text="Welcome to Robertson Quiz Maker!" VerticalAlignment="Top" RenderTransformOrigin="0.476,0.526" Grid.ColumnSpan="2"/>
+
+>>>>>>> origin/master
 
             <Grid x:Name="gridFillBlanks" Visibility="Hidden" HorizontalAlignment="Left" Height="195" Margin="29,235,0,0" VerticalAlignment="Top" Width="575" RenderTransformOrigin="0.5,0.258" Grid.ColumnSpan="2">
                 <Label Content="Fill Blanks Question Text:" FontSize="14" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Width="170"/>
@@ -142,9 +148,7 @@
             </MenuItem>
             <MenuItem x:Name="Help" Header="_Help" >
                 <MenuItem x:Name="HowTo" Header="_How To..." Click="HowTo_Click" />
-                <MenuItem x:Name="AddNew" Header="_Add a New File" />
-                <Separator />
-                <MenuItem x:Name="OpenExisting" Header="_Open Existing File" Margin="0,0,-19,0" />
+                
             </MenuItem>
         </Menu>
 
