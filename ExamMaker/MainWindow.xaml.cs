@@ -47,10 +47,10 @@ namespace ExamMaker
 
         private void LoadItem()
         {
-            XmlNamespaceManager ns = new XmlNamespaceManager(xmlDoc.NameTable);
-            ns.AddNamespace("ns", "urn:Question-Schema");
-            xmlDoc.Load(filename);
-            XmlNodeList nodes = xmlDoc.SelectNodes("/ns:Quiz/ns:Details", ns);
+            //XmlNamespaceManager ns = new XmlNamespaceManager(xmlDoc.NameTable);
+            //ns.AddNamespace("ns", "urn:Question-Schema");
+            //xmlDoc.Load(filename);
+            //XmlNodeList nodes = xmlDoc.SelectNodes("/ns:Quiz/ns:Details", ns);
         }
 
         private void LoadItemsFromTreeView(string QuestionId = null)
@@ -494,6 +494,7 @@ namespace ExamMaker
             BuildTreeView BT = new BuildTreeView();
             BT.BuildTree(reader, tree); // build node and tree hierarchy
             QuizItemCount.Content = AddQuestion.CielingId;// the highest ID found on the file
+            reader.Close();
         }
         public void ClearAll()
         {
@@ -630,6 +631,17 @@ namespace ExamMaker
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
+        }
+
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            XmlNamespaceManager ns = new XmlNamespaceManager(xmlDoc.NameTable);
+            ns.AddNamespace("ns", "urn:Question-Schema");
+            XmlNodeList nodes = xmlDoc.SelectNodes("/ns:Quiz/ns:Questions/ns:MultipleChoice/ns:Question[@ID=" + ID + "]", ns);
+            XmlNode node = nodes[0];
+            node.ParentNode.RemoveChild(node);
+            xmlDoc.Save(filename);
+            LoadTreeView();
         }
 
     }
