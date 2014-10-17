@@ -182,7 +182,7 @@ namespace ExamMaker
             Time.InnerText = txtTime.Text;
             Difficulty.InnerText = cmbDiff.SelectedValue.ToString();
 
-            //trying to append questions node to root node
+           
             QuestionsNode = xmlDoc.CreateElement("Questions", xmlNS);
             rootNode.AppendChild(QuestionsNode);
 
