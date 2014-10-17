@@ -7,7 +7,7 @@
         <x:Array x:Key="Difficulty" Type="sys:String" xmlns:sys="clr-namespace:System;assembly=mscorlib">
             <sys:String>Beginner</sys:String>
             <sys:String>Intermediate</sys:String>
-            <sys:String>new1</sys:String>
+            <sys:String>Advance</sys:String>
         </x:Array>
         <Style TargetType="Grid" x:Key="MultipleGrid">
             <Style.Triggers>
