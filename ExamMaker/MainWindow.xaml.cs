@@ -28,6 +28,7 @@ namespace ExamMaker
         private bool failed = false;
         private bool isNew = false;
         private bool isEdit = false;
+        private bool isView = false;
         public string filename;
         public string ItemID;
         private TreeViewItem tree;
@@ -96,13 +97,14 @@ namespace ExamMaker
                 }
             }
             if (QuestionId != null)
-            {               
+            {
                 txtQuestion.IsReadOnly = true;
                 txtOption1.IsReadOnly = true;
                 txtOption2.IsReadOnly = true;
                 txtOption3.IsReadOnly = true;
                 txtOption4.IsReadOnly = true;
                 gridEditDelete.Visibility = System.Windows.Visibility.Visible;
+                GridQuestionType.Visibility = System.Windows.Visibility.Hidden;
 
                 XmlNodeList GetQuestionMulti = xmlDoc.SelectNodes("/ns:Quiz/ns:Questions/ns:MultipleChoice/ns:Question[@ID=" + QuestionId + "]", ns);
                 foreach (XmlNode xn in GetQuestionMulti)
@@ -182,7 +184,7 @@ namespace ExamMaker
             Time.InnerText = txtTime.Text;
             Difficulty.InnerText = cmbDiff.SelectedValue.ToString();
 
-           
+
             QuestionsNode = xmlDoc.CreateElement("Questions", xmlNS);
             rootNode.AppendChild(QuestionsNode);
 
@@ -483,7 +485,7 @@ namespace ExamMaker
         }
         public void LoadTreeView()
         {
-            ClearAll();
+            ClearAll("1");
             XmlReaderSettings settings = new XmlReaderSettings();
             settings.IgnoreWhitespace = true;
             // create XmlReader object
@@ -494,18 +496,22 @@ namespace ExamMaker
             BuildTreeView BT = new BuildTreeView();
             BT.BuildTree(reader, tree); // build node and tree hierarchy
             QuizItemCount.Content = AddQuestion.CielingId;// the highest ID found on the file
-            reader.Close();
+            reader.Close(); //needed to close the reader so there will be no conflict on saving the file
         }
-        public void ClearAll()
+        public void ClearAll(string selection = null)
         {
-            QuizTree.Items.Clear();
+            switch (selection)
+            {
+                case "1":
+                    QuizTree.Items.Clear();
+                    break;
+            }
             failed = false;
+            txtQuestion.Clear();
             txtOption1.Clear();
             txtOption2.Clear();
             txtOption3.Clear();
             txtOption4.Clear();
-
-            //filename = "";
         }
 
 
@@ -515,19 +521,25 @@ namespace ExamMaker
             //if (item == e.OriginalSource)
             if (item != null)
             {
-                if (item.Header.ToString().IndexOf("MultipleChoice") == 0) //if it is a multiple type
-                    cmbQuestionType.SelectedValue = "Multiple Choice";
-                else if (item.Header.ToString().IndexOf("fillin") == 0) //if it is a fill in type
-                    cmbQuestionType.SelectedValue = "Fill in the blanks";
-                else if (item.Header.ToString().IndexOf("longAnswer") == 0) //if it is a long Answer type
-                    cmbQuestionType.SelectedValue = "Long Answer";
-
                 int i = item.Header.ToString().IndexOf("Question no.");
                 if (i == 0)
-                    ID = Convert.ToInt16(item.Header.ToString().Replace("Question no. ", ""));
-                LoadItemsFromTreeView(ID.ToString());
-
-                //status.Text = item.Header.ToString().Replace("Question no. ", "");  //extract the item Id
+                {// question is selected in the treeview. extract the question Id
+                    ID = Convert.ToInt16(item.Header.ToString().Replace("Question no. ", "")); isView = true;
+                }
+                else
+                {
+                    isView = false;
+                    LoadItemsFromTreeView(ID.ToString());
+                }
+                if (ID > -1)
+                {
+                    if (item.Header.ToString().IndexOf("MultipleChoice") == 0) //if it is a multiple type
+                        cmbQuestionType.SelectedValue = "Multiple Choice";
+                    else if (item.Header.ToString().IndexOf("fillin") == 0) //if it is a fill in type
+                        cmbQuestionType.SelectedValue = "Fill in the blanks";
+                    else if (item.Header.ToString().IndexOf("longAnswer") == 0) //if it is a long Answer type
+                        cmbQuestionType.SelectedValue = "Long Answer";
+                }
 
             }
             else
@@ -563,6 +575,7 @@ namespace ExamMaker
                         gridFillBlanks.Visibility = System.Windows.Visibility.Hidden;
                         break;
                 }
+                ClearAll();
             }
 
             // retrieving UID from selected ComboBox Item and saving it in a public string
@@ -597,7 +610,15 @@ namespace ExamMaker
         private void btnAddNew_Click(object sender, RoutedEventArgs e)
         {
             GridQuestionType.Visibility = System.Windows.Visibility.Visible;
-            
+            ClearAll();
+            HideGridPanels();
+        }
+        private void HideGridPanels()
+        {
+            gridEditDelete.Visibility = System.Windows.Visibility.Hidden;
+            gridFillBlanks.Visibility = System.Windows.Visibility.Hidden;
+            gridMultipleChoice.Visibility = System.Windows.Visibility.Hidden;
+            gridTrueFalse.Visibility = System.Windows.Visibility.Hidden;
         }
 
         private void btnEdit_Click(object sender, RoutedEventArgs e)
