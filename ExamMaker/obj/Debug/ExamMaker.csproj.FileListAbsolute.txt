@@ -43,3 +43,7 @@ C:\Users\anshulika\Documents\GitHub\ExamMaker\ExamMaker\obj\Debug\HelpWindow.bam
 C:\Users\anshulika\Documents\GitHub\ExamMaker\ExamMaker\obj\Debug\HelpWindow.g.cs
 C:\Users\KevinEmmanuel\Documents\GitHub\ExamMaker\ExamMaker\obj\Debug\HelpWindow.baml
 C:\Users\KevinEmmanuel\Documents\GitHub\ExamMaker\ExamMaker\obj\Debug\HelpWindow.g.cs
+C:\Users\KevinEmmanuel\Documents\GitHub\ExamMaker\ExamMaker\obj\Debug\ErrorLog.baml
+C:\Users\KevinEmmanuel\Documents\GitHub\ExamMaker\ExamMaker\obj\Debug\ErrorLog.g.cs
+C:\Users\KevinEmmanuel\Documents\GitHub\ExamMaker\ExamMaker\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\KevinEmmanuel\Documents\GitHub\ExamMaker\ExamMaker\obj\Debug\ExamMaker_MarkupCompile.lref

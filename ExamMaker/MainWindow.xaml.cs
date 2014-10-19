@@ -58,10 +58,8 @@ namespace ExamMaker
                 txtTitle.IsReadOnly = true;
                 txtSubject.IsReadOnly = true;
                 txtTime.IsReadOnly = true;
-                cmbDiff.IsReadOnly = true;
-                cmbCourse.IsReadOnly = true;
-                cmbQuestionType.IsReadOnly = true;
-
+                cmbDiff.IsEnabled = false;
+                cmbCourse.IsEnabled = false;
                 txtTitle.Text = xn["Title"].InnerText;
                 txtSubject.Text = xn["Subject"].InnerText;
                 txtTime.Text = xn["Time"].InnerText;
@@ -465,10 +463,19 @@ namespace ExamMaker
                     NewFilePath = filename;
                     LoadTreeView();
                     LoadItemsFromTreeView();
-
+                    status.Text = "Status: Ok";
+                    status.Foreground = System.Windows.Media.Brushes.Green;
+                    status.Background = System.Windows.Media.Brushes.White;
+                    ErrorLogContent.Error = "";
                 }
                 else
-                    status.Text = OV.status;
+                {
+                    status.Text = "Status: Error(s) found, Check error logs";
+                    status.Foreground = System.Windows.Media.Brushes.White;
+                    status.Background = System.Windows.Media.Brushes.Red;
+                    ErrorLogContent.Error = OV.status;
+                }
+                    
                 gridQuizSummary.Visibility = System.Windows.Visibility.Visible;
             }
         }
@@ -499,6 +506,13 @@ namespace ExamMaker
                     isNew = true; ;
                     isEdit = false;
                     break;
+                case "3":                   
+                    txtSubject.Clear();
+                    txtTime.Clear();
+                    txtTitle.Clear();
+                    cmbCourse.SelectedIndex = -1;
+                    cmbDiff.SelectedIndex = -1;
+                    goto case "1";  // first time using this, seems ok.
             }
             failed = false;
             txtQuestion.Clear();
@@ -531,10 +545,11 @@ namespace ExamMaker
                         cmbQuestionType.SelectedValue = "Fill in the blanks";
                     else if (item.Header.ToString().IndexOf("longAnswer") == 0) //if it is a long Answer type
                         cmbQuestionType.SelectedValue = "Long Answer";
-                    isAddNew = false;
+                    isAddNew = false;// show the gridAddDelete
                 }
-
-
+                else
+                    isAddNew = true;//Hide The GridAddDelete
+                ActivateGridEditDelete();
             }
         }
 
@@ -575,13 +590,8 @@ namespace ExamMaker
                 }
                 ClearAll();
             }
-            if (isAddNew)
-                gridEditDelete.Visibility = System.Windows.Visibility.Hidden;
-            else
-            {
-                gridEditDelete.Visibility = System.Windows.Visibility.Visible;
-            }
             // retrieving UID from selected ComboBox Item and saving it in a public string
+            ActivateGridEditDelete();
             var comboBox = sender as ComboBox;
             if (null != comboBox)
             {
@@ -602,12 +612,27 @@ namespace ExamMaker
             Nullable<bool> result = dlg.ShowDialog();
             if (result == true)
             {
+                ClearAll("3");
+                HideGridPanels();
+                txtTitle.IsReadOnly = false;
+                txtSubject.IsReadOnly = false;
+                txtTime.IsReadOnly = false;
+                cmbDiff.IsEnabled = true;
+                cmbCourse.IsEnabled = true;
                 string filename = dlg.FileName;
                 NewFilePath = filename;
                 this.filename = NewFilePath;
+
             }
 
             gridQuizSummary.Visibility = System.Windows.Visibility.Visible;
+        }
+        private void ActivateGridEditDelete()
+        {
+            if (isAddNew)
+                gridEditDelete.Visibility = System.Windows.Visibility.Hidden;
+            else
+                gridEditDelete.Visibility = System.Windows.Visibility.Visible;
         }
 
         private void btnAddNew_Click(object sender, RoutedEventArgs e)
@@ -670,6 +695,26 @@ namespace ExamMaker
             node.ParentNode.RemoveChild(node);
             xmlDoc.Save(filename);
             LoadTreeView();
+        }
+
+        private void ErrorLog_Click(object sender, RoutedEventArgs e)
+        {
+            ErrorLog win2 = new ErrorLog();
+            win2.Show();
+        }
+
+        private void Save_Click(object sender, RoutedEventArgs e)
+        {
+            BindingExpression be = txtSubject.GetBindingExpression(TextBox.TextProperty);
+            be.UpdateSource();
+            BindingExpression be1 = txtTitle.GetBindingExpression(TextBox.TextProperty);
+            be1.UpdateSource();
+            BindingExpression be2 = txtTime.GetBindingExpression(TextBox.TextProperty);
+            be2.UpdateSource();
+            BindingExpression be3 = cmbCourse.GetBindingExpression(ComboBox.SelectedValueProperty);
+            be3.UpdateSource();
+            BindingExpression be4 = cmbDiff.GetBindingExpression(ComboBox.SelectedValueProperty);
+            be4.UpdateSource();
         }
 
     }
