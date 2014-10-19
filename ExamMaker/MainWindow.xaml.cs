@@ -314,33 +314,34 @@ namespace ExamMaker
 
         private void AddTrueFalse()
         {
+            XmlNamespaceManager ns = new XmlNamespaceManager(xmlDoc.NameTable);
+            ns.AddNamespace("ns", "urn:Question-Schema");
+
             QuestionsNode = xmlDoc.DocumentElement;
-            XmlNodeList xnList = xmlDoc.SelectNodes("/Quiz/Questions/TrueFalse");
-            XmlNode xn = xmlDoc.SelectSingleNode("/Quiz/Questions/TrueFalse");
-            XmlElement Question = xmlDoc.CreateElement("Question");
+            //XmlNodeList xnList = xmlDoc.SelectNodes("/ns:Quiz/ns:Questions/ns:TrueFalse",ns);
+            XmlNode xn = xmlDoc.SelectSingleNode("/ns:Quiz/ns:Questions/ns:TrueFalse", ns);
+            XmlElement Question = xmlDoc.CreateElement("Question", xmlNS);
             xn.AppendChild(Question);
 
             XmlAttribute QuestionID = xmlDoc.CreateAttribute("ID");
             QuestionID.Value = ID++.ToString();
-            Question.Attributes.Append(QuestionID);
-            Question.InnerText = txtTrueFalse.Text;
+            Question.Attributes.Append(QuestionID); 
 
-            XmlElement Answer = xmlDoc.CreateElement("Answer");
+            XmlNode Questio = xmlDoc.SelectSingleNode("/ns:Quiz/ns:Questions/ns:TrueFalse/ns:Question", ns);
+            XmlElement Questi = xmlDoc.CreateElement("Questi", xmlNS);
+            Questi.InnerText = txtTrueFalse.Text;
+            Questio.AppendChild(Questi);
+
+            XmlElement Answer = xmlDoc.CreateElement("Answer", xmlNS);
             xn.AppendChild(Answer);
-
-            XmlAttribute True = xmlDoc.CreateAttribute("True");
-            True.Value = "Yes";
-
-            XmlAttribute False = xmlDoc.CreateAttribute("False");
-            False.Value = "Yes";
-
             if (rbFalse.IsChecked == true)
-            {
-                Answer.Attributes.Append(False);
-            }
+                Answer.InnerText = "False";
+            else
+                Answer.InnerText = "True";
+            Question.AppendChild(Questi);
+            Question.AppendChild(Answer);
         }
 
-        // this button adds Multiple choice question
         private void btnSubmit_Click(object sender, RoutedEventArgs e)
         {
             if (!CheckErrors("multi"))
@@ -359,7 +360,7 @@ namespace ExamMaker
                 filename = NewFilePath;
                 LoadTreeView();
             }
-            
+
         }
         private void UpdateQuestion()
         {
@@ -487,7 +488,7 @@ namespace ExamMaker
                     Save_As.IsEnabled = false;
                 }
 
-                
+
             }
         }
         public void LoadTreeView()

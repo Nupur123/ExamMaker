@@ -16,3 +16,4 @@ C:\Users\KevinEmmanuel\Documents\GitHub\ExamMaker\ExamMaker\obj\Release\ErrorLog
 C:\Users\KevinEmmanuel\Documents\GitHub\ExamMaker\ExamMaker\obj\Release\ErrorLog.g.cs
 C:\Users\KevinEmmanuel\Documents\GitHub\ExamMaker\ExamMaker\obj\Release\GeneratedInternalTypeHelper.g.cs
 C:\Users\KevinEmmanuel\Documents\GitHub\ExamMaker\ExamMaker\obj\Release\ExamMaker_MarkupCompile.lref
+C:\Users\KevinEmmanuel\Documents\GitHub\ExamMaker\ExamMaker\obj\Release\ExamMaker.csprojResolveAssemblyReference.cache

@@ -167,13 +167,13 @@
                 <TextBox x:Name="txtChoice2" HorizontalAlignment="Left" Height="23" Margin="135,112,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
                 <TextBox x:Name="txtChoice3" HorizontalAlignment="Left" Height="23" Margin="360,68,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.917,0.652"/>
                 <TextBox x:Name="txtChoice4" HorizontalAlignment="Left" Height="23" Margin="360,109,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" RenderTransformOrigin="2.208,0.304"/>
-                <CheckBox x:Name="cboChoice1" Content="1." HorizontalAlignment="Left" Margin="90,76,0,0" VerticalAlignment="Top"/>
-                <CheckBox x:Name="cboChoice2" Content="2." HorizontalAlignment="Left" Margin="316,76,0,0" VerticalAlignment="Top"/>
-                <CheckBox x:Name="cboChoice3" Content="3." HorizontalAlignment="Left" Margin="90,120,0,0" VerticalAlignment="Top"/>
-                <CheckBox x:Name="cboChoice4" Content="4." HorizontalAlignment="Left" Margin="316,117,0,0" VerticalAlignment="Top"/>
+                <RadioButton x:Name="cboChoice1" Content="1." HorizontalAlignment="Left" Margin="90,76,0,0" VerticalAlignment="Top" />
+                <RadioButton x:Name="cboChoice2" Content="2." HorizontalAlignment="Left" Margin="316,76,0,0" VerticalAlignment="Top"/>
+                <RadioButton x:Name="cboChoice3" Content="3." HorizontalAlignment="Left" Margin="90,120,0,0" VerticalAlignment="Top"/>
+                <RadioButton x:Name="cboChoice4" Content="4." HorizontalAlignment="Left" Margin="316,117,0,0" VerticalAlignment="Top"/>
                 <Button x:Name="btnFillBlanks" Content="Submit Question" HorizontalAlignment="Left" Margin="245,160,0,0" VerticalAlignment="Top" Width="120" Height="25" Click="btnFillBlanks_Click"/>
             </Grid>
-            <Grid Visibility="Hidden" x:Name="gridTrueFalse" HorizontalAlignment="Left" Height="160" Margin="39,245,0,0" VerticalAlignment="Top" Width="555" RenderTransformOrigin="0.485,0.35" Grid.ColumnSpan="2" d:IsHidden="True">
+            <Grid Visibility="Visible" x:Name="gridTrueFalse" HorizontalAlignment="Left" Height="160" Margin="39,245,0,0" VerticalAlignment="Top" Width="555" RenderTransformOrigin="0.485,0.35" Grid.ColumnSpan="2" d:IsHidden="True">
                 <Label Content="True or False Question Text:" FontSize="14" HorizontalAlignment="Left" Margin="10,6,0,0" VerticalAlignment="Top"/>
                 <RadioButton x:Name="rbTrue" Content="True" HorizontalAlignment="Left" Margin="165,75,0,0" VerticalAlignment="Top"/>
                 <RadioButton x:Name="rbFalse" Content="False" HorizontalAlignment="Left" Margin="355,75,0,0" VerticalAlignment="Top"/>
