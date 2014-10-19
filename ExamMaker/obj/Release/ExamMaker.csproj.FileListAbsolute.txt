@@ -12,3 +12,7 @@ C:\Users\KevinEmmanuel\Documents\GitHub\ExamMaker\ExamMaker\obj\Release\ExamMake
 C:\Users\KevinEmmanuel\Documents\GitHub\ExamMaker\ExamMaker\obj\Release\ExamMaker.csproj.GenerateResource.Cache
 C:\Users\KevinEmmanuel\Documents\GitHub\ExamMaker\ExamMaker\obj\Release\ExamMaker.exe
 C:\Users\KevinEmmanuel\Documents\GitHub\ExamMaker\ExamMaker\obj\Release\ExamMaker.pdb
+C:\Users\KevinEmmanuel\Documents\GitHub\ExamMaker\ExamMaker\obj\Release\ErrorLog.baml
+C:\Users\KevinEmmanuel\Documents\GitHub\ExamMaker\ExamMaker\obj\Release\ErrorLog.g.cs
+C:\Users\KevinEmmanuel\Documents\GitHub\ExamMaker\ExamMaker\obj\Release\GeneratedInternalTypeHelper.g.cs
+C:\Users\KevinEmmanuel\Documents\GitHub\ExamMaker\ExamMaker\obj\Release\ExamMaker_MarkupCompile.lref

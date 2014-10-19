@@ -15,6 +15,25 @@
                 </Border>
             </DockPanel>
         </ControlTemplate>
+        
+        <Style TargetType="{x:Type TextBox}">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="ToolTip"
+                Value="{Binding RelativeSource={RelativeSource Self}, 
+                       Path=(Validation.Errors)[0].ErrorContent}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="{x:Type ComboBox}">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="ToolTip"
+                Value="{Binding RelativeSource={RelativeSource Self}, 
+                       Path=(Validation.Errors)[0].ErrorContent}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
         <!--<x:CreateValidation x:Key="myValidate"/>-->
         <!--<x:Array x:Key="Difficulty" Type="sys:String" xmlns:sys="clr-namespace:System;assembly=mscorlib">
             <sys:String>Beginner</sys:String>
@@ -163,15 +182,55 @@
             </Grid>
             <Grid Visibility="Hidden" x:Name="gridMultipleChoice"  HorizontalAlignment="Left" Height="210" Margin="15,240,0,0" VerticalAlignment="Top" Width="564" RenderTransformOrigin="0.42,-0.044" Grid.ColumnSpan="2">
                 <Label Content="Multiple Choice Question Text:" FontSize="14" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.395,0.192" Width="215" Height="30"/>
-                <TextBox x:Name="txtOption1" HorizontalAlignment="Left" Height="23" Margin="84,88,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="190"/>
+                <TextBox x:Name="txtOption1" HorizontalAlignment="Left" Height="23" Margin="84,88,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="190" Validation.ErrorTemplate="{StaticResource SubjectErrorTemplate}">
+                    <TextBox.Text>
+                        <Binding Source="{StaticResource myValidation}" Path="Option1" UpdateSourceTrigger="Explicit" >
+                            <Binding.ValidationRules>
+                                <ExceptionValidationRule />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
                 <RadioButton x:Name="rbOption1" Content="1." HorizontalAlignment="Left" Margin="36,91,0,0" VerticalAlignment="Top"/>
                 <RadioButton x:Name="rbOption2" Content="2." HorizontalAlignment="Left" Margin="36,132,0,0" VerticalAlignment="Top"/>
-                <TextBox x:Name="txtOption2" HorizontalAlignment="Left" Height="23" Margin="84,132,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="190" RenderTransformOrigin="0.51,0.348"/>
+                <TextBox x:Name="txtOption2" HorizontalAlignment="Left" Height="23" Margin="84,132,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="190" RenderTransformOrigin="0.51,0.348" Validation.ErrorTemplate="{StaticResource SubjectErrorTemplate}">
+                    <TextBox.Text>
+                        <Binding Source="{StaticResource myValidation}" Path="Option2" UpdateSourceTrigger="Explicit" >
+                            <Binding.ValidationRules>
+                                <ExceptionValidationRule />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
                 <RadioButton x:Name="rbOption3" Content="3." HorizontalAlignment="Left" Margin="309,91,0,0" VerticalAlignment="Top"/>
                 <RadioButton x:Name="rbOption4" Content="4." HorizontalAlignment="Left" Margin="309,135,0,0" VerticalAlignment="Top"/>
-                <TextBox x:Name="txtOption3" HorizontalAlignment="Left" Height="23" Margin="354,88,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="190"/>
-                <TextBox x:Name="txtOption4" HorizontalAlignment="Left" Height="23" Margin="354,132,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="190"/>
-                <TextBox x:Name="txtQuestion" HorizontalAlignment="Left" Height="23" Margin="24,45,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="505"/>
+                <TextBox x:Name="txtOption3" HorizontalAlignment="Left" Height="23" Margin="354,88,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="190" Validation.ErrorTemplate="{StaticResource SubjectErrorTemplate}">
+                    <TextBox.Text>
+                        <Binding Source="{StaticResource myValidation}" Path="Option3" UpdateSourceTrigger="Explicit" >
+                            <Binding.ValidationRules>
+                                <ExceptionValidationRule />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+                <TextBox x:Name="txtOption4" HorizontalAlignment="Left" Height="23" Margin="354,132,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="190" Validation.ErrorTemplate="{StaticResource SubjectErrorTemplate}" >
+                    <TextBox.Text>
+                        <Binding Source="{StaticResource myValidation}" Path="Option4" UpdateSourceTrigger="Explicit" >
+                            <Binding.ValidationRules>
+                                <ExceptionValidationRule />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+                <TextBox x:Name="txtQuestion" HorizontalAlignment="Left" Height="23" Margin="24,45,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="505" Validation.ErrorTemplate="{StaticResource SubjectErrorTemplate}">
+                    <TextBox.Text>
+                        <Binding Source="{StaticResource myValidation}" Path="MultiQuestion" UpdateSourceTrigger="Explicit" >
+                            <Binding.ValidationRules>
+                                <ExceptionValidationRule />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
                 <Button x:Name="btnSubmit" Content="Submit Question" HorizontalAlignment="Left" Margin="284,175,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.431,-0.233" Click="btnSubmit_Click" Height="25"/>
 
             </Grid>
@@ -182,8 +241,8 @@
                 <Separator />
                 <MenuItem x:Name="Open" Header="_Open..." Click="Open_Click" />
                 <Separator />
-                <MenuItem x:Name="Save" Header="_Save" Click="Save_Click" />
-                <MenuItem x:Name="Save_As" Header="_Save As.." />
+                <MenuItem x:Name="Save" Header="_Save" Click="Save_Click" IsEnabled="False" />
+                <MenuItem x:Name="Save_As" Header="_Save As.." Click="Save_As_Click" IsEnabled="False" />
                 <Separator />
                 <MenuItem x:Name="Exit" Header="_Exit" Click="Exit_Click" />
             </MenuItem>

@@ -28,7 +28,7 @@ namespace ExamMaker
             if (args.Severity == XmlSeverityType.Warning)
                 status += "\nWarning: Matching schema not found.  No validation occurred." + args.Message;
             else
-                status = "\tValidation error: " + args.Message;
+                status = "\nValidation error: " + args.Message;
             failed = true;
         }
         public void ValidateXml(string xmlFilename, string schemaFilename)

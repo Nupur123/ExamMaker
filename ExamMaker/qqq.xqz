@@ -63,6 +63,24 @@
           <Option>a46</Option>
         </Options>
       </Question>
+      <Question ID="7">
+        <Questi>new test</Questi>
+        <Options>
+          <Option>test1</Option>
+          <Option>test2</Option>
+          <Option>test3</Option>
+          <Option Correct="yes">test4</Option>
+        </Options>
+      </Question>
+      <Question ID="8">
+        <Questi>asd</Questi>
+        <Options>
+          <Option>xz</Option>
+          <Option Correct="yes">zc</Option>
+          <Option>asd</Option>
+          <Option>da</Option>
+        </Options>
+      </Question>
     </MultipleChoice>
     <FillBlanks />
     <TrueFalse />

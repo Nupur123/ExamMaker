@@ -40,6 +40,7 @@ namespace ExamMaker
         XmlNode rootNode = null;
         XmlNode QuestionsNode;
         private int ID = 0;
+        private int QuizId = 0;
 
         public MainWindow()
         {
@@ -137,11 +138,13 @@ namespace ExamMaker
         // method to create and write to xml file 
         private void CreateQuiz()
         {
+            xmlDoc.RemoveAll();
             ID = 1;
+            GenerateQuizid();
             isNew = true;
             xmlDoc.PrependChild(xmlDoc.CreateXmlDeclaration("1.0", "utf-8", ""));
             XmlElement rootNode = xmlDoc.CreateElement("Quiz", xmlNS);
-            rootNode.SetAttribute("QuizId", "1");
+            rootNode.SetAttribute("QuizId", QuizId.ToString());
             rootNode.SetAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
             //rootNode.SetAttribute("xmlns", "urn:Question-Schema");
             xmlDoc.AppendChild(rootNode);
@@ -340,19 +343,23 @@ namespace ExamMaker
         // this button adds Multiple choice question
         private void btnSubmit_Click(object sender, RoutedEventArgs e)
         {
-            if (!File.Exists(NewFilePath))
-                CreateQuiz();
-            else
-                isNew = false;
-            if (ItemID == "1")
-                if (isEdit)
-                    UpdateQuestion();
+            if (!CheckErrors("multi"))
+            {
+                if (!File.Exists(NewFilePath))
+                    CreateQuiz();
                 else
-                    AddMultipleChoice();
+                    isNew = false;
+                if (ItemID == "1")
+                    if (isEdit)
+                        UpdateQuestion();
+                    else
+                        AddMultipleChoice();
 
-            xmlDoc.Save(NewFilePath);
-            filename = NewFilePath;
-            LoadTreeView();
+                xmlDoc.Save(NewFilePath);
+                filename = NewFilePath;
+                LoadTreeView();
+            }
+            
         }
         private void UpdateQuestion()
         {
@@ -467,6 +474,8 @@ namespace ExamMaker
                     status.Foreground = System.Windows.Media.Brushes.Green;
                     status.Background = System.Windows.Media.Brushes.White;
                     ErrorLogContent.Error = "";
+                    Save_As.IsEnabled = true;
+                    Save.IsEnabled = true;
                 }
                 else
                 {
@@ -474,8 +483,9 @@ namespace ExamMaker
                     status.Foreground = System.Windows.Media.Brushes.White;
                     status.Background = System.Windows.Media.Brushes.Red;
                     ErrorLogContent.Error = OV.status;
+                    Save_As.IsEnabled = false;
                 }
-                    
+
                 gridQuizSummary.Visibility = System.Windows.Visibility.Visible;
             }
         }
@@ -493,6 +503,14 @@ namespace ExamMaker
             BT.BuildTree(reader, tree); // build node and tree hierarchy
             QuizItemCount.Content = AddQuestion.CielingId;// the highest ID found on the file
             reader.Close(); //needed to close the reader so there will be no conflict on saving the file
+            if (filename != null)
+            {
+                Save_As.IsEnabled = true; Save.IsEnabled = true;
+            }
+            else
+            {
+                Save_As.IsEnabled = false; Save.IsEnabled = false;
+            }
         }
         public void ClearAll(string selection = null)
         {
@@ -506,7 +524,7 @@ namespace ExamMaker
                     isNew = true; ;
                     isEdit = false;
                     break;
-                case "3":                   
+                case "3":
                     txtSubject.Clear();
                     txtTime.Clear();
                     txtTitle.Clear();
@@ -550,6 +568,7 @@ namespace ExamMaker
                 else
                     isAddNew = true;//Hide The GridAddDelete
                 ActivateGridEditDelete();
+                btnSubmit.Visibility = System.Windows.Visibility.Hidden;
             }
         }
 
@@ -603,6 +622,11 @@ namespace ExamMaker
             }
 
         }
+        private void GenerateQuizid()
+        {
+            var i = new Random();
+            QuizId = i.Next(1, 999999);
+        }
 
         private void New_Click(object sender, RoutedEventArgs e)
         {
@@ -622,7 +646,8 @@ namespace ExamMaker
                 string filename = dlg.FileName;
                 NewFilePath = filename;
                 this.filename = NewFilePath;
-
+                Save_As.IsEnabled = true;
+                Save.IsEnabled = true;
             }
 
             gridQuizSummary.Visibility = System.Windows.Visibility.Visible;
@@ -642,6 +667,8 @@ namespace ExamMaker
             HideGridPanels();
             isAddNew = true;
             cmbQuestionType.SelectedIndex = -1;  //set the default choice to null
+            ActivateMultipleGrid();
+            btnSubmit.Visibility = System.Windows.Visibility.Visible;
         }
         private void HideGridPanels()
         {
@@ -656,6 +683,7 @@ namespace ExamMaker
             status.Text = ID.ToString();
             isEdit = true;
             ActivateMultipleGrid();
+            btnSubmit.Visibility = System.Windows.Visibility.Visible;
         }
         private void HowTo_Click(object sender, RoutedEventArgs e)
         {
@@ -705,6 +733,13 @@ namespace ExamMaker
 
         private void Save_Click(object sender, RoutedEventArgs e)
         {
+            if (CheckErrors("multi"))
+                MessageBox.Show("Errors found");
+            if (CheckErrors())
+                MessageBox.Show("e");
+        }
+        private bool CheckErrors(string choice = null)
+        {
             BindingExpression be = txtSubject.GetBindingExpression(TextBox.TextProperty);
             be.UpdateSource();
             BindingExpression be1 = txtTitle.GetBindingExpression(TextBox.TextProperty);
@@ -715,6 +750,45 @@ namespace ExamMaker
             be3.UpdateSource();
             BindingExpression be4 = cmbDiff.GetBindingExpression(ComboBox.SelectedValueProperty);
             be4.UpdateSource();
+            bool isValid = false;     //return false, user's cant save the file if there are no question created, we cant have empty file!
+            switch (choice)
+            {
+                case "multi":
+                    BindingExpression mult = txtQuestion.GetBindingExpression(TextBox.TextProperty);
+                    mult.UpdateSource();
+                    BindingExpression mult1 = txtOption1.GetBindingExpression(TextBox.TextProperty);
+                    mult1.UpdateSource();
+                    BindingExpression mult2 = txtOption2.GetBindingExpression(TextBox.TextProperty);
+                    mult2.UpdateSource();
+                    BindingExpression mult3 = txtOption3.GetBindingExpression(TextBox.TextProperty);
+                    mult3.UpdateSource();
+                    BindingExpression mult4 = txtOption4.GetBindingExpression(TextBox.TextProperty);
+                    mult4.UpdateSource();
+                    if (be.HasError || be1.HasError || be2.HasError || be3.HasError || be4.HasError || mult.HasError || mult1.HasError || mult2.HasError || mult3.HasError || mult4.HasError)
+                        isValid = true;        //return true if there is an error
+                    else
+                        isValid = false;       //all validations pass
+                    break;
+                case "FillIn":
+                    break;
+
+            }
+            return isValid;
+
+
+        }
+
+        private void Save_As_Click(object sender, RoutedEventArgs e)
+        {
+            Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
+            dlg.DefaultExt = ".xqz";
+            dlg.Filter = "Exam File (.xqz)|*.xqz";
+            Nullable<bool> result = dlg.ShowDialog();
+            if (result == true)
+            {
+                string SaveAsFilePath = dlg.FileName;
+                xmlDoc.Save(SaveAsFilePath);
+            }
         }
 
     }

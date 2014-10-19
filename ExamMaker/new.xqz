@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Quiz QuizId="916682" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema">
+  <Details>
+    <Title>z</Title>
+    <Subject>x</Subject>
+    <Course>Software Developer</Course>
+    <Time>2</Time>
+    <Difficulty>Beginner</Difficulty>
+  </Details>
+  <Questions>
+    <MultipleChoice>
+      <Question ID="1">
+        <Questi>zd</Questi>
+        <Options>
+          <Option Correct="yes">d</Option>
+          <Option>dz</Option>
+          <Option>s</Option>
+          <Option>d</Option>
+        </Options>
+      </Question>
+    </MultipleChoice>
+    <FillBlanks />
+    <TrueFalse />
+    <longAnswer />
+  </Questions>
+</Quiz>
