@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified"
+           xmlns="urn:Question-Schema"
+           targetNamespace="urn:Question-Schema">
+  <xs:element name="Quiz">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Details" maxOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Title" type="xs:string" maxOccurs="1"></xs:element>
+              <xs:element name="Subject" type="xs:string" maxOccurs="1"></xs:element>
+              <xs:element name="Course" type="xs:string" maxOccurs="1"></xs:element>
+              <xs:element name="Time" type="xs:int" maxOccurs="1"></xs:element>
+              <xs:element name="Difficulty" type="xs:string" maxOccurs="1"></xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Questions" maxOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="MultipleChoice" maxOccurs="1">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Question" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="Questi" type="xs:string" maxOccurs="1"></xs:element>
+                          <xs:element name="Options" maxOccurs="1">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="Option" maxOccurs="4" minOccurs="2" >
+                                  <xs:complexType>
+                                    <xs:simpleContent>
+                                      <xs:extension base="xs:string">
+                                    <xs:attribute name="Correct" use="optional" fixed="yes" type="xs:string" />
+                                      </xs:extension>
+                                  </xs:simpleContent>
+                                  </xs:complexType>
+                                
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="ID" type="xs:int"></xs:attribute>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="FillBlanks" maxOccurs="1"></xs:element>
+              <xs:element name="TrueFalse" maxOccurs="1"></xs:element>
+              <xs:element name="longAnswer" maxOccurs="1"></xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="QuizId" type="xs:int"></xs:attribute>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

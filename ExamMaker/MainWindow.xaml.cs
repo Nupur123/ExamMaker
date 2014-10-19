@@ -27,6 +27,7 @@ namespace ExamMaker
         const string xmlNS = "urn:Question-Schema";
         private bool failed = false;
         private bool isNew = false;
+        private bool isAddNew = false;
         private bool isEdit = false;
         private bool isView = false;
         public string filename;
@@ -45,15 +46,6 @@ namespace ExamMaker
             InitializeComponent();
 
         }
-
-        private void LoadItem()
-        {
-            //XmlNamespaceManager ns = new XmlNamespaceManager(xmlDoc.NameTable);
-            //ns.AddNamespace("ns", "urn:Question-Schema");
-            //xmlDoc.Load(filename);
-            //XmlNodeList nodes = xmlDoc.SelectNodes("/ns:Quiz/ns:Details", ns);
-        }
-
         private void LoadItemsFromTreeView(string QuestionId = null)
         {
             XmlNamespaceManager ns = new XmlNamespaceManager(xmlDoc.NameTable);
@@ -103,9 +95,10 @@ namespace ExamMaker
                 txtOption2.IsReadOnly = true;
                 txtOption3.IsReadOnly = true;
                 txtOption4.IsReadOnly = true;
-                gridEditDelete.Visibility = System.Windows.Visibility.Visible;
+                //gridEditDelete.Visibility = System.Windows.Visibility.Visible;
                 GridQuestionType.Visibility = System.Windows.Visibility.Hidden;
 
+                //loading for Multiple Type
                 XmlNodeList GetQuestionMulti = xmlDoc.SelectNodes("/ns:Quiz/ns:Questions/ns:MultipleChoice/ns:Question[@ID=" + QuestionId + "]", ns);
                 foreach (XmlNode xn in GetQuestionMulti)
                 {
@@ -142,11 +135,7 @@ namespace ExamMaker
 
                 }
             }
-
-            //string title = test.InnerText;
-
         }
-
         // method to create and write to xml file 
         private void CreateQuiz()
         {
@@ -505,6 +494,11 @@ namespace ExamMaker
                 case "1":
                     QuizTree.Items.Clear();
                     break;
+                case "2":
+                    ID = 0;
+                    isNew = true; ;
+                    isEdit = false;
+                    break;
             }
             failed = false;
             txtQuestion.Clear();
@@ -513,10 +507,8 @@ namespace ExamMaker
             txtOption3.Clear();
             txtOption4.Clear();
         }
-
-
         private void TreeViewItem_Selected(object sender, RoutedEventArgs e)
-        {
+        {//any item selected in the treeview will result on loopings where it begins at the bottom hierarchy(current node selected) until it reaches the parent node
             TreeViewItem item = sender as TreeViewItem;
             //if (item == e.OriginalSource)
             if (item != null)
@@ -531,7 +523,7 @@ namespace ExamMaker
                     isView = false;
                     LoadItemsFromTreeView(ID.ToString());
                 }
-                if (ID > -1)
+                if (ID != 0)
                 {
                     if (item.Header.ToString().IndexOf("MultipleChoice") == 0) //if it is a multiple type
                         cmbQuestionType.SelectedValue = "Multiple Choice";
@@ -539,20 +531,21 @@ namespace ExamMaker
                         cmbQuestionType.SelectedValue = "Fill in the blanks";
                     else if (item.Header.ToString().IndexOf("longAnswer") == 0) //if it is a long Answer type
                         cmbQuestionType.SelectedValue = "Long Answer";
+                    isAddNew = false;
                 }
 
-            }
-            else
-            {
-                Console.WriteLine("Parent of selected");
-                Console.WriteLine(item.Header);
-                Console.WriteLine(item.Items.Count);
+
             }
         }
 
         private void cmbQuestionType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            string Type = (e.AddedItems[0] as ComboBoxItem).Content as string;
+            string Type;
+            int i = cmbQuestionType.SelectedIndex;
+            if (i == -1)//means nothing is selected
+                Type = null;
+            else
+                Type = (e.AddedItems[0] as ComboBoxItem).Content as string;
             if (Type != null)
             {
                 switch (Type)
@@ -574,10 +567,20 @@ namespace ExamMaker
                         gridMultipleChoice.Visibility = System.Windows.Visibility.Hidden;
                         gridFillBlanks.Visibility = System.Windows.Visibility.Hidden;
                         break;
+                    default:
+                        gridFillBlanks.Visibility = System.Windows.Visibility.Hidden;
+                        gridMultipleChoice.Visibility = System.Windows.Visibility.Hidden;
+                        gridTrueFalse.Visibility = System.Windows.Visibility.Hidden;
+                        break;
                 }
                 ClearAll();
             }
-
+            if (isAddNew)
+                gridEditDelete.Visibility = System.Windows.Visibility.Hidden;
+            else
+            {
+                gridEditDelete.Visibility = System.Windows.Visibility.Visible;
+            }
             // retrieving UID from selected ComboBox Item and saving it in a public string
             var comboBox = sender as ComboBox;
             if (null != comboBox)
@@ -610,8 +613,10 @@ namespace ExamMaker
         private void btnAddNew_Click(object sender, RoutedEventArgs e)
         {
             GridQuestionType.Visibility = System.Windows.Visibility.Visible;
-            ClearAll();
+            ClearAll("2");
             HideGridPanels();
+            isAddNew = true;
+            cmbQuestionType.SelectedIndex = -1;  //set the default choice to null
         }
         private void HideGridPanels()
         {
@@ -625,18 +630,20 @@ namespace ExamMaker
         {
             status.Text = ID.ToString();
             isEdit = true;
-
-            txtQuestion.IsReadOnly = false;
-            txtOption1.IsReadOnly = false;
-            txtOption2.IsReadOnly = false;
-            txtOption3.IsReadOnly = false;
-            txtOption4.IsReadOnly = false;
-
+            ActivateMultipleGrid();
         }
         private void HowTo_Click(object sender, RoutedEventArgs e)
         {
             HelpWindow win2 = new HelpWindow();
             win2.Show();
+        }
+        private void ActivateMultipleGrid()
+        {
+            txtQuestion.IsReadOnly = false;
+            txtOption1.IsReadOnly = false;
+            txtOption2.IsReadOnly = false;
+            txtOption3.IsReadOnly = false;
+            txtOption4.IsReadOnly = false;
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
