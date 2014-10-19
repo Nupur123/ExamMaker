@@ -80,7 +80,7 @@
                 <ColumnDefinition Width="504*"/>
             </Grid.ColumnDefinitions>
             <TextBlock Name="Title" HorizontalAlignment="Left" Margin="5,10,0,0" FontSize="30" Foreground="#F62217"  TextWrapping="Wrap" Text="Welcome to Robertson Quiz Maker!" VerticalAlignment="Top" RenderTransformOrigin="0.476,0.526" Grid.ColumnSpan="2"/>
-            <Grid x:Name="gridQuizSummary" Visibility="Visible"  HorizontalAlignment="Left" Height="170" Margin="15,45,0,0" VerticalAlignment="Top" Width="749" RenderTransformOrigin="0.497,0.323" Grid.ColumnSpan="2">
+            <Grid x:Name="gridQuizSummary" Visibility="Hidden"  HorizontalAlignment="Left" Height="170" Margin="15,45,0,0" VerticalAlignment="Top" Width="749" RenderTransformOrigin="0.497,0.323" Grid.ColumnSpan="2">
 
                 <Label Content="Subject:" FontSize="14" HorizontalAlignment="Left" Margin="314,48,0,0" VerticalAlignment="Top"/>
                 <TextBox Name="txtSubject" HorizontalAlignment="Left" Height="23" Margin="389,51,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="113" RenderTransformOrigin="-1.956,2.217" Validation.ErrorTemplate="{StaticResource SubjectErrorTemplate}">

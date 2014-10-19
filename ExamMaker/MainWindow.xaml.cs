@@ -476,6 +476,7 @@ namespace ExamMaker
                     ErrorLogContent.Error = "";
                     Save_As.IsEnabled = true;
                     Save.IsEnabled = true;
+                    gridQuizSummary.Visibility = System.Windows.Visibility.Visible;
                 }
                 else
                 {
@@ -486,7 +487,7 @@ namespace ExamMaker
                     Save_As.IsEnabled = false;
                 }
 
-                gridQuizSummary.Visibility = System.Windows.Visibility.Visible;
+                
             }
         }
         public void LoadTreeView()
