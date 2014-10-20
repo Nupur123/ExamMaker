@@ -16,9 +16,15 @@ namespace ExamMaker
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            MainWindow wnd = new MainWindow();
             if (e.Args.Length == 1)
-                MessageBox.Show("Now opening file: \n\n" + e.Args[0]);
+            {
+                string argument = e.Args[0].ToString();
+                AddQuestion.arg = argument;
+               // MessageBox.Show("Now opening file: \n\n" + e.Args[0]);
+            }
+            MainWindow wnd = new MainWindow();
+           
+                
             //wnd.Title = "Welcome to Exam Maker";
             wnd.Show();
         }

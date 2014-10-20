@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 using System.Xml.Serialization;
 using System.Xml;
 using System.IO;
+using System.Diagnostics;
 
 namespace ExamMaker
 {
@@ -39,12 +40,27 @@ namespace ExamMaker
         XmlDocument xmlDoc = new XmlDocument();
         XmlNode rootNode = null;
         XmlNode QuestionsNode;
-        private int ID = 0;
+        private int ID = 1;
         private int QuizId = 0;
 
         public MainWindow()
         {
+            //Process compiler = new Process();
+            //compiler.StartInfo.FileName = "StartMeUp.exe";
+            //compiler.StartInfo.Arguments = "/r:System.dll /out:sample.exe stdstr.cs";
+            //compiler.StartInfo.UseShellExecute = false;
+            //compiler.StartInfo.RedirectStandardOutput = true;
+            //compiler.Start();
+
+            //Console.WriteLine(compiler.StandardOutput.ReadToEnd());
+            //string x = compiler.StandardOutput.ReadToEnd();
+            //compiler.WaitForExit();
+
             InitializeComponent();
+            filename = AddQuestion.arg;
+            if (filename != null && filename != "")
+                LoadFileAndValidate();
+
 
         }
         private void LoadItemsFromTreeView(string QuestionId = null)
@@ -193,16 +209,11 @@ namespace ExamMaker
         }
 
         private void AddMultipleChoice()
-        { //im in editing the questions and the id number should be fix!!!
+        {
             XmlNamespaceManager ns = new XmlNamespaceManager(xmlDoc.NameTable);
             ns.AddNamespace("ns", "urn:Question-Schema");
             //ns or namespace is IMPORTANT on retrieving Values from XML file with Namespaces
             XmlNodeList nodes = xmlDoc.SelectNodes("/ns:Quiz/ns:Details", ns);
-
-            //setting object reference here before using it
-            //QuestionsNode = xmlDoc.DocumentElement;
-
-            //XmlNodeList xnList = xmlDoc.SelectNodes("/Quiz/Questions/MultipleChoice");
             XmlNode Multi = xmlDoc.SelectSingleNode("/ns:Quiz/ns:Questions/ns:MultipleChoice", ns);
 
             XmlElement Question = xmlDoc.CreateElement("Question", xmlNS);
@@ -262,7 +273,6 @@ namespace ExamMaker
             }
             Question.AppendChild(Questi);
             Question.AppendChild(Options);
-
         }
 
         private void AddFillBlanks()
@@ -324,8 +334,11 @@ namespace ExamMaker
             xn.AppendChild(Question);
 
             XmlAttribute QuestionID = xmlDoc.CreateAttribute("ID");
-            QuestionID.Value = ID++.ToString();
-            Question.Attributes.Append(QuestionID); 
+            if (!isNew)//not newly create file
+                QuestionID.Value = (AddQuestion.CielingId + 1).ToString();
+            else//new File
+                QuestionID.Value = ID++.ToString();
+            Question.Attributes.Append(QuestionID);
 
             XmlNode Questio = xmlDoc.SelectSingleNode("/ns:Quiz/ns:Questions/ns:TrueFalse/ns:Question", ns);
             XmlElement Questi = xmlDoc.CreateElement("Questi", xmlNS);
@@ -421,12 +434,17 @@ namespace ExamMaker
             {
                 CreateQuiz();
             }
-
-            AddTrueFalse();
+            else
+                isNew = false;
+            if (isEdit)
+                UpdateQuestion();
+            else
+                AddTrueFalse();
             xmlDoc.Save(NewFilePath);
             filename = NewFilePath;
             LoadTreeView();
         }
+
 
         // this button adds Fill Blanks Question
         private void btnFillBlanks_Click(object sender, RoutedEventArgs e)
@@ -460,35 +478,38 @@ namespace ExamMaker
                 status.Text = "";
                 failed = false;
                 filename = dlg.FileName;
-
-                string xsd = FilePath + "validator.xsd";   //this is always default
-                OpenValidate OV = new OpenValidate();
-                OV.ValidateXml(filename, xsd);
-                if (!OV.failed)
-                {
-                    MessageBox.Show("File Open Status: Success");
-                    status.Text = "File is valid";
-                    NewFilePath = filename;
-                    LoadTreeView();
-                    LoadItemsFromTreeView();
-                    status.Text = "Status: Ok";
-                    status.Foreground = System.Windows.Media.Brushes.Green;
-                    status.Background = System.Windows.Media.Brushes.White;
-                    ErrorLogContent.Error = "";
-                    Save_As.IsEnabled = true;
-                    Save.IsEnabled = true;
-                    gridQuizSummary.Visibility = System.Windows.Visibility.Visible;
-                }
-                else
-                {
-                    status.Text = "Status: Error(s) found, Check error logs";
-                    status.Foreground = System.Windows.Media.Brushes.White;
-                    status.Background = System.Windows.Media.Brushes.Red;
-                    ErrorLogContent.Error = OV.status;
-                    Save_As.IsEnabled = false;
-                }
-
-
+                LoadFileAndValidate();
+            }
+        }
+        public void LoadFileAndValidate()
+        {
+            string xsd = FilePath + "validator.xsd";   //this is always default
+            OpenValidate OV = new OpenValidate();
+            OV.ValidateXml(filename, xsd);
+            if (!OV.failed)
+            {
+                MessageBox.Show("File Open Status: Success");
+                status.Text = "File is valid";
+                NewFilePath = filename;
+                LoadTreeView();
+                LoadItemsFromTreeView();
+                status.Text = "Status: Ok";
+                status.Foreground = System.Windows.Media.Brushes.Green;
+                status.Background = System.Windows.Media.Brushes.White;
+                ErrorLogContent.Error = "";
+                Save_As.IsEnabled = true;
+                Save.IsEnabled = true;
+                gridQuizSummary.Visibility = System.Windows.Visibility.Visible;
+            }
+            else
+            {
+                status.Text = "";
+                MessageBox.Show("File Open Status: Failed");
+                status.Text = "Status: Error(s) found, Check error logs";
+                status.Foreground = System.Windows.Media.Brushes.White;
+                status.Background = System.Windows.Media.Brushes.Red;
+                ErrorLogContent.Error = OV.status;
+                Save_As.IsEnabled = false;
             }
         }
         public void LoadTreeView()
@@ -561,7 +582,7 @@ namespace ExamMaker
                 {
                     if (item.Header.ToString().IndexOf("MultipleChoice") == 0) //if it is a multiple type
                         cmbQuestionType.SelectedValue = "Multiple Choice";
-                    else if (item.Header.ToString().IndexOf("fillin") == 0) //if it is a fill in type
+                    else if (item.Header.ToString().IndexOf("FillBlanks") == 0) //if it is a fill in type
                         cmbQuestionType.SelectedValue = "Fill in the blanks";
                     else if (item.Header.ToString().IndexOf("longAnswer") == 0) //if it is a long Answer type
                         cmbQuestionType.SelectedValue = "Long Answer";

@@ -9,5 +9,6 @@ namespace ExamMaker
      class AddQuestion
     {
         public static int CielingId { get; set; }
+        public static string arg { get; set; }
     }
 }
