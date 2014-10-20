@@ -70,10 +70,19 @@
     </ApplicationDefinition>
     <Compile Include="AddQuestion.cs" />
     <Compile Include="BuildTreeView.cs" />
+    <Compile Include="CreateValidation.cs" />
+    <Compile Include="ErrorLog.xaml.cs">
+      <DependentUpon>ErrorLog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ErrorLogContent.cs" />
     <Compile Include="HelpWindow.xaml.cs">
       <DependentUpon>HelpWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="OpenValidate.cs" />
+    <Page Include="ErrorLog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="HelpWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

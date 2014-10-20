@@ -4,7 +4,7 @@
     <Title>16th October Quiz </Title>
     <Subject>test</Subject>
     <Course>Software Developer</Course>
-    <Time>60</Time>
+    <Time>60a</Time>
     <Difficulty>Beginner</Difficulty>
   </Details>
   <Questions>
@@ -16,24 +16,6 @@
           <Option Correct="yes">lajksdakljf</Option>
           <Option>klsjbfdkjbf</Option>
           <Option>sldfblsj</Option>
-        </Options>
-      </Question>
-      <Question ID="2">
-        <Questi>wdwdwfsfsfsfsf11111</Questi>
-        <Options>
-          <Option>vvfv</Option>
-          <Option Correct="yes">d;flgjsd;l</Option>
-          <Option>;dfgjs;d</Option>
-          <Option>jkhkj</Option>
-        </Options>
-      </Question>
-      <Question ID="3">
-        <Questi>wdwdwvv</Questi>
-        <Options>
-          <Option>vvfv</Option>
-          <Option Correct="yes">d;flgjsd;l</Option>
-          <Option>;dfgjs;d</Option>
-          <Option>jkhkj</Option>
         </Options>
       </Question>
     </MultipleChoice>

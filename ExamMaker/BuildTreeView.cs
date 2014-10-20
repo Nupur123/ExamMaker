@@ -42,9 +42,9 @@ namespace ExamMaker
                                 if (reader.GetAttribute("ID") != null)
                                 {
                                     newNode.Header = reader.Name + " no. " + reader.GetAttribute("ID");
-                                    if(QuestionIdGetMax <= Convert.ToInt16 (reader.GetAttribute("ID")))
+                                    if(QuestionIdGetMax <= Convert.ToInt32 (reader.GetAttribute("ID")))
                                     {
-                                        QuestionIdGetMax =Convert.ToInt16 (reader.GetAttribute("ID"));
+                                        QuestionIdGetMax =Convert.ToInt32 (reader.GetAttribute("ID"));
                                     }
                                 }
                                 //newNode.Header = reader.GetAttribute("id");

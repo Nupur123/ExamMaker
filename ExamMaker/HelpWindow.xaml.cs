@@ -43,7 +43,7 @@ namespace ExamMaker
 
             lblAnswer.Content = "To Open an Existing File/ Quiz, please follow these steps-" +
             "\r\n" + "->  Go to File Menu on Top Left Corner of App Page" + "\r\n" + "->  Click on 'Open'" + "\r\n" +
-            "->  A File Dialog Window will pop up. Browse path of file that you want to open" +  "\r\n" +
+            "->  A File Dialog Window will pop up. Browse path of file that you want to open" + "\r\n" +
             "->  The selected existing file will open up if it is in correct format.";
         }
 
@@ -94,6 +94,11 @@ namespace ExamMaker
           "\r\n" + "->  Browse through the treeview and select the question you want to DELETE." +
           "\r\n" + "->  When you select a specific question, edit/ delete panel with values in textboxes will load up." +
           "\r\n" + "->  Click on 'DELETE' button to delete the selected question from quiz.";
+        }
+
+        private void btnClose_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

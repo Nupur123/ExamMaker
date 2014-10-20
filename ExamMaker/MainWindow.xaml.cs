@@ -27,7 +27,9 @@ namespace ExamMaker
         const string xmlNS = "urn:Question-Schema";
         private bool failed = false;
         private bool isNew = false;
+        private bool isAddNew = false;
         private bool isEdit = false;
+        private bool isView = false;
         public string filename;
         public string ItemID;
         private TreeViewItem tree;
@@ -38,21 +40,13 @@ namespace ExamMaker
         XmlNode rootNode = null;
         XmlNode QuestionsNode;
         private int ID = 0;
+        private int QuizId = 0;
 
         public MainWindow()
         {
             InitializeComponent();
 
         }
-
-        private void LoadItem()
-        {
-            XmlNamespaceManager ns = new XmlNamespaceManager(xmlDoc.NameTable);
-            ns.AddNamespace("ns", "urn:Question-Schema");
-            xmlDoc.Load(filename);
-            XmlNodeList nodes = xmlDoc.SelectNodes("/ns:Quiz/ns:Details", ns);
-        }
-
         private void LoadItemsFromTreeView(string QuestionId = null)
         {
             XmlNamespaceManager ns = new XmlNamespaceManager(xmlDoc.NameTable);
@@ -65,10 +59,8 @@ namespace ExamMaker
                 txtTitle.IsReadOnly = true;
                 txtSubject.IsReadOnly = true;
                 txtTime.IsReadOnly = true;
-                cmbDiff.IsReadOnly = true;
-                cmbCourse.IsReadOnly = true;
-                cmbQuestionType.IsReadOnly = true;
-
+                cmbDiff.IsEnabled = false;
+                cmbCourse.IsEnabled = false;
                 txtTitle.Text = xn["Title"].InnerText;
                 txtSubject.Text = xn["Subject"].InnerText;
                 txtTime.Text = xn["Time"].InnerText;
@@ -96,14 +88,16 @@ namespace ExamMaker
                 }
             }
             if (QuestionId != null)
-            {               
+            {
                 txtQuestion.IsReadOnly = true;
                 txtOption1.IsReadOnly = true;
                 txtOption2.IsReadOnly = true;
                 txtOption3.IsReadOnly = true;
                 txtOption4.IsReadOnly = true;
-                gridEditDelete.Visibility = System.Windows.Visibility.Visible;
+                //gridEditDelete.Visibility = System.Windows.Visibility.Visible;
+                GridQuestionType.Visibility = System.Windows.Visibility.Hidden;
 
+                //loading for Multiple Type
                 XmlNodeList GetQuestionMulti = xmlDoc.SelectNodes("/ns:Quiz/ns:Questions/ns:MultipleChoice/ns:Question[@ID=" + QuestionId + "]", ns);
                 foreach (XmlNode xn in GetQuestionMulti)
                 {
@@ -140,19 +134,17 @@ namespace ExamMaker
 
                 }
             }
-
-            //string title = test.InnerText;
-
         }
-
         // method to create and write to xml file 
         private void CreateQuiz()
         {
+            xmlDoc.RemoveAll();
             ID = 1;
+            GenerateQuizid();
             isNew = true;
             xmlDoc.PrependChild(xmlDoc.CreateXmlDeclaration("1.0", "utf-8", ""));
             XmlElement rootNode = xmlDoc.CreateElement("Quiz", xmlNS);
-            rootNode.SetAttribute("QuizId", "1");
+            rootNode.SetAttribute("QuizId", QuizId.ToString());
             rootNode.SetAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
             //rootNode.SetAttribute("xmlns", "urn:Question-Schema");
             xmlDoc.AppendChild(rootNode);
@@ -182,7 +174,7 @@ namespace ExamMaker
             Time.InnerText = txtTime.Text;
             Difficulty.InnerText = cmbDiff.SelectedValue.ToString();
 
-           
+
             QuestionsNode = xmlDoc.CreateElement("Questions", xmlNS);
             rootNode.AppendChild(QuestionsNode);
 
@@ -322,48 +314,53 @@ namespace ExamMaker
 
         private void AddTrueFalse()
         {
+            XmlNamespaceManager ns = new XmlNamespaceManager(xmlDoc.NameTable);
+            ns.AddNamespace("ns", "urn:Question-Schema");
+
             QuestionsNode = xmlDoc.DocumentElement;
-            XmlNodeList xnList = xmlDoc.SelectNodes("/Quiz/Questions/TrueFalse");
-            XmlNode xn = xmlDoc.SelectSingleNode("/Quiz/Questions/TrueFalse");
-            XmlElement Question = xmlDoc.CreateElement("Question");
+            //XmlNodeList xnList = xmlDoc.SelectNodes("/ns:Quiz/ns:Questions/ns:TrueFalse",ns);
+            XmlNode xn = xmlDoc.SelectSingleNode("/ns:Quiz/ns:Questions/ns:TrueFalse", ns);
+            XmlElement Question = xmlDoc.CreateElement("Question", xmlNS);
             xn.AppendChild(Question);
 
             XmlAttribute QuestionID = xmlDoc.CreateAttribute("ID");
             QuestionID.Value = ID++.ToString();
-            Question.Attributes.Append(QuestionID);
-            Question.InnerText = txtTrueFalse.Text;
+            Question.Attributes.Append(QuestionID); 
 
-            XmlElement Answer = xmlDoc.CreateElement("Answer");
+            XmlNode Questio = xmlDoc.SelectSingleNode("/ns:Quiz/ns:Questions/ns:TrueFalse/ns:Question", ns);
+            XmlElement Questi = xmlDoc.CreateElement("Questi", xmlNS);
+            Questi.InnerText = txtTrueFalse.Text;
+            Questio.AppendChild(Questi);
+
+            XmlElement Answer = xmlDoc.CreateElement("Answer", xmlNS);
             xn.AppendChild(Answer);
-
-            XmlAttribute True = xmlDoc.CreateAttribute("True");
-            True.Value = "Yes";
-
-            XmlAttribute False = xmlDoc.CreateAttribute("False");
-            False.Value = "Yes";
-
             if (rbFalse.IsChecked == true)
-            {
-                Answer.Attributes.Append(False);
-            }
+                Answer.InnerText = "False";
+            else
+                Answer.InnerText = "True";
+            Question.AppendChild(Questi);
+            Question.AppendChild(Answer);
         }
 
-        // this button adds Multiple choice question
         private void btnSubmit_Click(object sender, RoutedEventArgs e)
         {
-            if (!File.Exists(NewFilePath))
-                CreateQuiz();
-            else
-                isNew = false;
-            if (ItemID == "1")
-                if (isEdit)
-                    UpdateQuestion();
+            if (!CheckErrors("multi"))
+            {
+                if (!File.Exists(NewFilePath))
+                    CreateQuiz();
                 else
-                    AddMultipleChoice();
+                    isNew = false;
+                if (ItemID == "1")
+                    if (isEdit)
+                        UpdateQuestion();
+                    else
+                        AddMultipleChoice();
 
-            xmlDoc.Save(NewFilePath);
-            filename = NewFilePath;
-            LoadTreeView();
+                xmlDoc.Save(NewFilePath);
+                filename = NewFilePath;
+                LoadTreeView();
+            }
+
         }
         private void UpdateQuestion()
         {
@@ -474,16 +471,29 @@ namespace ExamMaker
                     NewFilePath = filename;
                     LoadTreeView();
                     LoadItemsFromTreeView();
-
+                    status.Text = "Status: Ok";
+                    status.Foreground = System.Windows.Media.Brushes.Green;
+                    status.Background = System.Windows.Media.Brushes.White;
+                    ErrorLogContent.Error = "";
+                    Save_As.IsEnabled = true;
+                    Save.IsEnabled = true;
+                    gridQuizSummary.Visibility = System.Windows.Visibility.Visible;
                 }
                 else
-                    status.Text = OV.status;
-                gridQuizSummary.Visibility = System.Windows.Visibility.Visible;
+                {
+                    status.Text = "Status: Error(s) found, Check error logs";
+                    status.Foreground = System.Windows.Media.Brushes.White;
+                    status.Background = System.Windows.Media.Brushes.Red;
+                    ErrorLogContent.Error = OV.status;
+                    Save_As.IsEnabled = false;
+                }
+
+
             }
         }
         public void LoadTreeView()
         {
-            ClearAll();
+            ClearAll("1");
             XmlReaderSettings settings = new XmlReaderSettings();
             settings.IgnoreWhitespace = true;
             // create XmlReader object
@@ -494,52 +504,84 @@ namespace ExamMaker
             BuildTreeView BT = new BuildTreeView();
             BT.BuildTree(reader, tree); // build node and tree hierarchy
             QuizItemCount.Content = AddQuestion.CielingId;// the highest ID found on the file
+            reader.Close(); //needed to close the reader so there will be no conflict on saving the file
+            if (filename != null)
+            {
+                Save_As.IsEnabled = true; Save.IsEnabled = true;
+            }
+            else
+            {
+                Save_As.IsEnabled = false; Save.IsEnabled = false;
+            }
         }
-        public void ClearAll()
+        public void ClearAll(string selection = null)
         {
-            QuizTree.Items.Clear();
+            switch (selection)
+            {
+                case "1":
+                    QuizTree.Items.Clear();
+                    break;
+                case "2":
+                    ID = 0;
+                    isNew = true; ;
+                    isEdit = false;
+                    break;
+                case "3":
+                    txtSubject.Clear();
+                    txtTime.Clear();
+                    txtTitle.Clear();
+                    cmbCourse.SelectedIndex = -1;
+                    cmbDiff.SelectedIndex = -1;
+                    goto case "1";  // first time using this, seems ok.
+            }
             failed = false;
+            txtQuestion.Clear();
             txtOption1.Clear();
             txtOption2.Clear();
             txtOption3.Clear();
             txtOption4.Clear();
-
-            //filename = "";
         }
-
-
         private void TreeViewItem_Selected(object sender, RoutedEventArgs e)
-        {
+        {//any item selected in the treeview will result on loopings where it begins at the bottom hierarchy(current node selected) until it reaches the parent node
             TreeViewItem item = sender as TreeViewItem;
             //if (item == e.OriginalSource)
             if (item != null)
             {
-                if (item.Header.ToString().IndexOf("MultipleChoice") == 0) //if it is a multiple type
-                    cmbQuestionType.SelectedValue = "Multiple Choice";
-                else if (item.Header.ToString().IndexOf("fillin") == 0) //if it is a fill in type
-                    cmbQuestionType.SelectedValue = "Fill in the blanks";
-                else if (item.Header.ToString().IndexOf("longAnswer") == 0) //if it is a long Answer type
-                    cmbQuestionType.SelectedValue = "Long Answer";
-
                 int i = item.Header.ToString().IndexOf("Question no.");
                 if (i == 0)
-                    ID = Convert.ToInt16(item.Header.ToString().Replace("Question no. ", ""));
-                LoadItemsFromTreeView(ID.ToString());
-
-                //status.Text = item.Header.ToString().Replace("Question no. ", "");  //extract the item Id
-
-            }
-            else
-            {
-                Console.WriteLine("Parent of selected");
-                Console.WriteLine(item.Header);
-                Console.WriteLine(item.Items.Count);
+                {// question is selected in the treeview. extract the question Id
+                    ID = Convert.ToInt16(item.Header.ToString().Replace("Question no. ", "")); isView = true;
+                }
+                else
+                {
+                    isView = false;
+                    LoadItemsFromTreeView(ID.ToString());
+                }
+                if (ID != 0)
+                {
+                    if (item.Header.ToString().IndexOf("MultipleChoice") == 0) //if it is a multiple type
+                        cmbQuestionType.SelectedValue = "Multiple Choice";
+                    else if (item.Header.ToString().IndexOf("fillin") == 0) //if it is a fill in type
+                        cmbQuestionType.SelectedValue = "Fill in the blanks";
+                    else if (item.Header.ToString().IndexOf("longAnswer") == 0) //if it is a long Answer type
+                        cmbQuestionType.SelectedValue = "Long Answer";
+                    isAddNew = false;// show the gridAddDelete
+                }
+                else
+                    isAddNew = true;//Hide The GridAddDelete
+                ActivateGridEditDelete();
+                btnSubmit.Visibility = System.Windows.Visibility.Hidden;
             }
         }
 
         private void cmbQuestionType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            string Type = (e.AddedItems[0] as ComboBoxItem).Content as string;
+            string Type;
+            int i = cmbQuestionType.SelectedIndex;
+            if (i == -1)//means nothing is selected
+                Type = null;
+            else
+                Type = (e.AddedItems[0] as ComboBoxItem).Content as string;
             if (Type != null)
             {
                 switch (Type)
@@ -561,10 +603,16 @@ namespace ExamMaker
                         gridMultipleChoice.Visibility = System.Windows.Visibility.Hidden;
                         gridFillBlanks.Visibility = System.Windows.Visibility.Hidden;
                         break;
+                    default:
+                        gridFillBlanks.Visibility = System.Windows.Visibility.Hidden;
+                        gridMultipleChoice.Visibility = System.Windows.Visibility.Hidden;
+                        gridTrueFalse.Visibility = System.Windows.Visibility.Hidden;
+                        break;
                 }
+                ClearAll();
             }
-
             // retrieving UID from selected ComboBox Item and saving it in a public string
+            ActivateGridEditDelete();
             var comboBox = sender as ComboBox;
             if (null != comboBox)
             {
@@ -576,6 +624,11 @@ namespace ExamMaker
             }
 
         }
+        private void GenerateQuizid()
+        {
+            var i = new Random();
+            QuizId = i.Next(1, 999999);
+        }
 
         private void New_Click(object sender, RoutedEventArgs e)
         {
@@ -585,36 +638,67 @@ namespace ExamMaker
             Nullable<bool> result = dlg.ShowDialog();
             if (result == true)
             {
+                ClearAll("3");
+                HideGridPanels();
+                txtTitle.IsReadOnly = false;
+                txtSubject.IsReadOnly = false;
+                txtTime.IsReadOnly = false;
+                cmbDiff.IsEnabled = true;
+                cmbCourse.IsEnabled = true;
                 string filename = dlg.FileName;
                 NewFilePath = filename;
                 this.filename = NewFilePath;
+                Save_As.IsEnabled = true;
+                Save.IsEnabled = true;
             }
 
             gridQuizSummary.Visibility = System.Windows.Visibility.Visible;
+        }
+        private void ActivateGridEditDelete()
+        {
+            if (isAddNew)
+                gridEditDelete.Visibility = System.Windows.Visibility.Hidden;
+            else
+                gridEditDelete.Visibility = System.Windows.Visibility.Visible;
         }
 
         private void btnAddNew_Click(object sender, RoutedEventArgs e)
         {
             GridQuestionType.Visibility = System.Windows.Visibility.Visible;
-            
+            ClearAll("2");
+            HideGridPanels();
+            isAddNew = true;
+            cmbQuestionType.SelectedIndex = -1;  //set the default choice to null
+            ActivateMultipleGrid();
+            btnSubmit.Visibility = System.Windows.Visibility.Visible;
+        }
+        private void HideGridPanels()
+        {
+            gridEditDelete.Visibility = System.Windows.Visibility.Hidden;
+            gridFillBlanks.Visibility = System.Windows.Visibility.Hidden;
+            gridMultipleChoice.Visibility = System.Windows.Visibility.Hidden;
+            gridTrueFalse.Visibility = System.Windows.Visibility.Hidden;
         }
 
         private void btnEdit_Click(object sender, RoutedEventArgs e)
         {
             status.Text = ID.ToString();
             isEdit = true;
-
-            txtQuestion.IsReadOnly = false;
-            txtOption1.IsReadOnly = false;
-            txtOption2.IsReadOnly = false;
-            txtOption3.IsReadOnly = false;
-            txtOption4.IsReadOnly = false;
-
+            ActivateMultipleGrid();
+            btnSubmit.Visibility = System.Windows.Visibility.Visible;
         }
         private void HowTo_Click(object sender, RoutedEventArgs e)
         {
             HelpWindow win2 = new HelpWindow();
             win2.Show();
+        }
+        private void ActivateMultipleGrid()
+        {
+            txtQuestion.IsReadOnly = false;
+            txtOption1.IsReadOnly = false;
+            txtOption2.IsReadOnly = false;
+            txtOption3.IsReadOnly = false;
+            txtOption4.IsReadOnly = false;
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -630,6 +714,83 @@ namespace ExamMaker
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
+        }
+
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            XmlNamespaceManager ns = new XmlNamespaceManager(xmlDoc.NameTable);
+            ns.AddNamespace("ns", "urn:Question-Schema");
+            XmlNodeList nodes = xmlDoc.SelectNodes("/ns:Quiz/ns:Questions/ns:MultipleChoice/ns:Question[@ID=" + ID + "]", ns);
+            XmlNode node = nodes[0];
+            node.ParentNode.RemoveChild(node);
+            xmlDoc.Save(filename);
+            LoadTreeView();
+        }
+
+        private void ErrorLog_Click(object sender, RoutedEventArgs e)
+        {
+            ErrorLog win2 = new ErrorLog();
+            win2.Show();
+        }
+
+        private void Save_Click(object sender, RoutedEventArgs e)
+        {
+            if (CheckErrors("multi"))
+                MessageBox.Show("Errors found");
+            if (CheckErrors())
+                MessageBox.Show("e");
+        }
+        private bool CheckErrors(string choice = null)
+        {
+            BindingExpression be = txtSubject.GetBindingExpression(TextBox.TextProperty);
+            be.UpdateSource();
+            BindingExpression be1 = txtTitle.GetBindingExpression(TextBox.TextProperty);
+            be1.UpdateSource();
+            BindingExpression be2 = txtTime.GetBindingExpression(TextBox.TextProperty);
+            be2.UpdateSource();
+            BindingExpression be3 = cmbCourse.GetBindingExpression(ComboBox.SelectedValueProperty);
+            be3.UpdateSource();
+            BindingExpression be4 = cmbDiff.GetBindingExpression(ComboBox.SelectedValueProperty);
+            be4.UpdateSource();
+            bool isValid = false;     //return false, user's cant save the file if there are no question created, we cant have empty file!
+            switch (choice)
+            {
+                case "multi":
+                    BindingExpression mult = txtQuestion.GetBindingExpression(TextBox.TextProperty);
+                    mult.UpdateSource();
+                    BindingExpression mult1 = txtOption1.GetBindingExpression(TextBox.TextProperty);
+                    mult1.UpdateSource();
+                    BindingExpression mult2 = txtOption2.GetBindingExpression(TextBox.TextProperty);
+                    mult2.UpdateSource();
+                    BindingExpression mult3 = txtOption3.GetBindingExpression(TextBox.TextProperty);
+                    mult3.UpdateSource();
+                    BindingExpression mult4 = txtOption4.GetBindingExpression(TextBox.TextProperty);
+                    mult4.UpdateSource();
+                    if (be.HasError || be1.HasError || be2.HasError || be3.HasError || be4.HasError || mult.HasError || mult1.HasError || mult2.HasError || mult3.HasError || mult4.HasError)
+                        isValid = true;        //return true if there is an error
+                    else
+                        isValid = false;       //all validations pass
+                    break;
+                case "FillIn":
+                    break;
+
+            }
+            return isValid;
+
+
+        }
+
+        private void Save_As_Click(object sender, RoutedEventArgs e)
+        {
+            Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
+            dlg.DefaultExt = ".xqz";
+            dlg.Filter = "Exam File (.xqz)|*.xqz";
+            Nullable<bool> result = dlg.ShowDialog();
+            if (result == true)
+            {
+                string SaveAsFilePath = dlg.FileName;
+                xmlDoc.Save(SaveAsFilePath);
+            }
         }
 
     }
