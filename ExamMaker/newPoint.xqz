@@ -45,12 +45,25 @@
           <Option>p</Option>
         </Options>
       </Question>
+      <Question ID="6">
+        <Questi>zxc</Questi>
+        <Options>
+          <Option Correct="yes">as</Option>
+          <Option>dzxcas</Option>
+          <Option>ds</Option>
+          <Option>dsa</Option>
+        </Options>
+      </Question>
     </MultipleChoice>
     <FillBlanks />
     <TrueFalse>
       <Question ID="5">
         <Questi>dasda</Questi>
         <Answer>True</Answer>
+      </Question>
+      <Question ID="7">
+        <Questi>asdaaxzcsd</Questi>
+        <Answer>False</Answer>
       </Question>
     </TrueFalse>
     <longAnswer />

@@ -40,7 +40,7 @@ namespace ExamMaker
         XmlDocument xmlDoc = new XmlDocument();
         XmlNode rootNode = null;
         XmlNode QuestionsNode;
-        private int ID = 1;
+        private int ID = 0;
         private int QuizId = 0;
 
         public MainWindow()
@@ -115,40 +115,59 @@ namespace ExamMaker
 
                 //loading for Multiple Type
                 XmlNodeList GetQuestionMulti = xmlDoc.SelectNodes("/ns:Quiz/ns:Questions/ns:MultipleChoice/ns:Question[@ID=" + QuestionId + "]", ns);
-                foreach (XmlNode xn in GetQuestionMulti)
-                {
-                    txtQuestion.Text = xn["Questi"].InnerText;
-                    XmlNodeList GetMultiOptions = xmlDoc.SelectNodes("/ns:Quiz/ns:Questions/ns:MultipleChoice/ns:Question[@ID=" + QuestionId + "]/ns:Options", ns);
-                    foreach (XmlNode xno in GetMultiOptions)
+                XmlNodeList GetTrueFalse = xmlDoc.SelectNodes("/ns:Quiz/ns:Questions/ns:TrueFalse/ns:Question[@ID=" + QuestionId + "]", ns);
+                int a = GetQuestionMulti.Count;
+                int b = GetTrueFalse.Count;
+                if (a != 0 && b == 0)
+                {//it is a Multiple
+                    foreach (XmlNode xn in GetQuestionMulti)
                     {
-                        string[] _option = new string[5];
-                        int x = 0;
-                        foreach (XmlNode xno2 in xno)
+                        txtQuestion.Text = xn["Questi"].InnerText;
+                        XmlNodeList GetMultiOptions = xmlDoc.SelectNodes("/ns:Quiz/ns:Questions/ns:MultipleChoice/ns:Question[@ID=" + QuestionId + "]/ns:Options", ns);
+                        //TrueFalse;
+                        foreach (XmlNode xno in GetMultiOptions)
                         {
-                            _option[x] = xno2.InnerText;
-                            if ((xno2.Attributes["Correct"] != null) && (xno2.Attributes["Correct"].Value) == "yes")
+                            string[] _option = new string[5];
+                            int x = 0;
+                            foreach (XmlNode xno2 in xno)
                             {
-                                switch (x)
+                                _option[x] = xno2.InnerText;
+                                if ((xno2.Attributes["Correct"] != null) && (xno2.Attributes["Correct"].Value) == "yes")
                                 {
-                                    case 0: rbOption1.IsChecked = true;
-                                        break;
-                                    case 1: rbOption2.IsChecked = true;
-                                        break;
-                                    case 2: rbOption3.IsChecked = true;
-                                        break;
-                                    case 3: rbOption4.IsChecked = true;
-                                        break;
+                                    switch (x)
+                                    {
+                                        case 0: rbOption1.IsChecked = true;
+                                            break;
+                                        case 1: rbOption2.IsChecked = true;
+                                            break;
+                                        case 2: rbOption3.IsChecked = true;
+                                            break;
+                                        case 3: rbOption4.IsChecked = true;
+                                            break;
+                                    }
                                 }
+                                x++;
                             }
-                            x++;
+                            txtOption1.Text = _option[0];
+                            txtOption2.Text = _option[1];
+                            txtOption3.Text = _option[2];
+                            txtOption4.Text = _option[3]; //temporary method!
                         }
-                        txtOption1.Text = _option[0];
-                        txtOption2.Text = _option[1];
-                        txtOption3.Text = _option[2];
-                        txtOption4.Text = _option[3]; //temporary method!
-                    }
 
+                    }
                 }
+                else if (a == 0 && b != 0)
+                {//if it is TrueFalse;
+                    foreach (XmlNode xn in GetTrueFalse)
+                    {
+                        txtTrueFalse.Text = xn["Questi"].InnerText;
+                        if (xn["Answer"].InnerText == "True")
+                            rbTrue.IsChecked = true;
+                        else
+                            rbFalse.IsChecked = true;
+                    }
+                }
+
             }
         }
         // method to create and write to xml file 
@@ -223,7 +242,7 @@ namespace ExamMaker
             if (!isNew)//not newly create file
                 QuestionID.Value = (AddQuestion.CielingId + 1).ToString();
             else//new File
-                QuestionID.Value = ID++.ToString();
+                QuestionID.Value = (ID++).ToString();
             Question.Attributes.Append(QuestionID);
 
             XmlNode Questio = xmlDoc.SelectSingleNode("/ns:Quiz/ns:Questions/ns:MultipleChoice/ns:Question", ns);
@@ -572,11 +591,12 @@ namespace ExamMaker
                 if (i == 0)
                 {// question is selected in the treeview. extract the question Id
                     ID = Convert.ToInt16(item.Header.ToString().Replace("Question no. ", "")); isView = true;
+                    LoadItemsFromTreeView(ID.ToString());
                 }
                 else
                 {
                     isView = false;
-                    LoadItemsFromTreeView(ID.ToString());
+                    LoadItemsFromTreeView();
                 }
                 if (ID != 0)
                 {
@@ -586,6 +606,8 @@ namespace ExamMaker
                         cmbQuestionType.SelectedValue = "Fill in the blanks";
                     else if (item.Header.ToString().IndexOf("longAnswer") == 0) //if it is a long Answer type
                         cmbQuestionType.SelectedValue = "Long Answer";
+                    else if (item.Header.ToString().IndexOf("TrueFalse") == 0) //if it is a long Answer type
+                        cmbQuestionType.SelectedValue = "True False";
                     isAddNew = false;// show the gridAddDelete
                 }
                 else
