@@ -15,7 +15,7 @@
                 </Border>
             </DockPanel>
         </ControlTemplate>
-        
+
         <Style TargetType="{x:Type TextBox}">
             <Style.Triggers>
                 <Trigger Property="Validation.HasError" Value="true">
@@ -60,9 +60,8 @@
 
                 <TreeView.ItemContainerStyle>
                     <Style TargetType="{x:Type TreeViewItem}">
-                        <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
-                        <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
-                        <Setter Property="FontWeight" Value="Normal" />
+                        <Setter Property="IsExpanded" Value="True" />
+
                         <Style.Triggers>
                             <Trigger Property="IsSelected" Value="True">
                                 <Setter Property="FontWeight" Value="Bold" />
@@ -72,7 +71,7 @@
                 </TreeView.ItemContainerStyle>
             </TreeView>
         </DockPanel>
-        <Image Height="150" VerticalAlignment="Top" Source="Pictures/RobertsonBanner.jpg" Margin="241,0,-26,0"/>
+        <Image Height="150" VerticalAlignment="Top" Source="Pictures/RobertsonBanner.jpg" Margin="146,0,69,0"/>
 
         <Grid x:Name="MainGrid" HorizontalAlignment="Left" Height="450" Margin="241,152,0,0" VerticalAlignment="Top" Width="764">
             <Grid.ColumnDefinitions>
@@ -81,6 +80,7 @@
             </Grid.ColumnDefinitions>
             <TextBlock Name="Title" HorizontalAlignment="Left" Margin="5,10,0,0" FontSize="30" Foreground="#F62217"  TextWrapping="Wrap" Text="Welcome to Robertson Quiz Maker!" VerticalAlignment="Top" RenderTransformOrigin="0.476,0.526" Grid.ColumnSpan="2"/>
             <Grid x:Name="gridQuizSummary" Visibility="Hidden"  HorizontalAlignment="Left" Height="170" Margin="15,45,0,0" VerticalAlignment="Top" Width="749" RenderTransformOrigin="0.497,0.323" Grid.ColumnSpan="2">
+                <Border BorderBrush="Beige" BorderThickness="2"></Border>
 
                 <Label Content="Subject:" FontSize="14" HorizontalAlignment="Left" Margin="314,48,0,0" VerticalAlignment="Top"/>
                 <TextBox Name="txtSubject" HorizontalAlignment="Left" Height="23" Margin="389,51,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="113" RenderTransformOrigin="-1.956,2.217" Validation.ErrorTemplate="{StaticResource SubjectErrorTemplate}">
@@ -160,20 +160,17 @@
                 <Button x:Name="btnEdit" Content="Edit" HorizontalAlignment="Left" Margin="15,10,0,0" VerticalAlignment="Top" Width="75" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Click="btnEdit_Click"/>
                 <Button x:Name="btnDelete" Content="Delete" HorizontalAlignment="Left" Margin="15,55,0,0" VerticalAlignment="Top" Width="75" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Click="btnDelete_Click"/>
             </Grid>
-            <Grid x:Name="gridFillBlanks" Visibility="Hidden" HorizontalAlignment="Left" Height="195" Margin="29,235,0,0" VerticalAlignment="Top" Width="575" RenderTransformOrigin="0.5,0.258" Grid.ColumnSpan="2">
-                <Label Content="Fill Blanks Question Text:" FontSize="14" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Width="170"/>
-                <TextBox x:Name="txtFillBlanks" TextWrapping="Wrap" HorizontalAlignment="Left" Height="23" Margin="50,34,0,0" Text="" VerticalAlignment="Top" Width="496"/>
-                <TextBox x:Name="txtChoice1" HorizontalAlignment="Left" Height="23" Margin="135,68,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-                <TextBox x:Name="txtChoice2" HorizontalAlignment="Left" Height="23" Margin="135,112,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-                <TextBox x:Name="txtChoice3" HorizontalAlignment="Left" Height="23" Margin="360,68,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.917,0.652"/>
-                <TextBox x:Name="txtChoice4" HorizontalAlignment="Left" Height="23" Margin="360,109,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" RenderTransformOrigin="2.208,0.304"/>
-                <RadioButton x:Name="cboChoice1" Content="1." HorizontalAlignment="Left" Margin="90,76,0,0" VerticalAlignment="Top" />
-                <RadioButton x:Name="cboChoice2" Content="2." HorizontalAlignment="Left" Margin="316,76,0,0" VerticalAlignment="Top"/>
-                <RadioButton x:Name="cboChoice3" Content="3." HorizontalAlignment="Left" Margin="90,120,0,0" VerticalAlignment="Top"/>
-                <RadioButton x:Name="cboChoice4" Content="4." HorizontalAlignment="Left" Margin="316,117,0,0" VerticalAlignment="Top"/>
-                <Button x:Name="btnFillBlanks" Content="Submit Question" HorizontalAlignment="Left" Margin="245,160,0,0" VerticalAlignment="Top" Width="120" Height="25" Click="btnFillBlanks_Click"/>
+            <Grid x:Name="gridFillBlanks" Visibility="Hidden" HorizontalAlignment="Left" Height="205" Margin="29,235,0,0" VerticalAlignment="Top" Width="645" RenderTransformOrigin="0.5,0.258" Grid.ColumnSpan="2">
+                <Border BorderBrush="Beige" BorderThickness="2"></Border>
+                <Label Content="Fill Blanks Question:" FontSize="14" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Width="170"/>
+                <TextBox x:Name="txtFillBlanks" TextWrapping="Wrap" HorizontalAlignment="Left" Height="34" Margin="55,54,0,0" Text="" VerticalAlignment="Top" Width="470"/>
+                <Button x:Name="btnFillBlanks" Content="Submit Question" HorizontalAlignment="Left" Margin="250,158,0,0" VerticalAlignment="Top" Width="120" Height="25" Click="btnFillBlanks_Click"/>
+                <TextBox x:Name="txtFillinAnswer" HorizontalAlignment="Left" Height="30" Margin="155,108,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="320"/>
+                <Button x:Name="btnAddUnderline" Content="Add line" HorizontalAlignment="Left" Margin="540,68,0,0" VerticalAlignment="Top" Width="75" Click="btnAddUnderline_Click"/>
+                <Label Content="Answer:" HorizontalAlignment="Left" Margin="85,112,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.526,0.385"/>
             </Grid>
             <Grid Visibility="Hidden" x:Name="gridTrueFalse" HorizontalAlignment="Left" Height="160" Margin="39,245,0,0" VerticalAlignment="Top" Width="555" RenderTransformOrigin="0.485,0.35" Grid.ColumnSpan="2" d:IsHidden="True">
+                <Border BorderBrush="Beige" BorderThickness="2"></Border>
                 <Label Content="True or False Question Text:" FontSize="14" HorizontalAlignment="Left" Margin="10,6,0,0" VerticalAlignment="Top"/>
                 <RadioButton x:Name="rbTrue" Content="True" HorizontalAlignment="Left" Margin="165,75,0,0" VerticalAlignment="Top"/>
                 <RadioButton x:Name="rbFalse" Content="False" HorizontalAlignment="Left" Margin="355,75,0,0" VerticalAlignment="Top"/>
@@ -181,6 +178,7 @@
                 <Button x:Name="btnTrueFalse" Content="Submit Question" HorizontalAlignment="Left" Margin="225,105,0,0" VerticalAlignment="Top" Width="115" Height="30" Click="btnTrueFalse_Click"/>
             </Grid>
             <Grid Visibility="Hidden" x:Name="gridMultipleChoice"  HorizontalAlignment="Left" Height="210" Margin="15,240,0,0" VerticalAlignment="Top" Width="564" RenderTransformOrigin="0.42,-0.044" Grid.ColumnSpan="2">
+                <Border BorderBrush="Beige" BorderThickness="2"></Border>
                 <Label Content="Multiple Choice Question Text:" FontSize="14" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.395,0.192" Width="215" Height="30"/>
                 <TextBox x:Name="txtOption1" HorizontalAlignment="Left" Height="23" Margin="84,88,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="190" Validation.ErrorTemplate="{StaticResource SubjectErrorTemplate}">
                     <TextBox.Text>
@@ -257,5 +255,9 @@
 
         <Label Content="Quiz Tree view:" FontSize="14" FontWeight="Bold" Foreground="SlateGray" HorizontalAlignment="Left" Margin="20,165,0,0" VerticalAlignment="Top" Width="110"/>
         <TextBox x:Name="status" HorizontalAlignment="Left" Height="22" Margin="10,655,0,0" TextWrapping="Wrap" Text="status" VerticalAlignment="Top" Width="1014" IsReadOnly="True" FontWeight="Bold"/>
+        <Grid Name="FrontGrid" HorizontalAlignment="Left" Height="382" Margin="275,220,0,0" VerticalAlignment="Top" Width="655">
+            <Button x:Name="btnOpen" Content="Open" HorizontalAlignment="Left" Margin="370,110,0,0" VerticalAlignment="Top" Width="95" Height="80"/>
+            <Button Name="btnNew" Content="New" HorizontalAlignment="Left" Margin="185,110,0,0" VerticalAlignment="Top" Width="95" Height="80"/>
+        </Grid>
     </Grid>
 </Window>

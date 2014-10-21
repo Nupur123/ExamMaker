@@ -71,10 +71,10 @@ namespace ExamMaker
                 string Course = xn["Course"].InnerText;
                 switch (Diff)
                 {
-                    case "beginner":
+                    case "Beginner":
                         cmbDiff.SelectedValue = "Beginner";
                         break;
-                    case "intermediate":
+                    case "Intermediate":
                         cmbDiff.SelectedValue = "Intermediate";
                         break;
                     default:
@@ -103,9 +103,11 @@ namespace ExamMaker
                 //loading for Multiple Type
                 XmlNodeList GetQuestionMulti = xmlDoc.SelectNodes("/ns:Quiz/ns:Questions/ns:MultipleChoice/ns:Question[@ID=" + QuestionId + "]", ns);
                 XmlNodeList GetTrueFalse = xmlDoc.SelectNodes("/ns:Quiz/ns:Questions/ns:TrueFalse/ns:Question[@ID=" + QuestionId + "]", ns);
+                XmlNodeList GetFillIn = xmlDoc.SelectNodes("/ns:Quiz/ns:Questions/ns:FillBlanks/ns:Question[@ID=" + QuestionId + "]", ns);
                 int a = GetQuestionMulti.Count;
                 int b = GetTrueFalse.Count;
-                if (a != 0 && b == 0)
+                int c = GetFillIn.Count;
+                if (a != 0 && b == 0 && c == 0)
                 {//it is a Multiple
                     foreach (XmlNode xn in GetQuestionMulti)
                     {
@@ -143,7 +145,7 @@ namespace ExamMaker
 
                     }
                 }
-                else if (a == 0 && b != 0)
+                else if (a == 0 && b != 0 && c == 0)
                 {//if it is TrueFalse;
                     foreach (XmlNode xn in GetTrueFalse)
                     {
@@ -152,6 +154,14 @@ namespace ExamMaker
                             rbTrue.IsChecked = true;
                         else
                             rbFalse.IsChecked = true;
+                    }
+                }
+                else if(a==0 && b==0 && c!=0)
+                {
+                    foreach (XmlNode xn in GetFillIn)
+                    {
+                        txtFillBlanks.Text = xn["Questi"].InnerText;
+                        txtFillinAnswer.Text = xn["Answer"].InnerText;
                     }
                 }
 
@@ -284,48 +294,36 @@ namespace ExamMaker
         private void AddFillBlanks()
         {
             //setting object reference here before using it
+            XmlNamespaceManager ns = new XmlNamespaceManager(xmlDoc.NameTable);
+            ns.AddNamespace("ns", "urn:Question-Schema");
             QuestionsNode = xmlDoc.DocumentElement;
 
-            XmlNodeList xnList = xmlDoc.SelectNodes("/Quiz/Questions/FillBlanks");
+            //XmlNodeList xnList = xmlDoc.SelectNodes("/ns:Quiz/ns:Questions/ns:FillBlanks", ns);
 
-            XmlNode xn = xmlDoc.SelectSingleNode("/Quiz/Questions/FillBlanks");
+            XmlNode xn = xmlDoc.SelectSingleNode("/ns:Quiz/ns:Questions/ns:FillBlanks",ns);
 
-            XmlElement Question = xmlDoc.CreateElement("Question");
+            XmlElement Question = xmlDoc.CreateElement("Question", xmlNS);
             xn.AppendChild(Question);
 
             XmlAttribute QuestionID = xmlDoc.CreateAttribute("ID");
-            QuestionID.Value = ID++.ToString();
+            if (!isNew)//not newly create file
+                QuestionID.Value = (AddQuestion.CielingId + 1).ToString();
+            else//new File
+                QuestionID.Value = (ID++).ToString();
             Question.Attributes.Append(QuestionID);
-            Question.InnerText = txtFillBlanks.Text;
 
-            XmlElement Choice = xmlDoc.CreateElement("Choice");
-            xn.AppendChild(Choice);
+            XmlNode Questio = xmlDoc.SelectSingleNode("/ns:Quiz/ns:Questions/ns:FillBlanks/ns:Question", ns);
+            XmlElement Questi = xmlDoc.CreateElement("Questi", xmlNS);
+            Questi.InnerText = txtFillBlanks.Text;
+            Questio.AppendChild(Questi);
 
-            XmlElement Choice1 = xmlDoc.CreateElement("Choice");
-            XmlElement Choice2 = xmlDoc.CreateElement("Choice");
-            XmlElement Choice3 = xmlDoc.CreateElement("Choice");
-            XmlElement Choice4 = xmlDoc.CreateElement("Choice");
+            XmlElement Answer = xmlDoc.CreateElement("Answer", xmlNS);
+            Answer.InnerText = txtFillinAnswer.Text;
+            xn.AppendChild(Answer);
+            Questio.AppendChild(Answer);
 
-            Choice1.InnerText = txtChoice1.Text;
-            Choice.AppendChild(Choice1);
-            Choice2.InnerText = txtChoice2.Text;
-            Choice.AppendChild(Choice2);
-            Choice3.InnerText = txtChoice3.Text;
-            Choice.AppendChild(Choice3);
-            Choice4.InnerText = txtChoice4.Text;
-            Choice.AppendChild(Choice4);
-
-            XmlAttribute Correct = xmlDoc.CreateAttribute("Correct");
-            Correct.Value = "Yes";
-
-            if (cboChoice1.IsChecked == true)
-                Choice1.Attributes.Append(Correct);
-            if (cboChoice2.IsChecked == true)
-                Choice2.Attributes.Append(Correct);
-            if (cboChoice3.IsChecked == true)
-                Choice3.Attributes.Append(Correct);
-            if (cboChoice4.IsChecked == true)
-                Choice4.Attributes.Append(Correct);
+            Question.AppendChild(Questi);
+            Question.AppendChild(Answer);
         }
 
         private void AddTrueFalse()
@@ -375,8 +373,8 @@ namespace ExamMaker
                     else
                         AddMultipleChoice();
 
-                System.Xml.XmlTextWriter wr = new System.Xml.XmlTextWriter(NewFilePath, Encoding.UTF8);
-                wr.Formatting = Formatting.None;
+                XmlTextWriter wr = new XmlTextWriter(NewFilePath, Encoding.UTF8);
+                wr.Formatting = Formatting.None; // no new line spaces;
 
                 xmlDoc.Save(wr);
                 filename = NewFilePath;
@@ -434,7 +432,7 @@ namespace ExamMaker
                         }
                     }
                 }
-                xmlDoc.Save(filename);
+                //xmlDoc.Save(filename);
             }
         }
 
@@ -451,8 +449,13 @@ namespace ExamMaker
                 UpdateQuestion();
             else
                 AddTrueFalse();
-            xmlDoc.Save(NewFilePath);
+
+            XmlTextWriter wr = new XmlTextWriter(NewFilePath, Encoding.UTF8);
+            wr.Formatting = Formatting.None; // no new line spaces;
+
+            xmlDoc.Save(wr);
             filename = NewFilePath;
+            wr.Close();
             LoadTreeView();
         }
 
@@ -464,10 +467,17 @@ namespace ExamMaker
             {
                 CreateQuiz();
             }
-
-            AddFillBlanks();
-            xmlDoc.Save(NewFilePath);
+            else
+                isNew = false;
+            if (isEdit)
+                UpdateQuestion();
+            else
+                AddFillBlanks();
+            XmlTextWriter wr = new XmlTextWriter(NewFilePath, Encoding.UTF8);
+            wr.Formatting = Formatting.None; // no new line spaces;
+            xmlDoc.Save(wr);
             filename = NewFilePath;
+            wr.Close();
             LoadTreeView();
         }
 
@@ -758,7 +768,10 @@ namespace ExamMaker
             XmlNodeList nodes = xmlDoc.SelectNodes("/ns:Quiz/ns:Questions/ns:MultipleChoice/ns:Question[@ID=" + ID + "]", ns);
             XmlNode node = nodes[0];
             node.ParentNode.RemoveChild(node);
-            xmlDoc.Save(filename);
+            XmlTextWriter wr = new XmlTextWriter(filename, Encoding.UTF8);
+            wr.Formatting = Formatting.None; // no new line spaces;
+            xmlDoc.Save(wr);
+            wr.Close();
             LoadTreeView();
         }
 
@@ -824,8 +837,16 @@ namespace ExamMaker
             if (result == true)
             {
                 string SaveAsFilePath = dlg.FileName;
-                xmlDoc.Save(SaveAsFilePath);
+                XmlTextWriter wr = new XmlTextWriter(SaveAsFilePath, Encoding.UTF8);
+                wr.Formatting = Formatting.None; // no new line spaces;
+                xmlDoc.Save(wr);
+                wr.Close();
             }
+        }
+
+        private void btnAddUnderline_Click(object sender, RoutedEventArgs e)
+        {
+            txtFillBlanks.Text += " ________________ ";
         }
 
     }
