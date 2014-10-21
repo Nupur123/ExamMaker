@@ -256,8 +256,8 @@
         <Label Content="Quiz Tree view:" FontSize="14" FontWeight="Bold" Foreground="SlateGray" HorizontalAlignment="Left" Margin="20,165,0,0" VerticalAlignment="Top" Width="110"/>
         <TextBox x:Name="status" HorizontalAlignment="Left" Height="22" Margin="10,655,0,0" TextWrapping="Wrap" Text="status" VerticalAlignment="Top" Width="1014" IsReadOnly="True" FontWeight="Bold"/>
         <Grid Name="FrontGrid" HorizontalAlignment="Left" Height="382" Margin="275,220,0,0" VerticalAlignment="Top" Width="655">
-            <Button x:Name="btnOpen" Content="Open" HorizontalAlignment="Left" Margin="370,110,0,0" VerticalAlignment="Top" Width="95" Height="80"/>
-            <Button Name="btnNew" Content="New" HorizontalAlignment="Left" Margin="185,110,0,0" VerticalAlignment="Top" Width="95" Height="80"/>
+            <Button x:Name="btnOpen" Content="Open" HorizontalAlignment="Left" Margin="370,110,0,0" VerticalAlignment="Top" Width="95" Height="80" Click="btnOpen_Click"/>
+            <Button Name="btnNew" Content="New" HorizontalAlignment="Left" Margin="185,110,0,0" VerticalAlignment="Top" Width="95" Height="80" Click="btnNew_Click"/>
         </Grid>
     </Grid>
 </Window>

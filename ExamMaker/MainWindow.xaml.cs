@@ -484,6 +484,10 @@ namespace ExamMaker
 
         private void Open_Click(object sender, RoutedEventArgs e)
         {
+            OpenDialog();
+        }
+        private void OpenDialog()
+        {
             // Create OpenFileDialog
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
             // Set filter for file extension and default file extension
@@ -521,6 +525,7 @@ namespace ExamMaker
                 Save_As.IsEnabled = true;
                 Save.IsEnabled = true;
                 gridQuizSummary.Visibility = System.Windows.Visibility.Visible;
+                FrontGrid.Visibility = Visibility.Hidden;
             }
             else
             {
@@ -676,6 +681,10 @@ namespace ExamMaker
         }
 
         private void New_Click(object sender, RoutedEventArgs e)
+        {
+            NewDialog();
+        }
+        private void NewDialog()
         {
             Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
             dlg.DefaultExt = ".xqz";
@@ -848,6 +857,17 @@ namespace ExamMaker
         {
             txtFillBlanks.Text += " ________________ ";
         }
+
+        private void btnNew_Click(object sender, RoutedEventArgs e)
+        {
+            NewDialog();
+        }
+
+        private void btnOpen_Click(object sender, RoutedEventArgs e)
+        {
+            OpenDialog();
+        }
+
 
     }
 }
