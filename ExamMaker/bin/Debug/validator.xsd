@@ -65,7 +65,21 @@
                   </xs:sequence>
                 </xs:complexType>
               </xs:element>
-              <xs:element name="longAnswer" maxOccurs="1"></xs:element>
+              <xs:element name="longAnswer" maxOccurs="1">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Question" maxOccurs="unbounded" minOccurs="0">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="Questi" type="xs:string" maxOccurs="1" ></xs:element>
+                          <xs:element name="Answer" type="xs:string" maxOccurs="1" ></xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="ID" type="xs:int"></xs:attribute>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
             </xs:sequence>
           </xs:complexType>
         </xs:element>

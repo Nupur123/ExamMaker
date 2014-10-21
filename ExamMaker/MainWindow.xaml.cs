@@ -45,23 +45,10 @@ namespace ExamMaker
 
         public MainWindow()
         {
-            //Process compiler = new Process();
-            //compiler.StartInfo.FileName = "StartMeUp.exe";
-            //compiler.StartInfo.Arguments = "/r:System.dll /out:sample.exe stdstr.cs";
-            //compiler.StartInfo.UseShellExecute = false;
-            //compiler.StartInfo.RedirectStandardOutput = true;
-            //compiler.Start();
-
-            //Console.WriteLine(compiler.StandardOutput.ReadToEnd());
-            //string x = compiler.StandardOutput.ReadToEnd();
-            //compiler.WaitForExit();
-
             InitializeComponent();
             filename = AddQuestion.arg;
             if (filename != null && filename != "")
                 LoadFileAndValidate();
-
-
         }
         private void LoadItemsFromTreeView(string QuestionId = null)
         {
@@ -388,9 +375,14 @@ namespace ExamMaker
                     else
                         AddMultipleChoice();
 
-                xmlDoc.Save(NewFilePath);
+                System.Xml.XmlTextWriter wr = new System.Xml.XmlTextWriter(NewFilePath, Encoding.UTF8);
+                wr.Formatting = Formatting.None;
+
+                xmlDoc.Save(wr);
                 filename = NewFilePath;
+                wr.Close();
                 LoadTreeView();
+
             }
 
         }

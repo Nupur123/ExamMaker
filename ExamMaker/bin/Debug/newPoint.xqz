@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Quiz QuizId="113164" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema">
+  <Details>
+    <Title>quiz1</Title>
+    <Subject>quiz1a</Subject>
+    <Course>Software Developer</Course>
+    <Time>2</Time>
+    <Difficulty>Beginner</Difficulty>
+  </Details>
+  <Questions>
+    <MultipleChoice>
+      <Question ID="1">
+        <Questi>asd</Questi>
+        <Options>
+          <Option>x</Option>
+          <Option>zd</Option>
+          <Option Correct="yes">w</Option>
+          <Option>aqe</Option>
+        </Options>
+      </Question>
+      <Question ID="2">
+        <Questi>1231</Questi>
+        <Options>
+          <Option>axzc</Option>
+          <Option Correct="yes">asd</Option>
+          <Option>qwe</Option>
+          <Option>eqweqe</Option>
+        </Options>
+      </Question>
+      <Question ID="3">
+        <Questi>asd</Questi>
+        <Options>
+          <Option>zxc</Option>
+          <Option>da</Option>
+          <Option Correct="yes">e</Option>
+          <Option>q</Option>
+        </Options>
+      </Question>
+      <Question ID="4">
+        <Questi>ppp</Questi>
+        <Options>
+          <Option>ppp</Option>
+          <Option>ppp</Option>
+          <Option Correct="yes">p</Option>
+          <Option>p</Option>
+        </Options>
+      </Question>
+      <Question ID="6">
+        <Questi>zxc</Questi>
+        <Options>
+          <Option Correct="yes">as</Option>
+          <Option>dzxcas</Option>
+          <Option>ds</Option>
+          <Option>dsa</Option>
+        </Options>
+      </Question>
+    </MultipleChoice>
+    <FillBlanks />
+    <TrueFalse>
+      <Question ID="5">
+        <Questi>dasda</Questi>
+        <Answer>True</Answer>
+      </Question>
+      <Question ID="7">
+        <Questi>asdaaxzcsd</Questi>
+        <Answer>False</Answer>
+      </Question>
+    </TrueFalse>
+    <longAnswer />
+  </Questions>
+</Quiz>
