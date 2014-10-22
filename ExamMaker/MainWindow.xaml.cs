@@ -156,7 +156,7 @@ namespace ExamMaker
                             rbFalse.IsChecked = true;
                     }
                 }
-                else if(a==0 && b==0 && c!=0)
+                else if (a == 0 && b == 0 && c != 0)
                 {
                     foreach (XmlNode xn in GetFillIn)
                     {
@@ -174,7 +174,8 @@ namespace ExamMaker
             ID = 1;
             GenerateQuizid();
             isNew = true;
-            xmlDoc.PrependChild(xmlDoc.CreateXmlDeclaration("1.0", "utf-8", ""));
+            //xmlDoc.PrependChild(xmlDoc.CreateXmlDeclaration("1.0", "utf-8", ""));
+            //xmlDoc.PrependChild(xmlDoc.CreateXmlDeclaration("1.0", null, ""));
             XmlElement rootNode = xmlDoc.CreateElement("Quiz", xmlNS);
             rootNode.SetAttribute("QuizId", QuizId.ToString());
             rootNode.SetAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
@@ -300,7 +301,7 @@ namespace ExamMaker
 
             //XmlNodeList xnList = xmlDoc.SelectNodes("/ns:Quiz/ns:Questions/ns:FillBlanks", ns);
 
-            XmlNode xn = xmlDoc.SelectSingleNode("/ns:Quiz/ns:Questions/ns:FillBlanks",ns);
+            XmlNode xn = xmlDoc.SelectSingleNode("/ns:Quiz/ns:Questions/ns:FillBlanks", ns);
 
             XmlElement Question = xmlDoc.CreateElement("Question", xmlNS);
             xn.AppendChild(Question);
@@ -317,13 +318,33 @@ namespace ExamMaker
             Questi.InnerText = txtFillBlanks.Text;
             Questio.AppendChild(Questi);
 
-            XmlElement Answer = xmlDoc.CreateElement("Answer", xmlNS);
-            Answer.InnerText = txtFillinAnswer.Text;
-            xn.AppendChild(Answer);
-            Questio.AppendChild(Answer);
+            XmlElement Options = xmlDoc.CreateElement("Options", xmlNS);
+            Questio.AppendChild(Options);
+
+            XmlElement OptionCorrect = xmlDoc.CreateElement("Option", xmlNS);
+            XmlElement Option1 = xmlDoc.CreateElement("Option", xmlNS);
+            XmlElement Option2 = xmlDoc.CreateElement("Option", xmlNS);
+            XmlElement Option3 = xmlDoc.CreateElement("Option", xmlNS);
+            XmlElement Option4 = xmlDoc.CreateElement("Option", xmlNS);
+
+            OptionCorrect.InnerText = txtFillinAnswer.Text;
+            Options.AppendChild(OptionCorrect);
+            Option1.InnerText = txtOption1.Text;
+            Options.AppendChild(Option1);
+            Option2.InnerText = txtOption2.Text;
+            Options.AppendChild(Option2);
+            Option3.InnerText = txtOption3.Text;
+            Options.AppendChild(Option3);
+            Option4.InnerText = txtOption4.Text;
+            Options.AppendChild(Option4);
+
+            XmlAttribute Correct = xmlDoc.CreateAttribute("Correct");
+            Correct.Value = "yes";
+            OptionCorrect.Attributes.Append(Correct);
+
 
             Question.AppendChild(Questi);
-            Question.AppendChild(Answer);
+            Question.AppendChild(Options);
         }
 
         private void AddTrueFalse()
