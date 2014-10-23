@@ -394,7 +394,7 @@ namespace ExamMaker
                     else
                         AddMultipleChoice();
 
-                XmlTextWriter wr = new XmlTextWriter(NewFilePath, Encoding.UTF8);
+                XmlTextWriter wr = new XmlTextWriter(NewFilePath,null);
                 wr.Formatting = Formatting.None; // no new line spaces;
 
                 xmlDoc.Save(wr);
