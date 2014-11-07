@@ -37,7 +37,6 @@
                                       </xs:extension>
                                     </xs:simpleContent>
                                   </xs:complexType>
-
                                 </xs:element>
                               </xs:sequence>
                             </xs:complexType>
@@ -56,8 +55,21 @@
                       <xs:complexType>
                         <xs:sequence>
                           <xs:element name="Questi" type="xs:string" maxOccurs="1"></xs:element>
-                          <xs:element name="Answer" maxOccurs="1" type="xs:string">
-                            
+                          <!--<xs:element name="Answer" type="xs:string" maxOccurs="1" ></xs:element>-->
+                          <xs:element name="Options" maxOccurs="1">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="Option" maxOccurs="6">
+                                  <xs:complexType>
+                                    <xs:simpleContent>
+                                      <xs:extension base="xs:string">
+                                        <xs:attribute name="Correct" use="optional" fixed="yes" type="xs:string" />
+                                      </xs:extension>
+                                    </xs:simpleContent>
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>                            
                           </xs:element>
                         </xs:sequence>
                         <xs:attribute name="ID" type="xs:int"></xs:attribute>
@@ -66,6 +78,26 @@
                   </xs:sequence>
                 </xs:complexType>
               </xs:element>
+                <!--<xs:complexType>                
+                  <xs:sequence>
+                    <xs:element name="Question" maxOccurs="unbounded" minOccurs="0">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="Questi" type="xs:string" maxOccurs="1"></xs:element>
+                          <xs:attribute name="Correct" use="optional" fixed="yes" type="xs:string" />
+                          Added By Adrian 
+                          <xs:element name="Options" maxOccurs="1"></xs:element>
+                          <xs:element name="Option" maxOccurs="8"></xs:element>
+                          Adrian
+                            <xs:element name="Answer" maxOccurs="1" type="xs:string">
+                          </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="ID" type="xs:int"></xs:attribute>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+                </xs:element>-->
               <xs:element name="TrueFalse" maxOccurs="1">
                 <xs:complexType>
                   <xs:sequence>
