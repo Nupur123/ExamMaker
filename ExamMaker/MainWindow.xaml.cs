@@ -92,11 +92,15 @@ namespace ExamMaker
             }
             if (QuestionId != null)
             {
-                txtQuestion.IsReadOnly = true;
+                txtQuestion.IsReadOnly = true;              
                 txtOption1.IsReadOnly = true;
                 txtOption2.IsReadOnly = true;
                 txtOption3.IsReadOnly = true;
                 txtOption4.IsReadOnly = true;
+
+                //True False
+                txtTrueFalse.IsReadOnly = true;
+                //gridEditDelete.Visibility = System.Windows.Visibility.Visible;
                 GridQuestionType.Visibility = System.Windows.Visibility.Hidden;
 
                 //loading for Multiple Type
@@ -146,21 +150,58 @@ namespace ExamMaker
                 }
                 else if (a == 0 && b != 0 && c == 0)
                 {//if it is TrueFalse;
+                    //New code!!!
                     foreach (XmlNode xn in GetTrueFalse)
                     {
                         txtTrueFalse.Text = xn["Questi"].InnerText;
-                        if (xn["Answer"].InnerText == "True")
-                            rbTrue.IsChecked = true;
-                        else
-                            rbFalse.IsChecked = true;
+                        XmlNodeList GetTF = xmlDoc.SelectNodes("/ns:Quiz/ns:Questions/ns:TrueFalse/ns:Question[@ID=" + QuestionId + "]/ns:Options", ns);
+                        //TrueFalse;
+                        foreach (XmlNode xno in GetTF)
+                        {
+                            string[] _Answer = new string[3];
+                            int x = 0;
+                            foreach (XmlNode xno2 in xno)
+                            {
+                                _Answer[x] = xno2.InnerText;
+                                if ((xno2.Attributes["Correct"] != null) && (xno2.Attributes["Correct"].Value) == "yes")
+                                {
+                                    switch (x)
+                                    {
+                                        case 0: rbTrue.IsChecked = true;
+                                            break;
+                                        case 1: rbFalse.IsChecked = true;
+                                            break;
+                                    }
+                                }
+                                x++;
+                            }
+                            //rbTrue.IsChecked = _Answer["true"];
+                            //txtOption2.Text = _option[1];
+                            //txtOption3.Text = _option[2];
+                            //txtOption4.Text = _option[3]; //temporary method!
+                        }
+
                     }
+
+
+                    //foreach (XmlNode xno in GetTrueFalse)
+                    //{
+                    //    txtTrueFalse.Text = xno["Questi"].InnerText;
+                    //    //Error here
+                    //    if (xno["Correct"].InnerText == "True")
+                    //        rbTrue.IsChecked = true;
+                    //    else
+                    //        rbFalse.IsChecked = true;
+                    //}
                 }
                 else if (a == 0 && b == 0 && c != 0)
                 {
                     foreach (XmlNode xn in GetFillIn)
                     {
                         txtFillBlanks.Text = xn["Questi"].InnerText;
-                        txtFillinAnswer.Text = xn["Answer"].InnerText;
+                        txtFillinAnswer.Text = xn["Correct"].InnerText;
+                        txtFillinAnswer2.Text = xn["Correct"].InnerText;
+                        txtFillinAnswer3.Text = xn["Correct"].InnerText;
                     }
                 }
 
@@ -178,7 +219,7 @@ namespace ExamMaker
             XmlElement rootNode = xmlDoc.CreateElement("Quiz", xmlNS);
             rootNode.SetAttribute("QuizId", QuizId.ToString());
             rootNode.SetAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
-            //rootNode.SetAttribute("x mlns", "urn:Question-Schema");
+            //rootNode.SetAttribute("xmlns", "urn:Question-Schema");
             xmlDoc.AppendChild(rootNode);
             rootNode = xmlDoc.DocumentElement;
 
@@ -322,16 +363,18 @@ namespace ExamMaker
 
             XmlElement OptionCorrect = xmlDoc.CreateElement("Option", xmlNS);
             XmlElement Option1 = xmlDoc.CreateElement("Option", xmlNS);
-            XmlElement Option2 = xmlDoc.CreateElement("Option", xmlNS);
+            //XmlElement Option2 = xmlDoc.CreateElement("Option", xmlNS);
             XmlElement Option3 = xmlDoc.CreateElement("Option", xmlNS);
             XmlElement Option4 = xmlDoc.CreateElement("Option", xmlNS);
 
             OptionCorrect.InnerText = txtFillinAnswer.Text;
             Options.AppendChild(OptionCorrect);
+            OptionCorrect.InnerText = txtFillinAnswer2.Text;
+            Options.AppendChild(OptionCorrect);
             Option1.InnerText = txtOption1.Text;
             Options.AppendChild(Option1);
-            Option2.InnerText = txtOption2.Text;
-            Options.AppendChild(Option2);
+            OptionCorrect.InnerText = txtFillinAnswer3.Text;
+            Options.AppendChild(OptionCorrect);
             Option3.InnerText = txtOption3.Text;
             Options.AppendChild(Option3);
             Option4.InnerText = txtOption4.Text;
@@ -495,6 +538,7 @@ namespace ExamMaker
                 AddFillBlanks();
             XmlTextWriter wr = new XmlTextWriter(NewFilePath, Encoding.UTF8);
             wr.Formatting = Formatting.None; // no new line spaces;
+
             xmlDoc.Save(wr);
             filename = NewFilePath;
             wr.Close();
@@ -607,6 +651,7 @@ namespace ExamMaker
             txtOption2.Clear();
             txtOption3.Clear();
             txtOption4.Clear();
+            txtTrueFalse.Clear();
         }
         private void TreeViewItem_Selected(object sender, RoutedEventArgs e)
         {//any item selected in the treeview will result on loopings where it begins at the bottom hierarchy(current node selected) until it reaches the parent node
@@ -634,13 +679,19 @@ namespace ExamMaker
                     else if (item.Header.ToString().IndexOf("longAnswer") == 0) //if it is a long Answer type
                         cmbQuestionType.SelectedValue = "Long Answer";
                     else if (item.Header.ToString().IndexOf("TrueFalse") == 0) //if it is a long Answer type
+                       
                         cmbQuestionType.SelectedValue = "True False";
                     isAddNew = false;// show the gridAddDelete
                 }
                 else
                     isAddNew = true;//Hide The GridAddDelete
                 ActivateGridEditDelete();
+                btnTrueFalse.Visibility = System.Windows.Visibility.Hidden;
                 btnSubmit.Visibility = System.Windows.Visibility.Hidden;
+                btnTrueFalseDelete.Visibility = System.Windows.Visibility.Visible;
+                btnTrueFalseEdit.Visibility = System.Windows.Visibility.Visible;
+                btnEdit.Visibility = System.Windows.Visibility.Visible;
+                btnDelete.Visibility = System.Windows.Visibility.Visible;
             }
         }
 
@@ -657,6 +708,7 @@ namespace ExamMaker
                 switch (Type)
                 {
                     case "Multiple Choice":
+
                         gridMultipleChoice.Visibility = System.Windows.Visibility.Visible;
                         gridFillBlanks.Visibility = System.Windows.Visibility.Hidden;
                         gridTrueFalse.Visibility = System.Windows.Visibility.Hidden;
@@ -669,6 +721,8 @@ namespace ExamMaker
                         break;
 
                     case "True False":
+                        btnEdit.Visibility = System.Windows.Visibility.Hidden;
+                        btnDelete.Visibility = System.Windows.Visibility.Hidden;
                         gridTrueFalse.Visibility = System.Windows.Visibility.Visible;
                         gridMultipleChoice.Visibility = System.Windows.Visibility.Hidden;
                         gridFillBlanks.Visibility = System.Windows.Visibility.Hidden;
@@ -774,6 +828,10 @@ namespace ExamMaker
             txtOption3.IsReadOnly = false;
             txtOption4.IsReadOnly = false;
         }
+        private void ActivateTrueFalseGrid()
+        {
+            txtTrueFalse.IsReadOnly = false;
+        }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
@@ -783,8 +841,6 @@ namespace ExamMaker
             else
                 e.Cancel = true;
         }
-
-
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
@@ -794,9 +850,16 @@ namespace ExamMaker
         {
             XmlNamespaceManager ns = new XmlNamespaceManager(xmlDoc.NameTable);
             ns.AddNamespace("ns", "urn:Question-Schema");
+
+            //if (gridMultipleChoice.Visibility == true)
+
+
             XmlNodeList nodes = xmlDoc.SelectNodes("/ns:Quiz/ns:Questions/ns:MultipleChoice/ns:Question[@ID=" + ID + "]", ns);
+         
             XmlNode node = nodes[0];
+
             node.ParentNode.RemoveChild(node);
+
             XmlTextWriter wr = new XmlTextWriter(filename, Encoding.UTF8);
             wr.Formatting = Formatting.None; // no new line spaces;
             xmlDoc.Save(wr);
@@ -888,6 +951,33 @@ namespace ExamMaker
             OpenDialog();
         }
 
+        private void btnTrueFalseDelete_Click(object sender, RoutedEventArgs e)
+        {
+            XmlNamespaceManager ns = new XmlNamespaceManager(xmlDoc.NameTable);
+            ns.AddNamespace("ns", "urn:Question-Schema");
 
+            //if (gridMultipleChoice.Visibility == true)
+
+
+            XmlNodeList nodes = xmlDoc.SelectNodes("/ns:Quiz/ns:Questions/ns:TrueFalse/ns:Question[@ID=" + ID + "]", ns);
+
+            XmlNode node = nodes[0];
+
+            node.ParentNode.RemoveChild(node);
+
+            XmlTextWriter wr = new XmlTextWriter(filename, Encoding.UTF8);
+            wr.Formatting = Formatting.None; // no new line spaces;
+            xmlDoc.Save(wr);
+            wr.Close();
+            LoadTreeView();
+            
+        }
+        private void TrueFalseEdit_Click(object sender, RoutedEventArgs e)
+        {
+            status.Text = ID.ToString();
+            isEdit = true;
+            ActivateTrueFalseGrid();
+            btnTrueFalse.Visibility = System.Windows.Visibility.Visible;
+        }
     }
 }
