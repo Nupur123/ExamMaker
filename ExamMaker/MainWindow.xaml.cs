@@ -97,7 +97,6 @@ namespace ExamMaker
                 txtOption2.IsReadOnly = true;
                 txtOption3.IsReadOnly = true;
                 txtOption4.IsReadOnly = true;
-                //gridEditDelete.Visibility = System.Windows.Visibility.Visible;
                 GridQuestionType.Visibility = System.Windows.Visibility.Hidden;
 
                 //loading for Multiple Type
@@ -179,7 +178,7 @@ namespace ExamMaker
             XmlElement rootNode = xmlDoc.CreateElement("Quiz", xmlNS);
             rootNode.SetAttribute("QuizId", QuizId.ToString());
             rootNode.SetAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
-            //rootNode.SetAttribute("xmlns", "urn:Question-Schema");
+            //rootNode.SetAttribute("x mlns", "urn:Question-Schema");
             xmlDoc.AppendChild(rootNode);
             rootNode = xmlDoc.DocumentElement;
 
