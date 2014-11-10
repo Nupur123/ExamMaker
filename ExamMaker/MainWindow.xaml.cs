@@ -708,7 +708,8 @@ namespace ExamMaker
                 switch (Type)
                 {
                     case "Multiple Choice":
-
+                        btnEdit.Visibility = System.Windows.Visibility.Hidden;
+                        btnDelete.Visibility = System.Windows.Visibility.Hidden;
                         gridMultipleChoice.Visibility = System.Windows.Visibility.Visible;
                         gridFillBlanks.Visibility = System.Windows.Visibility.Hidden;
                         gridTrueFalse.Visibility = System.Windows.Visibility.Hidden;
@@ -721,8 +722,8 @@ namespace ExamMaker
                         break;
 
                     case "True False":
-                        btnEdit.Visibility = System.Windows.Visibility.Hidden;
-                        btnDelete.Visibility = System.Windows.Visibility.Hidden;
+                        btnTrueFalseEdit.Visibility = System.Windows.Visibility.Hidden;
+                        btnTrueFalseDelete.Visibility = System.Windows.Visibility.Hidden;
                         gridTrueFalse.Visibility = System.Windows.Visibility.Visible;
                         gridMultipleChoice.Visibility = System.Windows.Visibility.Hidden;
                         gridFillBlanks.Visibility = System.Windows.Visibility.Hidden;
