@@ -190,11 +190,11 @@ namespace ExamMaker
                             _option[x] = xno2.InnerText;
                             if ((xno2.Attributes["Correct"] != null) && (xno2.Attributes["Correct"].Value) == "yes")
                             {
-                                lbCorrectAnswers.Items.Add(xno2.Value);
+                                lbCorrectAnswers.Items.Contains(xno2.Value);
                             }
                             else
                             {
-                                lbOtherOptions.Items.Add(xno2.Value);
+                                lbOtherOptions.Items.Contains(xno2.Value);
                             }
                             x++;
                         }

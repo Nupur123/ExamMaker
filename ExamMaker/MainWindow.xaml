@@ -185,7 +185,7 @@
                 </ComboBox>
             </Grid>
             <Grid Visibility="Hidden" x:Name="gridEditDelete" Grid.Column="1" HorizontalAlignment="Left" Height="100" Margin="340,293,0,0" VerticalAlignment="Top" Width="100"/>
-            <Grid x:Name="gridFillBlanks" Visibility="Visible" HorizontalAlignment="Left" Height="263" Margin="5,187,0,0" VerticalAlignment="Top" Width="645" RenderTransformOrigin="0.5,0.258" Grid.ColumnSpan="2" d:IsHidden="False">
+            <Grid x:Name="gridFillBlanks" Visibility="Hidden" HorizontalAlignment="Left" Height="263" Margin="5,187,0,0" VerticalAlignment="Top" Width="645" RenderTransformOrigin="0.5,0.258" Grid.ColumnSpan="2" d:IsHidden="False">
                 <Border BorderBrush="Beige" BorderThickness="2" d:IsHidden="True"></Border>
                 <Label Content="Fill Blanks Question:" FontSize="14" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Width="170"/>
                 <TextBox x:Name="txtFillBlanks" TextWrapping="Wrap" HorizontalAlignment="Left" Height="30" Margin="50,43,0,0" Text="" VerticalAlignment="Top" Width="425"/>
