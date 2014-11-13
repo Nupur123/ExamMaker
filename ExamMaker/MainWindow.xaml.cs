@@ -92,7 +92,7 @@ namespace ExamMaker
             }
             if (QuestionId != null)
             {
-                txtQuestion.IsReadOnly = true;              
+                txtQuestion.IsReadOnly = true;
                 txtOption1.IsReadOnly = true;
                 txtOption2.IsReadOnly = true;
                 txtOption3.IsReadOnly = true;
@@ -181,7 +181,23 @@ namespace ExamMaker
                     foreach (XmlNode xn in GetFillIn)
                     {
                         txtFillBlanks.Text = xn["Questi"].InnerText;
-                        txtFillinAnswer.Text = xn["Correct"].InnerText;
+                        XmlNodeList GetFillinBlanks = xmlDoc.SelectNodes("/ns:Quiz/ns:Questions/ns:FillBlanks/ns:Question[@ID=" + QuestionId + "]/ns:Options", ns);
+                        //
+                        foreach (XmlNode xno2 in GetFillinBlanks)
+                        {
+                            string[] _option = new string[9];
+                            int x = 0;
+                            _option[x] = xno2.InnerText;
+                            if ((xno2.Attributes["Correct"] != null) && (xno2.Attributes["Correct"].Value) == "yes")
+                            {
+                                lbCorrectAnswers.Items.Add(xno2.Value);
+                            }
+                            else
+                            {
+                                lbOtherOptions.Items.Add(xno2.Value);
+                            }
+                            x++;
+                        }
                     }
                 }
             }
@@ -339,18 +355,18 @@ namespace ExamMaker
             XmlElement Option3 = xmlDoc.CreateElement("Option", xmlNS);
             XmlElement Option4 = xmlDoc.CreateElement("Option", xmlNS);
 
-            OptionCorrect.InnerText = txtFillinAnswer.Text;
-            Options.AppendChild(OptionCorrect);
-            OptionCorrect.InnerText = txtFillinAnswer2.Text;
-            Options.AppendChild(OptionCorrect);
-            Option1.InnerText = txtOption1.Text;
-            Options.AppendChild(Option1);
-            OptionCorrect.InnerText = txtFillinAnswer3.Text;
-            Options.AppendChild(OptionCorrect);
-            Option3.InnerText = txtOption3.Text;
-            Options.AppendChild(Option3);
-            Option4.InnerText = txtOption4.Text;
-            Options.AppendChild(Option4);
+            //OptionCorrect.InnerText = txtFillinAnswer.Text;
+            //Options.AppendChild(OptionCorrect);
+            //OptionCorrect.InnerText = txtFillinAnswer2.Text;
+            //Options.AppendChild(OptionCorrect);
+            //Option1.InnerText = txtOption1.Text;
+            //Options.AppendChild(Option1);
+            //OptionCorrect.InnerText = txtFillinAnswer3.Text;
+            //Options.AppendChild(OptionCorrect);
+            //Option3.InnerText = txtOption3.Text;
+            //Options.AppendChild(Option3);
+            //Option4.InnerText = txtOption4.Text;
+            //Options.AppendChild(Option4);
 
             XmlAttribute Correct = xmlDoc.CreateAttribute("Correct");
             Correct.Value = "yes";
@@ -915,6 +931,16 @@ namespace ExamMaker
             isEdit = true;
             ActivateTrueFalseGrid();
             btnTrueFalse.Visibility = System.Windows.Visibility.Visible;
+        }
+
+        private void btnAddCorrectAnswers_Click(object sender, RoutedEventArgs e)
+        {
+            lbCorrectAnswers.Items.Add(txtCorrectAnswers.Text);
+        }
+
+        private void btnAddFillinOptions_Click(object sender, RoutedEventArgs e)
+        {
+            lbOtherOptions.Items.Add(txtFillinOptions.Text);
         }
     }
 }
