@@ -66,3 +66,6 @@ C:\Users\adrian\Documents\GitHub\ExamMaker\ExamMaker\obj\Debug\ExamMaker.g.resou
 C:\Users\adrian\Documents\GitHub\ExamMaker\ExamMaker\obj\Debug\ExamMaker.Properties.Resources.resources
 C:\Users\adrian\Documents\GitHub\ExamMaker\ExamMaker\obj\Debug\ExamMaker.csproj.GenerateResource.Cache
 C:\Users\adrian\Documents\GitHub\ExamMaker\ExamMaker\obj\Debug\ExamMaker.csprojResolveAssemblyReference.cache
+C:\Users\JanryAlex\Documents\GitHub\ExamMaker\ExamMaker\bin\Debug\ExamMaker.exe.config
+C:\Users\JanryAlex\Documents\GitHub\ExamMaker\ExamMaker\obj\Debug\ExamMaker.exe
+C:\Users\JanryAlex\Documents\GitHub\ExamMaker\ExamMaker\obj\Debug\ExamMaker.pdb
