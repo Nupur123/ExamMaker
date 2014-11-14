@@ -355,12 +355,20 @@ namespace ExamMaker
             XmlElement OtherOptions = xmlDoc.CreateElement("Option", xmlNS);
 
 
-            foreach (string s in lbCorrectAnswers.Items)
+
+
+            for (int i = 0; i < lbCorrectAnswers.Items.Count; i++)
             {
-                OptionCorrect.InnerText = lbCorrectAnswers.Items.ToString();
+                MessageBox.Show(lbCorrectAnswers.Items[i].ToString());
+                OptionCorrect.InnerText = lbCorrectAnswers.Items[i].ToString();
                 Options.AppendChild(OptionCorrect);
+            }
 
-
+            for (int i = 0; i < lbOtherOptions.Items.Count; i++)
+            {
+                MessageBox.Show(lbOtherOptions.Items[i].ToString());
+                OtherOptions.InnerText = lbOtherOptions.Items[i].ToString();
+                Options.AppendChild(OtherOptions);
             }
 
             //OptionCorrect.InnerText = lbCorrectAnswers.Items.ToString();
