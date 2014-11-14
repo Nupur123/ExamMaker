@@ -351,8 +351,8 @@ namespace ExamMaker
             XmlElement Options = xmlDoc.CreateElement("Options", xmlNS);
             Questio.AppendChild(Options);
 
-            XmlElement OptionCorrect = xmlDoc.CreateElement("Option", xmlNS);
-            XmlElement OtherOptions = xmlDoc.CreateElement("Option", xmlNS);
+            //XmlElement OptionCorrect = xmlDoc.CreateElement("Option", xmlNS);
+            //XmlElement OtherOptions = xmlDoc.CreateElement("Option", xmlNS);
 
 
 
@@ -360,29 +360,22 @@ namespace ExamMaker
             for (int i = 0; i < lbCorrectAnswers.Items.Count; i++)
             {
                 MessageBox.Show(lbCorrectAnswers.Items[i].ToString());
+                XmlElement OptionCorrect = xmlDoc.CreateElement("Option", xmlNS);
                 OptionCorrect.InnerText = lbCorrectAnswers.Items[i].ToString();
                 Options.AppendChild(OptionCorrect);
+
+                XmlAttribute Correct = xmlDoc.CreateAttribute("Correct");
+                Correct.Value = "yes";
+                OptionCorrect.Attributes.Append(Correct);
             }
 
             for (int i = 0; i < lbOtherOptions.Items.Count; i++)
             {
                 MessageBox.Show(lbOtherOptions.Items[i].ToString());
+                XmlElement OtherOptions = xmlDoc.CreateElement("Option", xmlNS);
                 OtherOptions.InnerText = lbOtherOptions.Items[i].ToString();
                 Options.AppendChild(OtherOptions);
             }
-
-            //OptionCorrect.InnerText = lbCorrectAnswers.Items.ToString();
-            //Options.AppendChild(OptionCorrect);
-            //OtherOptions.InnerText = lbOtherOptions.Items.ToString();
-            //Options.AppendChild(OtherOptions);
-
-            
-           
-
-            XmlAttribute Correct = xmlDoc.CreateAttribute("Correct");
-            Correct.Value = "yes";
-            OptionCorrect.Attributes.Append(Correct);
-
 
             Question.AppendChild(Questi);
             Question.AppendChild(Options);
