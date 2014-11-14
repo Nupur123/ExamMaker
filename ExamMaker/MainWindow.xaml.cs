@@ -185,16 +185,17 @@ namespace ExamMaker
                         //
                         foreach (XmlNode xno2 in GetFillinBlanks)
                         {
-                            string[] _option = new string[9];
+                            string[] _option = new string[32];
                             int x = 0;
                             _option[x] = xno2.InnerText;
                             if ((xno2.Attributes["Correct"] != null) && (xno2.Attributes["Correct"].Value) == "yes")
                             {
-                                lbCorrectAnswers.Items.Contains(xno2.Value);
+                                //lbCorrectAnswers.Items.Contains(xno2.Value);
+                                lbCorrectAnswers.Items.ToString();
                             }
                             else
                             {
-                                lbOtherOptions.Items.Contains(xno2.Value);
+                                lbOtherOptions.Items.ToString();
                             }
                             x++;
                         }
@@ -351,22 +352,24 @@ namespace ExamMaker
             Questio.AppendChild(Options);
 
             XmlElement OptionCorrect = xmlDoc.CreateElement("Option", xmlNS);
-            XmlElement Option1 = xmlDoc.CreateElement("Option", xmlNS);
-            XmlElement Option3 = xmlDoc.CreateElement("Option", xmlNS);
-            XmlElement Option4 = xmlDoc.CreateElement("Option", xmlNS);
+            XmlElement OtherOptions = xmlDoc.CreateElement("Option", xmlNS);
 
-            //OptionCorrect.InnerText = txtFillinAnswer.Text;
+
+            foreach (string s in lbCorrectAnswers.Items)
+            {
+                OptionCorrect.InnerText = lbCorrectAnswers.Items.ToString();
+                Options.AppendChild(OptionCorrect);
+
+
+            }
+
+            //OptionCorrect.InnerText = lbCorrectAnswers.Items.ToString();
             //Options.AppendChild(OptionCorrect);
-            //OptionCorrect.InnerText = txtFillinAnswer2.Text;
-            //Options.AppendChild(OptionCorrect);
-            //Option1.InnerText = txtOption1.Text;
-            //Options.AppendChild(Option1);
-            //OptionCorrect.InnerText = txtFillinAnswer3.Text;
-            //Options.AppendChild(OptionCorrect);
-            //Option3.InnerText = txtOption3.Text;
-            //Options.AppendChild(Option3);
-            //Option4.InnerText = txtOption4.Text;
-            //Options.AppendChild(Option4);
+            //OtherOptions.InnerText = lbOtherOptions.Items.ToString();
+            //Options.AppendChild(OtherOptions);
+
+            
+           
 
             XmlAttribute Correct = xmlDoc.CreateAttribute("Correct");
             Correct.Value = "yes";
