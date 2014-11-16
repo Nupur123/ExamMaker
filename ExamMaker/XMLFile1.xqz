@@ -33,8 +33,8 @@
         <Questi>The Color Of The Sun is ________</Questi>
         <Options>
           <Option Correct="yes">Yellow</Option>
-          <Option Correct="yes">Red</Option>
-          <Option Correct="yes">Orange</Option>
+          <Option Correct2="yes">Red</Option>
+          <Option Correct3="yes">Orange</Option>
           <Option>Cookie</Option>
           <Option>Hello</Option>
           <Option>Mouse</Option>

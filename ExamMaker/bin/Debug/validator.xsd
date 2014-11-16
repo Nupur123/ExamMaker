@@ -55,7 +55,6 @@
                       <xs:complexType>
                         <xs:sequence>
                           <xs:element name="Questi" type="xs:string" maxOccurs="1"></xs:element>
-                          <!--<xs:element name="Answer" type="xs:string" maxOccurs="1" ></xs:element>-->
                           <xs:element name="Options" maxOccurs="1">
                             <xs:complexType>
                               <xs:sequence>
@@ -64,6 +63,8 @@
                                     <xs:simpleContent>
                                       <xs:extension base="xs:string">
                                         <xs:attribute name="Correct" use="optional" fixed="yes" type="xs:string" />
+                                        <xs:attribute name="Correct2" use="optional" fixed="yes" type="xs:string"/>
+                                        <xs:attribute name="Correct3" use="optional" fixed="yes" type="xs:string"/>
                                       </xs:extension>
                                     </xs:simpleContent>
                                   </xs:complexType>
