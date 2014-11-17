@@ -359,7 +359,7 @@ namespace ExamMaker
 
             for (int i = 0; i < lbCorrectAnswers.Items.Count; i++)
             {
-                MessageBox.Show(lbCorrectAnswers.Items[i].ToString());
+                
                 XmlElement OptionCorrect = xmlDoc.CreateElement("Option", xmlNS);
                 OptionCorrect.InnerText = lbCorrectAnswers.Items[i].ToString();
                 Options.AppendChild(OptionCorrect);
@@ -371,7 +371,7 @@ namespace ExamMaker
 
             for (int i = 0; i < lbOtherOptions.Items.Count; i++)
             {
-                MessageBox.Show(lbOtherOptions.Items[i].ToString());
+               
                 XmlElement OtherOptions = xmlDoc.CreateElement("Option", xmlNS);
                 OtherOptions.InnerText = lbOtherOptions.Items[i].ToString();
                 Options.AppendChild(OtherOptions);
