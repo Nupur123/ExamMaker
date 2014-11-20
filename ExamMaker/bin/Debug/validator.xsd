@@ -19,6 +19,7 @@
         <xs:element name="Questions" maxOccurs="1">
           <xs:complexType>
             <xs:sequence>
+              <!--MULTIPLE CHOICE-->
               <xs:element name="MultipleChoice" maxOccurs="1">
                 <xs:complexType>
                   <xs:sequence>
@@ -48,6 +49,7 @@
                   </xs:sequence>
                 </xs:complexType>
               </xs:element>
+              <!--FILL IN THE BLANK-->
               <xs:element name="FillBlanks" maxOccurs="1">
                 <xs:complexType>
                   <xs:sequence>
@@ -79,26 +81,7 @@
                   </xs:sequence>
                 </xs:complexType>
               </xs:element>
-                <!--<xs:complexType>                
-                  <xs:sequence>
-                    <xs:element name="Question" maxOccurs="unbounded" minOccurs="0">
-                      <xs:complexType>
-                        <xs:sequence>
-                          <xs:element name="Questi" type="xs:string" maxOccurs="1"></xs:element>
-                          <xs:attribute name="Correct" use="optional" fixed="yes" type="xs:string" />
-                          Added By Adrian 
-                          <xs:element name="Options" maxOccurs="1"></xs:element>
-                          <xs:element name="Option" maxOccurs="8"></xs:element>
-                          Adrian
-                            <xs:element name="Answer" maxOccurs="1" type="xs:string">
-                          </xs:element>
-                        </xs:sequence>
-                        <xs:attribute name="ID" type="xs:int"></xs:attribute>
-                      </xs:complexType>
-                    </xs:element>
-                  </xs:sequence>
-                </xs:complexType>
-                </xs:element>-->
+              <!--TRUE AND FALSE-->
               <xs:element name="TrueFalse" maxOccurs="1">
                 <xs:complexType>
                   <xs:sequence>
@@ -114,6 +97,7 @@
                   </xs:sequence>
                 </xs:complexType>
               </xs:element>
+              <!--LONG ANSWERS-->
               <xs:element name="longAnswer" maxOccurs="1">
                 <xs:complexType>
                   <xs:sequence>
