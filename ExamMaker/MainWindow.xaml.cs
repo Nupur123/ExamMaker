@@ -178,29 +178,33 @@ namespace ExamMaker
                 }
                 else if (a == 0 && b == 0 && c != 0)
                 {
+                    //if it is Fill in the Blanks
                     foreach (XmlNode xn in GetFillIn)
                     {
                         txtFillBlanks.Text = xn["Questi"].InnerText;
                         XmlNodeList GetFillinBlanks = xmlDoc.SelectNodes("/ns:Quiz/ns:Questions/ns:FillBlanks/ns:Question[@ID=" + QuestionId + "]/ns:Options", ns);
                         //
+
+
+
+
                         foreach (XmlNode xno2 in GetFillinBlanks)
                         {
-                            string[] _option = new string[32];
-                            int x = 0;
-                            _option[x] = xno2.InnerText;
-                            if ((xno2.Attributes["Correct"] != null) && (xno2.Attributes["Correct"].Value) == "yes")
+                            foreach (XmlNode xno3 in xno2)
                             {
-                                //lbCorrectAnswers.Items.Contains(xno2.Value);
-                                lbCorrectAnswers.Items.ToString();
+                                if ((xno3.Attributes["Correct"] != null) && (xno3.Attributes["Correct"].Value) == "yes")
+                                {
+                                    lbCorrectAnswers.Items.Add(xno3.InnerText);
+                                }
+                                else
+                                {
+                                    lbOtherOptions.Items.Add(xno3.InnerText);
+                                }
                             }
-                            else
-                            {
-                                lbOtherOptions.Items.ToString();
-                            }
-                            x++;
                         }
                     }
                 }
+
             }
         }
         // method to create and write to xml file 
@@ -359,7 +363,7 @@ namespace ExamMaker
 
             for (int i = 0; i < lbCorrectAnswers.Items.Count; i++)
             {
-                
+
                 XmlElement OptionCorrect = xmlDoc.CreateElement("Option", xmlNS);
                 OptionCorrect.InnerText = lbCorrectAnswers.Items[i].ToString();
                 Options.AppendChild(OptionCorrect);
@@ -371,7 +375,7 @@ namespace ExamMaker
 
             for (int i = 0; i < lbOtherOptions.Items.Count; i++)
             {
-               
+
                 XmlElement OtherOptions = xmlDoc.CreateElement("Option", xmlNS);
                 OtherOptions.InnerText = lbOtherOptions.Items[i].ToString();
                 Options.AppendChild(OtherOptions);
@@ -425,7 +429,7 @@ namespace ExamMaker
                     else
                         AddMultipleChoice();
 
-                XmlTextWriter wr = new XmlTextWriter(NewFilePath,null);
+                XmlTextWriter wr = new XmlTextWriter(NewFilePath, null);
                 wr.Formatting = Formatting.None; // no new line spaces;
 
                 xmlDoc.Save(wr);
@@ -484,6 +488,57 @@ namespace ExamMaker
                 //xmlDoc.Save(filename);
             }
         }
+
+
+        private void UpdateFillinQuestion()
+        {
+            xmlDoc.Load(filename);
+            XmlNamespaceManager ns = new XmlNamespaceManager(xmlDoc.NameTable);
+            ns.AddNamespace("ns", "urn:Question-Schema");
+
+            XmlNodeList nodes = xmlDoc.SelectNodes("/ns:Quiz/ns:Questions/ns:FillBlanks/ns:Question[@ID=" + ID + "]", ns);
+            foreach (XmlNode xn in nodes)
+            {
+                XmlNode NewQuesti = xmlDoc.CreateElement("Questi", xmlNS);
+                NewQuesti.InnerText = txtQuestion.Text;
+                xn.ReplaceChild(NewQuesti, xn["Questi"]);
+                foreach (XmlNode xn2 in xn)
+                {
+                    if (xn2.Name == "Options")
+                    {
+                        for (int Counter = 0; Counter <= 3; Counter++)
+                        {
+                            XmlNodeList xna = xn2.ChildNodes;
+                            XmlNode ab = xna.Item(Counter);
+                            XmlNode y = xna.Item(Counter);
+                            XmlAttribute Correct = xmlDoc.CreateAttribute("Correct");
+                            Correct.Value = "yes";
+                            XmlNode Option = xmlDoc.CreateElement("Option", xmlNS);
+                            switch (Counter)
+                            {
+                                case 0: Option.InnerText = txtOption1.Text;
+                                    if (rbOption1.IsChecked == true)
+                                        Option.Attributes.Append(Correct);
+                                    break;
+                                case 1: Option.InnerText = txtOption2.Text;
+                                    if (rbOption2.IsChecked == true)
+                                        Option.Attributes.Append(Correct);
+                                    break;
+                                case 2: Option.InnerText = txtOption3.Text;
+                                    if (rbOption3.IsChecked == true)
+                                        Option.Attributes.Append(Correct);
+                                    break;
+                                case 3: Option.InnerText = txtOption4.Text;
+                                    if (rbOption4.IsChecked == true)
+                                        Option.Attributes.Append(Correct);
+                                    break;
+                            }
+                            xn2.ReplaceChild(Option, y);
+                        }
+                    }
+                }
+            }
+        }
         // this button adds True False Question
         private void btnTrueFalse_Click(object sender, RoutedEventArgs e)
         {
@@ -516,7 +571,7 @@ namespace ExamMaker
             else
                 isNew = false;
             if (isEdit)
-                UpdateQuestion();
+                UpdateFillinQuestion();
             else
                 AddFillBlanks();
             XmlTextWriter wr = new XmlTextWriter(NewFilePath, Encoding.UTF8);
@@ -660,7 +715,7 @@ namespace ExamMaker
                     else if (item.Header.ToString().IndexOf("longAnswer") == 0) //if it is a long Answer type
                         cmbQuestionType.SelectedValue = "Long Answer";
                     else if (item.Header.ToString().IndexOf("TrueFalse") == 0) //if it is a long Answer type
-                       
+
                         cmbQuestionType.SelectedValue = "True False";
                     isAddNew = false;// show the gridAddDelete
                 }
@@ -826,7 +881,7 @@ namespace ExamMaker
             ns.AddNamespace("ns", "urn:Question-Schema");
 
             XmlNodeList nodes = xmlDoc.SelectNodes("/ns:Quiz/ns:Questions/ns:MultipleChoice/ns:Question[@ID=" + ID + "]", ns);
-         
+
             XmlNode node = nodes[0];
 
             node.ParentNode.RemoveChild(node);
@@ -927,7 +982,7 @@ namespace ExamMaker
             wr.Formatting = Formatting.None; // no new line spaces;
             xmlDoc.Save(wr);
             wr.Close();
-            LoadTreeView();           
+            LoadTreeView();
         }
         private void TrueFalseEdit_Click(object sender, RoutedEventArgs e)
         {
@@ -945,6 +1000,18 @@ namespace ExamMaker
         private void btnAddFillinOptions_Click(object sender, RoutedEventArgs e)
         {
             lbOtherOptions.Items.Add(txtFillinOptions.Text);
+        }
+
+        private void btnRemoveCorrectAnswers_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.lbCorrectAnswers.SelectedIndex >= 0)
+                this.lbCorrectAnswers.Items.RemoveAt(this.lbCorrectAnswers.SelectedIndex);
+        }
+
+        private void btnRemoveFillinOptions_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.lbOtherOptions.SelectedIndex >= 0)
+                this.lbOtherOptions.Items.RemoveAt(this.lbOtherOptions.SelectedIndex);
         }
     }
 }
