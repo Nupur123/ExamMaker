@@ -103,6 +103,8 @@ namespace ExamMaker
                 GridQuestionType.Visibility = System.Windows.Visibility.Hidden;
 
                 //Fill in the Blanks
+                lbCorrectAnswers.Items.Clear();
+                lbOtherOptions.Items.Clear();
                 txtFillBlanks.IsReadOnly = true;
                 btnAddFillinCorrectAnswers.Visibility = System.Windows.Visibility.Hidden;
                 btnRemoveCorrectAnswers.Visibility = System.Windows.Visibility.Hidden;
