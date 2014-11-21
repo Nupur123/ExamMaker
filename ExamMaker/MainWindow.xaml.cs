@@ -931,6 +931,21 @@ namespace ExamMaker
         {
             txtTrueFalse.IsReadOnly = false;
         }
+        private void ActivateFillinGrid()
+        {
+            //Fill in the Blanks
+            txtFillBlanks.IsReadOnly = false;
+            btnAddFillinCorrectAnswers.Visibility = System.Windows.Visibility.Visible;
+            btnRemoveCorrectAnswers.Visibility = System.Windows.Visibility.Visible;
+            btnAddFillinOptions.Visibility = System.Windows.Visibility.Visible;
+            btnRemoveFillinOptions.Visibility = System.Windows.Visibility.Visible;
+            txtCorrectAnswers.Visibility = System.Windows.Visibility.Visible;
+            txtFillinOptions.Visibility = System.Windows.Visibility.Visible;
+            btnSubmitFillin.Visibility = System.Windows.Visibility.Visible;
+            GridQuestionType.Visibility = System.Windows.Visibility.Visible;
+            
+        }
+
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             if (MessageBox.Show("Do you want to close this window?",
@@ -1084,12 +1099,28 @@ namespace ExamMaker
 
         private void btnEditFillin_Click(object sender, RoutedEventArgs e)
         {
-
+            status.Text = ID.ToString();
+            isEdit = true;
+            ActivateFillinGrid();
+            btnSubmitFillin.Visibility = System.Windows.Visibility.Visible;
         }
 
         private void btnDeleteFillin_Click(object sender, RoutedEventArgs e)
         {
+            XmlNamespaceManager ns = new XmlNamespaceManager(xmlDoc.NameTable);
+            ns.AddNamespace("ns", "urn:Question-Schema");
 
+            XmlNodeList nodes = xmlDoc.SelectNodes("/ns:Quiz/ns:Questions/ns:FillBlanks/ns:Question[@ID=" + ID + "]", ns);
+
+            XmlNode node = nodes[0];
+
+            node.ParentNode.RemoveChild(node);
+
+            XmlTextWriter wr = new XmlTextWriter(filename, null);
+            wr.Formatting = Formatting.None; // no new line spaces;
+            xmlDoc.Save(wr);
+            wr.Close();
+            LoadTreeView();
         }
     }
 }
