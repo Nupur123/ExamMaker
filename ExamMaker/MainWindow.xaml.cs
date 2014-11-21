@@ -49,6 +49,11 @@ namespace ExamMaker
             filename = AddQuestion.arg;
             if (filename != null && filename != "")
                 LoadFileAndValidate();
+
+        }
+        private void loadCourses()
+        {
+           
         }
         private void LoadItemsFromTreeView(string QuestionId = null)
         {
@@ -78,13 +83,13 @@ namespace ExamMaker
                         cmbDiff.SelectedValue = "Intermediate";
                         break;
                     default:
-                        cmbDiff.SelectedValue = "Advance";
+                        cmbDiff.SelectedValue = "Advanced";
                         break;
                 }
                 switch (Course)
                 {
-                    case "Software Developer":
-                        cmbCourse.SelectedValue = "Software Developer";
+                    case "Software and Database Developer":
+                        cmbCourse.SelectedValue = "Software and Database Developer";
                         break;
                     default:
                         break;
@@ -225,7 +230,7 @@ namespace ExamMaker
             GenerateQuizid();
             isNew = true;
             //xmlDoc.PrependChild(xmlDoc.CreateXmlDeclaration("1.0", "utf-8", ""));
-            //xmlDoc.PrependChild(xmlDoc.CreateXmlDeclaration("1.0", null, ""));
+            xmlDoc.PrependChild(xmlDoc.CreateXmlDeclaration("1.0", null, ""));
             XmlElement rootNode = xmlDoc.CreateElement("Quiz", xmlNS);
             rootNode.SetAttribute("QuizId", QuizId.ToString());
             rootNode.SetAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
@@ -567,7 +572,7 @@ namespace ExamMaker
             else
                 AddTrueFalse();
 
-            XmlTextWriter wr = new XmlTextWriter(NewFilePath, Encoding.UTF8);
+            XmlTextWriter wr = new XmlTextWriter(NewFilePath, null);
             wr.Formatting = Formatting.None; // no new line spaces;
 
             xmlDoc.Save(wr);
@@ -620,7 +625,7 @@ namespace ExamMaker
             }
                 
             
-            XmlTextWriter wr = new XmlTextWriter(NewFilePath, Encoding.UTF8);
+            XmlTextWriter wr = new XmlTextWriter(NewFilePath, null);
             wr.Formatting = Formatting.None; // no new line spaces;
 
             xmlDoc.Save(wr);
@@ -946,7 +951,7 @@ namespace ExamMaker
 
             node.ParentNode.RemoveChild(node);
 
-            XmlTextWriter wr = new XmlTextWriter(filename, Encoding.UTF8);
+            XmlTextWriter wr = new XmlTextWriter(filename, null);
             wr.Formatting = Formatting.None; // no new line spaces;
             xmlDoc.Save(wr);
             wr.Close();
@@ -1009,7 +1014,7 @@ namespace ExamMaker
             if (result == true)
             {
                 string SaveAsFilePath = dlg.FileName;
-                XmlTextWriter wr = new XmlTextWriter(SaveAsFilePath, Encoding.UTF8);
+                XmlTextWriter wr = new XmlTextWriter(SaveAsFilePath, null);
                 wr.Formatting = Formatting.None; // no new line spaces;
                 xmlDoc.Save(wr);
                 wr.Close();
@@ -1038,7 +1043,7 @@ namespace ExamMaker
 
             node.ParentNode.RemoveChild(node);
 
-            XmlTextWriter wr = new XmlTextWriter(filename, Encoding.UTF8);
+            XmlTextWriter wr = new XmlTextWriter(filename, null);
             wr.Formatting = Formatting.None; // no new line spaces;
             xmlDoc.Save(wr);
             wr.Close();
