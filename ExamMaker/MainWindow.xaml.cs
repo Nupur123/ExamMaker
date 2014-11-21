@@ -102,6 +102,19 @@ namespace ExamMaker
                 txtTrueFalse.IsReadOnly = true;
                 GridQuestionType.Visibility = System.Windows.Visibility.Hidden;
 
+                //Fill in the Blanks
+                txtFillBlanks.IsReadOnly = true;
+                btnAddFillinCorrectAnswers.Visibility = System.Windows.Visibility.Hidden;
+                btnRemoveCorrectAnswers.Visibility = System.Windows.Visibility.Hidden;
+                btnAddFillinOptions.Visibility = System.Windows.Visibility.Hidden;
+                btnRemoveFillinOptions.Visibility = System.Windows.Visibility.Hidden;
+                txtCorrectAnswers.Visibility = System.Windows.Visibility.Hidden;
+                txtFillinOptions.Visibility = System.Windows.Visibility.Hidden;
+                btnSubmitFillin.Visibility = System.Windows.Visibility.Hidden;
+                GridQuestionType.Visibility = System.Windows.Visibility.Hidden;
+                btnEditFillin.Visibility = System.Windows.Visibility.Visible;
+                btnDeleteFillin.Visibility = System.Windows.Visibility.Visible;
+
                 //loading for Multiple Type
                 XmlNodeList GetQuestionMulti = xmlDoc.SelectNodes("/ns:Quiz/ns:Questions/ns:MultipleChoice/ns:Question[@ID=" + QuestionId + "]", ns);
                 XmlNodeList GetTrueFalse = xmlDoc.SelectNodes("/ns:Quiz/ns:Questions/ns:TrueFalse/ns:Question[@ID=" + QuestionId + "]", ns);
