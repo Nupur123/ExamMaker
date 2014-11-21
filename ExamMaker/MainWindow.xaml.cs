@@ -437,6 +437,33 @@ namespace ExamMaker
                 LoadTreeView();
             }
         }
+
+        // this button adds Fill Blanks Question
+        private void btnSubmitFillin_Click(object sender, RoutedEventArgs e)
+        {
+            if (!File.Exists(NewFilePath))
+            {
+                CreateQuiz();
+            }
+            else
+                isNew = false;
+            if (isEdit)
+                UpdateFillinQuestion();
+            else
+            {
+                AddFillBlanks();
+            }
+
+
+            XmlTextWriter wr = new XmlTextWriter(NewFilePath, null);
+            wr.Formatting = Formatting.None; // no new line spaces;
+
+            xmlDoc.Save(wr);
+            filename = NewFilePath;
+            wr.Close();
+            LoadTreeView();
+        }
+
         private void UpdateQuestion()
         {
             xmlDoc.Load(filename);
