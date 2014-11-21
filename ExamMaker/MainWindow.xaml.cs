@@ -900,6 +900,20 @@ namespace ExamMaker
             ActivateMultipleGrid();
             btnSubmit.Visibility = System.Windows.Visibility.Visible;
             txtTrueFalse.IsReadOnly = false;
+
+            //Fill in the Blanks
+            txtFillBlanks.Text = "";
+            lbCorrectAnswers.Items.Clear();
+            lbOtherOptions.Items.Clear();
+            txtFillBlanks.IsReadOnly = false;
+            btnAddFillinCorrectAnswers.Visibility = System.Windows.Visibility.Visible;
+            btnRemoveCorrectAnswers.Visibility = System.Windows.Visibility.Visible;
+            btnAddFillinOptions.Visibility = System.Windows.Visibility.Visible;
+            btnRemoveFillinOptions.Visibility = System.Windows.Visibility.Visible;
+            txtCorrectAnswers.Visibility = System.Windows.Visibility.Visible;
+            txtFillinOptions.Visibility = System.Windows.Visibility.Visible;
+            btnSubmitFillin.Visibility = System.Windows.Visibility.Visible;
+            GridQuestionType.Visibility = System.Windows.Visibility.Visible;
         }
         private void HideGridPanels()
         {
