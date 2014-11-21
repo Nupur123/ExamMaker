@@ -189,7 +189,7 @@
                 <Border BorderBrush="Beige" BorderThickness="2" d:IsHidden="True"></Border>
                 <Label Content="Fill Blanks Question:" FontSize="14" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Width="170"/>
                 <TextBox x:Name="txtFillBlanks" TextWrapping="Wrap" HorizontalAlignment="Left" Height="30" Margin="50,43,0,0" Text="" VerticalAlignment="Top" Width="425"/>
-                <Button x:Name="btnFillBlanks" Content="Submit Question" HorizontalAlignment="Left" Margin="264,238,0,0" VerticalAlignment="Top" Width="120" Height="25" Click="btnFillBlanks_Click"/>
+                <Button x:Name="btnSubmitFillin" Content="Submit Question" HorizontalAlignment="Left" Margin="264,238,0,0" VerticalAlignment="Top" Width="120" Height="25" Click="btnSubmitFillin_Click"/>
 
                 <Button x:Name="btnAddUnderline" Content="Add line" HorizontalAlignment="Left" Margin="480,43,0,0" VerticalAlignment="Top" Width="55" Click="btnAddUnderline_Click"/>
                 <Label Content="Options:" HorizontalAlignment="Left" Margin="44,73,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.526,0.385"/>

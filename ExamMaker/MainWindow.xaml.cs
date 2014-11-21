@@ -588,7 +588,7 @@ namespace ExamMaker
             }
         }
         // this button adds Fill Blanks Question
-        private void btnFillBlanks_Click(object sender, RoutedEventArgs e)
+        private void btnSubmitFillin_Click(object sender, RoutedEventArgs e)
         {
             if (!File.Exists(NewFilePath))
             {
@@ -599,7 +599,18 @@ namespace ExamMaker
             if (isEdit)
                 UpdateFillinQuestion();
             else
+            {
                 AddFillBlanks();
+                if (lbCorrectAnswers.Items.Count > 0)
+                {
+                    for (int a = lbCorrectAnswers.Items.Count - 1; a > 0; a--)
+                    {
+                        lbCorrectAnswers.Items.RemoveAt(a);
+                    }
+                }
+            }
+                
+            
             XmlTextWriter wr = new XmlTextWriter(NewFilePath, Encoding.UTF8);
             wr.Formatting = Formatting.None; // no new line spaces;
 
