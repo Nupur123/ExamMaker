@@ -152,16 +152,16 @@ namespace ExamMaker
                     foreach (XmlNode xn in GetTrueFalse)
                     {
                         txtTrueFalse.Text = xn["Questi"].InnerText;
-                        XmlNodeList GetTF = xmlDoc.SelectNodes("/ns:Quiz/ns:Questions/ns:TrueFalse/ns:Question[@ID=" + QuestionId + "]/ns:Options", ns);
+                        XmlNodeList GetTF = xmlDoc.SelectNodes("/ns:Quiz/ns:Questions/ns:TrueFalse/ns:Question[@ID=" + QuestionId + "]", ns);
                         //TrueFalse;
                         foreach (XmlNode xno in GetTF)
                         {
-                            string[] _Answer = new string[3];
+                            string[] Answer = new string[3];
                             int x = 0;
                             foreach (XmlNode xno2 in xno)
                             {
-                                _Answer[x] = xno2.InnerText;
-                                if ((xno2.Attributes["Correct"] != null) && (xno2.Attributes["Correct"].Value) == "yes")
+                                Answer[x] = xno2.InnerText;
+                                if (xno2.Name == "Answer")
                                 {
                                     switch (x)
                                     {
@@ -173,6 +173,7 @@ namespace ExamMaker
                                 }
                                 x++;
                             }
+                            
                         }
                     }
                 }
@@ -547,7 +548,7 @@ namespace ExamMaker
             else
                 isNew = false;
             if (isEdit)
-                UpdateQuestion();
+                TrueFalseUpdateQuestion();
             else
                 AddTrueFalse();
 
@@ -782,6 +783,7 @@ namespace ExamMaker
                         break;
 
                     case "True False":
+                        btnTrueFalse.Visibility = System.Windows.Visibility.Visible;
                         btnTrueFalseEdit.Visibility = System.Windows.Visibility.Hidden;
                         btnTrueFalseDelete.Visibility = System.Windows.Visibility.Hidden;
                         gridTrueFalse.Visibility = System.Windows.Visibility.Visible;
@@ -857,6 +859,7 @@ namespace ExamMaker
             cmbQuestionType.SelectedIndex = -1;  //set the default choice to null
             ActivateMultipleGrid();
             btnSubmit.Visibility = System.Windows.Visibility.Visible;
+            txtTrueFalse.IsReadOnly = false;
         }
         private void HideGridPanels()
         {
