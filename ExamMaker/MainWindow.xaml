@@ -16,6 +16,8 @@
             </DockPanel>
         </ControlTemplate>
 
+        <XmlDataProvider x:Key="DataSourceCoursesXML" Source="SourceXML.xml" XPath="DATA/Courses/Course" />
+
         <Style x:Key="placeHolder" TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
             <Setter Property="Template">
                 <Setter.Value>
@@ -143,7 +145,7 @@
                     </TextBox.Text>
                 </TextBox>
                 <Label Content="Course:" FontSize="14" HorizontalAlignment="Left" Margin="41,77,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.421,0.115" Width="59"/>
-                <ComboBox x:Name="cmbCourse" HorizontalAlignment="Left" Margin="119,84,0,0" VerticalAlignment="Top" Width="163" SelectedValuePath="Content" Validation.ErrorTemplate="{StaticResource SubjectErrorTemplate}" >
+                <ComboBox x:Name="cmbCourse" HorizontalAlignment="Left" Margin="119,84,0,0" VerticalAlignment="Top" Width="163" SelectedValuePath="Content" ItemsSource="{Binding Source={StaticResource DataSourceCoursesXML}}" DisplayMemberPath="@Name" Validation.ErrorTemplate="{StaticResource SubjectErrorTemplate}" >
                     <ComboBox.SelectedValue>
                         <Binding Source="{StaticResource myValidation}" Path="Course" UpdateSourceTrigger="Explicit" >
                             <Binding.ValidationRules>
@@ -151,7 +153,7 @@
                             </Binding.ValidationRules>
                         </Binding>
                     </ComboBox.SelectedValue>
-                    <ComboBoxItem Content="Software Developer"  HorizontalAlignment="Left" Width="200"/>
+                    <!--<ComboBoxItem Content="Software Developer"  HorizontalAlignment="Left" Width="200"/>-->
                 </ComboBox>
                 <Label Content="Difficulty:" FontSize="14" HorizontalAlignment="Left" Margin="314,75,0,0" VerticalAlignment="Top"/>
                 <ComboBox x:Name="cmbDiff" HorizontalAlignment="Left" Margin="389,84,0,0" VerticalAlignment="Top" Width="120" SelectedValuePath="Content">
@@ -164,7 +166,7 @@
                     </ComboBox.SelectedValue>
                     <ComboBoxItem Content="Beginner"  HorizontalAlignment="Left" Width="95"/>
                     <ComboBoxItem Content="Intermediate"  HorizontalAlignment="Left" Width="95"/>
-                    <ComboBoxItem Content="Advance"  HorizontalAlignment="Left" Width="95"/>
+                    <ComboBoxItem Content="Advanced"  HorizontalAlignment="Left" Width="95"/>
                 </ComboBox>
                 <Label Content="Quiz Summary" Foreground="SlateGray"  FontWeight="Bold" FontSize="16" HorizontalAlignment="Left" Margin="304,0,0,0" VerticalAlignment="Top" Width="215"/>
                 <Label Content="Total items:" HorizontalAlignment="Left" Margin="549,82,0,0" VerticalAlignment="Top" Width="80"/>
