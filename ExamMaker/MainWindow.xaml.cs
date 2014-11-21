@@ -102,6 +102,19 @@ namespace ExamMaker
                 txtTrueFalse.IsReadOnly = true;
                 GridQuestionType.Visibility = System.Windows.Visibility.Hidden;
 
+                //Fill in the Blanks
+                txtFillBlanks.IsReadOnly = true;
+                btnAddFillinCorrectAnswers.Visibility = System.Windows.Visibility.Hidden;
+                btnRemoveCorrectAnswers.Visibility = System.Windows.Visibility.Hidden;
+                btnAddFillinOptions.Visibility = System.Windows.Visibility.Hidden;
+                btnRemoveFillinOptions.Visibility = System.Windows.Visibility.Hidden;
+                txtCorrectAnswers.Visibility = System.Windows.Visibility.Hidden;
+                txtFillinOptions.Visibility = System.Windows.Visibility.Hidden;
+                btnSubmitFillin.Visibility = System.Windows.Visibility.Hidden;
+                GridQuestionType.Visibility = System.Windows.Visibility.Hidden;
+                btnEditFillin.Visibility = System.Windows.Visibility.Visible;
+                btnDeleteFillin.Visibility = System.Windows.Visibility.Visible;
+
                 //loading for Multiple Type
                 XmlNodeList GetQuestionMulti = xmlDoc.SelectNodes("/ns:Quiz/ns:Questions/ns:MultipleChoice/ns:Question[@ID=" + QuestionId + "]", ns);
                 XmlNodeList GetTrueFalse = xmlDoc.SelectNodes("/ns:Quiz/ns:Questions/ns:TrueFalse/ns:Question[@ID=" + QuestionId + "]", ns);
@@ -437,6 +450,33 @@ namespace ExamMaker
                 LoadTreeView();
             }
         }
+
+        // this button adds Fill Blanks Question
+        private void btnSubmitFillin_Click(object sender, RoutedEventArgs e)
+        {
+            if (!File.Exists(NewFilePath))
+            {
+                CreateQuiz();
+            }
+            else
+                isNew = false;
+            if (isEdit)
+                UpdateFillinQuestion();
+            else
+            {
+                AddFillBlanks();
+            }
+
+
+            XmlTextWriter wr = new XmlTextWriter(NewFilePath, null);
+            wr.Formatting = Formatting.None; // no new line spaces;
+
+            xmlDoc.Save(wr);
+            filename = NewFilePath;
+            wr.Close();
+            LoadTreeView();
+        }
+
         private void UpdateQuestion()
         {
             xmlDoc.Load(filename);
@@ -860,6 +900,20 @@ namespace ExamMaker
             ActivateMultipleGrid();
             btnSubmit.Visibility = System.Windows.Visibility.Visible;
             txtTrueFalse.IsReadOnly = false;
+
+            //Fill in the Blanks
+            txtFillBlanks.Text = "";
+            lbCorrectAnswers.Items.Clear();
+            lbOtherOptions.Items.Clear();
+            txtFillBlanks.IsReadOnly = false;
+            btnAddFillinCorrectAnswers.Visibility = System.Windows.Visibility.Visible;
+            btnRemoveCorrectAnswers.Visibility = System.Windows.Visibility.Visible;
+            btnAddFillinOptions.Visibility = System.Windows.Visibility.Visible;
+            btnRemoveFillinOptions.Visibility = System.Windows.Visibility.Visible;
+            txtCorrectAnswers.Visibility = System.Windows.Visibility.Visible;
+            txtFillinOptions.Visibility = System.Windows.Visibility.Visible;
+            btnSubmitFillin.Visibility = System.Windows.Visibility.Visible;
+            GridQuestionType.Visibility = System.Windows.Visibility.Visible;
         }
         private void HideGridPanels()
         {
