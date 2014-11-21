@@ -259,8 +259,8 @@ namespace ExamMaker
             XmlElement TrueFalseNode = xmlDoc.CreateElement("TrueFalse", xmlNS);
             QuestionsNode.AppendChild(TrueFalseNode);
 
-            XmlElement longAnswer = xmlDoc.CreateElement("longAnswer", xmlNS);
-            QuestionsNode.AppendChild(longAnswer);
+            //XmlElement longAnswer = xmlDoc.CreateElement("longAnswer", xmlNS);
+            //QuestionsNode.AppendChild(longAnswer);
         }
         private void AddMultipleChoice()
         {
