@@ -117,6 +117,9 @@ namespace ExamMaker
                 txtFillinOptions.Visibility = System.Windows.Visibility.Hidden;
                 btnSubmitFillin.Visibility = System.Windows.Visibility.Hidden;
                 GridQuestionType.Visibility = System.Windows.Visibility.Hidden;
+                btnEditFillin.Visibility = System.Windows.Visibility.Visible;
+                btnDeleteFillin.Visibility = System.Windows.Visibility.Visible;
+                
 
 
                 //loading for Multiple Type
