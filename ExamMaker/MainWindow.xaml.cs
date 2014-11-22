@@ -36,6 +36,8 @@ namespace ExamMaker
         private TreeViewItem tree;
         private string FilePath = AppDomain.CurrentDomain.BaseDirectory;
         private string NewFilePath = null;
+        XmlDocument xmlSources = new XmlDocument();
+        private string FileSource = AppDomain.CurrentDomain.BaseDirectory + "SourceXML.xml";
 
         XmlDocument xmlDoc = new XmlDocument();
         XmlNode rootNode = null;
@@ -50,10 +52,23 @@ namespace ExamMaker
             if (filename != null && filename != "")
                 LoadFileAndValidate();
 
+            //if (!string.IsNullOrEmpty(FileSource))
+            //{
+            //    provider.Source = new Uri(FileSource);
+            //}
+            loadCourses();
+
         }
         private void loadCourses()
         {
-           
+            XmlDocument xDoc = new XmlDocument();
+            xDoc.Load(FileSource);
+            XmlNodeList Courses = xDoc.GetElementsByTagName("Course");
+            for (int i = 0; i < Courses.Count; i++)
+            {
+                cmbCourse.Items.Add(Courses[i].Attributes["Name"].InnerText);
+            }
+
         }
         private void LoadItemsFromTreeView(string QuestionId = null)
         {
@@ -86,14 +101,17 @@ namespace ExamMaker
                         cmbDiff.SelectedValue = "Advanced";
                         break;
                 }
-                switch (Course)
-                {
-                    case "Software and Database Developer":
-                        cmbCourse.SelectedValue = "Software and Database Developer";
-                        break;
-                    default:
-                        break;
-                }
+
+                //xmlSources.Load(xsd);
+                cmbCourse.SelectedValue = Course;
+                //switch (Course)
+                //{
+                //    case "Software and Database Developer":
+                //        cmbCourse.SelectedValue = "Software and Database Developer";
+                //        break;
+                //    default:
+                //        break;
+                //}
             }
             if (QuestionId != null)
             {
@@ -623,8 +641,8 @@ namespace ExamMaker
             {
                 AddFillBlanks();
             }
-                
-            
+
+
             XmlTextWriter wr = new XmlTextWriter(NewFilePath, null);
             wr.Formatting = Formatting.None; // no new line spaces;
 
