@@ -126,6 +126,8 @@ namespace ExamMaker
                 GridQuestionType.Visibility = System.Windows.Visibility.Hidden;
 
                 //Fill in the Blanks
+                lbCorrectAnswers.Items.Clear();
+                lbOtherOptions.Items.Clear();
                 txtFillBlanks.IsReadOnly = true;
                 btnAddFillinCorrectAnswers.Visibility = System.Windows.Visibility.Hidden;
                 btnRemoveCorrectAnswers.Visibility = System.Windows.Visibility.Hidden;
@@ -135,6 +137,8 @@ namespace ExamMaker
                 txtFillinOptions.Visibility = System.Windows.Visibility.Hidden;
                 btnSubmitFillin.Visibility = System.Windows.Visibility.Hidden;
                 GridQuestionType.Visibility = System.Windows.Visibility.Hidden;
+                btnEditFillin.Visibility = System.Windows.Visibility.Visible;
+                btnDeleteFillin.Visibility = System.Windows.Visibility.Visible;
 
 
                 //loading for Multiple Type
@@ -187,16 +191,16 @@ namespace ExamMaker
                     foreach (XmlNode xn in GetTrueFalse)
                     {
                         txtTrueFalse.Text = xn["Questi"].InnerText;
-                        XmlNodeList GetTF = xmlDoc.SelectNodes("/ns:Quiz/ns:Questions/ns:TrueFalse/ns:Question[@ID=" + QuestionId + "]/ns:Options", ns);
+                        XmlNodeList GetTF = xmlDoc.SelectNodes("/ns:Quiz/ns:Questions/ns:TrueFalse/ns:Question[@ID=" + QuestionId + "]", ns);
                         //TrueFalse;
                         foreach (XmlNode xno in GetTF)
                         {
-                            string[] _Answer = new string[3];
+                            string[] Answer = new string[3];
                             int x = 0;
                             foreach (XmlNode xno2 in xno)
                             {
-                                _Answer[x] = xno2.InnerText;
-                                if ((xno2.Attributes["Correct"] != null) && (xno2.Attributes["Correct"].Value) == "yes")
+                                Answer[x] = xno2.InnerText;
+                                if (xno2.Name == "Answer")
                                 {
                                     switch (x)
                                     {
@@ -475,6 +479,31 @@ namespace ExamMaker
                 LoadTreeView();
             }
         }
+        // this button adds Fill Blanks Question
+        private void btnSubmitFillin_Click(object sender, RoutedEventArgs e)
+        {
+            if (!File.Exists(NewFilePath))
+            {
+                CreateQuiz();
+            }
+            else
+                isNew = false;
+            if (isEdit)
+                UpdateFillinQuestion();
+            else
+            {
+                AddFillBlanks();
+            }
+
+
+            XmlTextWriter wr = new XmlTextWriter(NewFilePath, null);
+            wr.Formatting = Formatting.None; // no new line spaces;
+
+            xmlDoc.Save(wr);
+            filename = NewFilePath;
+            wr.Close();
+            LoadTreeView();
+        }
         private void UpdateQuestion()
         {
             xmlDoc.Load(filename);
@@ -586,7 +615,7 @@ namespace ExamMaker
             else
                 isNew = false;
             if (isEdit)
-                UpdateQuestion();
+                TrueFalseUpdateQuestion();
             else
                 AddTrueFalse();
 
@@ -627,7 +656,7 @@ namespace ExamMaker
             }
         }
         // this button adds Fill Blanks Question
-        private void btnSubmitFillin_Click(object sender, RoutedEventArgs e)
+        private void btnFillBlanks_Click(object sender, RoutedEventArgs e)
         {
             if (!File.Exists(NewFilePath))
             {
@@ -825,6 +854,7 @@ namespace ExamMaker
                         break;
 
                     case "True False":
+                        btnTrueFalse.Visibility = System.Windows.Visibility.Visible;
                         btnTrueFalseEdit.Visibility = System.Windows.Visibility.Hidden;
                         btnTrueFalseDelete.Visibility = System.Windows.Visibility.Hidden;
                         gridTrueFalse.Visibility = System.Windows.Visibility.Visible;
@@ -900,6 +930,7 @@ namespace ExamMaker
             cmbQuestionType.SelectedIndex = -1;  //set the default choice to null
             ActivateMultipleGrid();
             btnSubmit.Visibility = System.Windows.Visibility.Visible;
+            txtTrueFalse.IsReadOnly = false;
 
             //Fill in the Blanks
             txtFillBlanks.Text = "";
@@ -945,6 +976,21 @@ namespace ExamMaker
         private void ActivateTrueFalseGrid()
         {
             txtTrueFalse.IsReadOnly = false;
+        }
+
+        private void ActivateFillinGrid()
+        {
+            //Fill in the Blanks
+            txtFillBlanks.IsReadOnly = false;
+            btnAddFillinCorrectAnswers.Visibility = System.Windows.Visibility.Visible;
+            btnRemoveCorrectAnswers.Visibility = System.Windows.Visibility.Visible;
+            btnAddFillinOptions.Visibility = System.Windows.Visibility.Visible;
+            btnRemoveFillinOptions.Visibility = System.Windows.Visibility.Visible;
+            txtCorrectAnswers.Visibility = System.Windows.Visibility.Visible;
+            txtFillinOptions.Visibility = System.Windows.Visibility.Visible;
+            btnSubmitFillin.Visibility = System.Windows.Visibility.Visible;
+            GridQuestionType.Visibility = System.Windows.Visibility.Visible;
+
         }
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
@@ -1099,12 +1145,28 @@ namespace ExamMaker
 
         private void btnEditFillin_Click(object sender, RoutedEventArgs e)
         {
-
+            status.Text = ID.ToString();
+            isEdit = true;
+            ActivateFillinGrid();
+            btnSubmitFillin.Visibility = System.Windows.Visibility.Visible;
         }
 
         private void btnDeleteFillin_Click(object sender, RoutedEventArgs e)
         {
+            XmlNamespaceManager ns = new XmlNamespaceManager(xmlDoc.NameTable);
+            ns.AddNamespace("ns", "urn:Question-Schema");
 
+            XmlNodeList nodes = xmlDoc.SelectNodes("/ns:Quiz/ns:Questions/ns:FillBlanks/ns:Question[@ID=" + ID + "]", ns);
+
+            XmlNode node = nodes[0];
+
+            node.ParentNode.RemoveChild(node);
+
+            XmlTextWriter wr = new XmlTextWriter(filename, null);
+            wr.Formatting = Formatting.None; // no new line spaces;
+            xmlDoc.Save(wr);
+            wr.Close();
+            LoadTreeView();
         }
     }
 }
