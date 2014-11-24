@@ -16,8 +16,9 @@
             </DockPanel>
         </ControlTemplate>
 
-        <XmlDataProvider x:Key="DataSourceCoursesXML" Source="SourceXML.xml" XPath="DATA/Courses/Course" />
-
+        <!--<XmlDataProvider x:Key="DataSourceCoursesXML" Source="{Binding FileSource,Mode=Twoway,UpdateSourceTrigger=PropertyChanged}" XPath="DATA/Courses/Course" />-->
+        <XmlDataProvider x:Name="provider" x:Key="DataSourceCoursesXML"/>
+        
         <Style x:Key="placeHolder" TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
             <Setter Property="Template">
                 <Setter.Value>
@@ -145,7 +146,7 @@
                     </TextBox.Text>
                 </TextBox>
                 <Label Content="Course:" FontSize="14" HorizontalAlignment="Left" Margin="41,77,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.421,0.115" Width="59"/>
-                <ComboBox x:Name="cmbCourse" HorizontalAlignment="Left" Margin="119,84,0,0" VerticalAlignment="Top" Width="163" SelectedValuePath="Content" ItemsSource="{Binding Source={StaticResource DataSourceCoursesXML}}" DisplayMemberPath="@Name" Validation.ErrorTemplate="{StaticResource SubjectErrorTemplate}" >
+                <ComboBox x:Name="cmbCourse" HorizontalAlignment="Left" Margin="119,84,0,0" VerticalAlignment="Top" Width="163" Validation.ErrorTemplate="{StaticResource SubjectErrorTemplate}" >
                     <ComboBox.SelectedValue>
                         <Binding Source="{StaticResource myValidation}" Path="Course" UpdateSourceTrigger="Explicit" >
                             <Binding.ValidationRules>
