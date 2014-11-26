@@ -469,6 +469,12 @@ namespace ExamMaker
                         UpdateQuestion();
                     else
                         AddMultipleChoice();
+                if (btnEdit.IsEnabled)
+                {
+                    MessageBox.Show("Your Question has been saved to the Tree View");
+                }
+                else
+                    AddMultipleChoice();
 
                 XmlTextWriter wr = new XmlTextWriter(NewFilePath, null);
                 wr.Formatting = Formatting.None; // no new line spaces;
@@ -494,6 +500,7 @@ namespace ExamMaker
             {
                 AddFillBlanks();
             }
+
 
 
             XmlTextWriter wr = new XmlTextWriter(NewFilePath, null);
@@ -616,6 +623,12 @@ namespace ExamMaker
                 isNew = false;
             if (isEdit)
                 TrueFalseUpdateQuestion();
+            else
+                AddTrueFalse();
+            if (btnTrueFalseEdit.IsEnabled)
+            {
+                MessageBox.Show("Your Question has been saved to the Tree View");
+            }
             else
                 AddTrueFalse();
 
@@ -1015,6 +1028,8 @@ namespace ExamMaker
 
             node.ParentNode.RemoveChild(node);
 
+            MessageBox.Show("The Selected Question Has Been Deleted");
+
             XmlTextWriter wr = new XmlTextWriter(filename, null);
             wr.Formatting = Formatting.None; // no new line spaces;
             xmlDoc.Save(wr);
@@ -1107,6 +1122,8 @@ namespace ExamMaker
 
             node.ParentNode.RemoveChild(node);
 
+            MessageBox.Show("The Selected Question Has Been Deleted");
+
             XmlTextWriter wr = new XmlTextWriter(filename, null);
             wr.Formatting = Formatting.None; // no new line spaces;
             xmlDoc.Save(wr);
@@ -1119,6 +1136,7 @@ namespace ExamMaker
             isEdit = true;
             ActivateTrueFalseGrid();
             btnTrueFalse.Visibility = System.Windows.Visibility.Visible;
+           
         }
 
         private void btnAddCorrectAnswers_Click(object sender, RoutedEventArgs e)
@@ -1161,6 +1179,8 @@ namespace ExamMaker
             XmlNode node = nodes[0];
 
             node.ParentNode.RemoveChild(node);
+
+            MessageBox.Show("The Selected Question Has Been Deleted");
 
             XmlTextWriter wr = new XmlTextWriter(filename, null);
             wr.Formatting = Formatting.None; // no new line spaces;

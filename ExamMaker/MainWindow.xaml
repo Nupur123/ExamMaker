@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="ExamMaker.MainWindow"
         xmlns:local="clr-namespace:ExamMaker"
-        Title="Welcome to Exam Maker" Height="727" Width="1064" WindowStartupLocation="CenterScreen" Closing="Window_Closing">
+        Title="Welcome to Exam Maker" Height="727" Width="1064" WindowStartupLocation="CenterScreen" Closing="Window_Closing" ResizeMode="NoResize">
     <Window.Resources>
         <local:CreateValidation x:Key="myValidation"/>
 
