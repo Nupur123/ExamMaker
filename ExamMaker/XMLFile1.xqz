@@ -3,7 +3,8 @@
   <Details>
     <Title>Sample Title</Title>
     <Subject>PHP</Subject>
-    <Course>Software Developer</Course>
+    <!--<Course>Software Developer</Course>-->
+    <Course>Software and Database Developer</Course>
     <Time>30</Time>
     <Difficulty>intermediate</Difficulty>
   </Details>
