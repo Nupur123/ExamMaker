@@ -3,7 +3,8 @@
   <Details>
     <Title>Sample Title</Title>
     <Subject>PHP</Subject>
-    <Course>Software Developer</Course>
+    <!--<Course>Software Developer</Course>-->
+    <Course>Software and Database Developer</Course>
     <Time>30</Time>
     <Difficulty>intermediate</Difficulty>
   </Details>
@@ -28,11 +29,23 @@
         </Options>
       </Question>
     </MultipleChoice>
-    <FillBlanks />
+    <FillBlanks>
+      <Question ID="4">
+        <Questi>The Color Of The Sun is ________</Questi>
+        <Options>
+          <Option Correct="yes">Yellow</Option>
+          <Option Correct2="yes">Red</Option>
+          <Option Correct3="yes">Orange</Option>
+          <Option>Cookie</Option>
+          <Option>Hello</Option>
+          <Option>Mouse</Option>
+        </Options>
+      </Question>
+    </FillBlanks>
     <TrueFalse>
       <Question ID="3">
-        <Questi>False is the answer?</Questi>
-        <Answer>False</Answer>
+        <Questi>A For Statement Is For Loops</Questi>
+        <Answer>True</Answer>
       </Question>
     </TrueFalse>
     <longAnswer />
