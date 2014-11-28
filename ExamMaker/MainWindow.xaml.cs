@@ -573,40 +573,88 @@ namespace ExamMaker
             foreach (XmlNode xn in nodes)
             {
                 XmlNode NewQuesti = xmlDoc.CreateElement("Questi", xmlNS);
-                NewQuesti.InnerText = txtQuestion.Text;
+                NewQuesti.InnerText = txtFillBlanks.Text;
                 xn.ReplaceChild(NewQuesti, xn["Questi"]);
                 foreach (XmlNode xn2 in xn)
                 {
                     if (xn2.Name == "Options")
                     {
-                        for (int Counter = 0; Counter <= 3; Counter++)
+                        foreach (XmlNode xn3 in xn2)
                         {
-                            XmlNodeList xna = xn2.ChildNodes;
-                            XmlNode ab = xna.Item(Counter);
-                            XmlNode y = xna.Item(Counter);
-                            XmlAttribute Correct = xmlDoc.CreateAttribute("Correct");
-                            Correct.Value = "yes";
-                            XmlNode Option = xmlDoc.CreateElement("Option", xmlNS);
-                            switch (Counter)
+                            if ((xn3.Attributes["Correct"] != null) && (xn3.Attributes["Correct"].Value) == "yes")
                             {
-                                case 0: Option.InnerText = txtOption1.Text;
-                                    if (rbOption1.IsChecked == true)
-                                        Option.Attributes.Append(Correct);
-                                    break;
-                                case 1: Option.InnerText = txtOption2.Text;
-                                    if (rbOption2.IsChecked == true)
-                                        Option.Attributes.Append(Correct);
-                                    break;
-                                case 2: Option.InnerText = txtOption3.Text;
-                                    if (rbOption3.IsChecked == true)
-                                        Option.Attributes.Append(Correct);
-                                    break;
-                                case 3: Option.InnerText = txtOption4.Text;
-                                    if (rbOption4.IsChecked == true)
-                                        Option.Attributes.Append(Correct);
-                                    break;
+
+                                ////NewCorrectAnswer.InnerText = lbCorrectAnswers.Items.Contains(xn3.InnerText).ToString();
+                                ////xn3.ReplaceChild(NewCorrectAnswer, xn3["Option"]);
+                                ////lbCorrectAnswers.Items.Add(xn3.InnerText);
+                                //XmlNode NewCorrectAnswer = xmlDoc.CreateElement("Option", xmlNS);
+
+                                //foreach (var listBoxItem in lbCorrectAnswers.Items)
+                                //{
+                                //    //XmlNode NewCorrectAnswer = xmlDoc.CreateElement("Option", xmlNS);
+                                //    //NewCorrectAnswer.InnerText = listBoxItem.ToString();
+                                //    //xn3.ReplaceChild(NewCorrectAnswer, xn3["Option"]);
+                                //    // use the currently iterated list box item
+
+                                //    XmlAttribute Correct = xmlDoc.CreateAttribute("Correct");
+                                //    Correct.Value = "yes";
+                                //    NewCorrectAnswer.Attributes.Append(Correct);
+                                //    NewCorrectAnswer.InnerText = listBoxItem.ToString();
+
+                                //    //xn3.ReplaceChild(NewCorrectAnswer, xn3["Option"]);
+                                //    //MessageBox.Show(string.Format("{0} is not in stock!", listBoxItem.ToString()));
+
+                                //}
+                                //xn2.ReplaceChild(NewCorrectAnswer, xn2["Option"]);
+
+                                for (int i = 0; i < lbCorrectAnswers.Items.Count; i++)
+                                {
+                                    XmlElement OptionCorrect = xmlDoc.CreateElement("Option", xmlNS);
+                                    OptionCorrect.InnerText = lbCorrectAnswers.Items[i].ToString();
+                                    xn2.ReplaceChild(OptionCorrect, xn3["Option"]);
+
+                                    XmlAttribute Correct = xmlDoc.CreateAttribute("Correct");
+                                    Correct.Value = "yes";
+                                    OptionCorrect.Attributes.Append(Correct);
+
+
+                                }
+                                //for (int i = 0; i < lbOtherOptions.Items.Count; i++)
+                                //{
+                                //    XmlElement OtherOptions = xmlDoc.CreateElement("Option", xmlNS);
+                                //    OtherOptions.InnerText = lbOtherOptions.Items[i].ToString();
+                                //    xn2.AppendChild(OtherOptions);
+                                //}
+
+                                break;
                             }
-                            xn2.ReplaceChild(Option, y);
+
+                            else
+                            {
+                                //XmlNode NewOtherOptions = xmlDoc.CreateElement("Option", xmlNS);
+                                ////lbOtherOptions.Items.Add(xn3.InnerText);
+                                //foreach (var listBoxItem in lbOtherOptions.Items)
+                                //{
+                                //    //XmlNode NewCorrectAnswer = xmlDoc.CreateElement("Option", xmlNS);
+                                //    //NewCorrectAnswer.InnerText = listBoxItem.ToString();
+                                //    //xn3.ReplaceChild(NewCorrectAnswer, xn3["Option"]);
+                                //    // use the currently iterated list box item
+
+                                //    NewOtherOptions.InnerText = listBoxItem.ToString();
+                                //    //xn3.ReplaceChild(NewOtherOptions, xn3["Option"]);
+                                //    //MessageBox.Show(string.Format("{0} is not in stock!", listBoxItem.ToString()));
+
+                                //}
+                                //xn2.ReplaceChild(NewOtherOptions, xn2["Option"]);
+                                for (int i = 0; i < lbOtherOptions.Items.Count; i++)
+                                {
+                                    XmlElement OtherOptions = xmlDoc.CreateElement("Option", xmlNS);
+                                    OtherOptions.InnerText = lbOtherOptions.Items[i].ToString();
+                                    xn2.AppendChild(OtherOptions);
+                                }
+                                break;
+
+                            }
                         }
                     }
                 }
