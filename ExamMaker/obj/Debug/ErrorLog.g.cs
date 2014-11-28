@@ -75,7 +75,7 @@ namespace ExamMaker {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/ExamMaker;component/errorlog.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/QuizMaker;component/errorlog.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\ErrorLog.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

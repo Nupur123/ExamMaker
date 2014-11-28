@@ -83,7 +83,7 @@ namespace ExamMaker {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/ExamMaker;component/helpwindow.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/QuizMaker;component/helpwindow.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\HelpWindow.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

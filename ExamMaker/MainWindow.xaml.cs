@@ -810,8 +810,8 @@ namespace ExamMaker
                         cmbQuestionType.SelectedValue = "Multiple Choice";
                     else if (item.Header.ToString().IndexOf("FillBlanks") == 0) //if it is a fill in type
                         cmbQuestionType.SelectedValue = "Fill in the blanks";
-                    else if (item.Header.ToString().IndexOf("longAnswer") == 0) //if it is a long Answer type
-                        cmbQuestionType.SelectedValue = "Long Answer";
+                    //else if (item.Header.ToString().IndexOf("longAnswer") == 0) //if it is a long Answer type
+                    //    cmbQuestionType.SelectedValue = "Long Answer";
                     else if (item.Header.ToString().IndexOf("TrueFalse") == 0) //if it is a long Answer type
                         cmbQuestionType.SelectedValue = "True False";
                     isAddNew = false;// show the gridAddDelete
