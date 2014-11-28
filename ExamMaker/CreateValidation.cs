@@ -20,6 +20,7 @@ namespace ExamMaker
         private string _option2;
         private string _option3;
         private string _option4;
+        private string _TrueFalse;
 
 
         public string Subject
@@ -139,6 +140,18 @@ namespace ExamMaker
                 }
             }
         }
+        public string TrueFalse
+        {
+            get { return _TrueFalse; }
+            set
+            {
+                _TrueFalse = value; if (string.IsNullOrEmpty(value))
+                {
+                    throw new Exception("Please enter a question");
+                }
+            }
+
+        }
 
 
 
@@ -154,7 +167,10 @@ namespace ExamMaker
             _option2 = null;
             _option3 = null;
             _option4 = null;
+            _TrueFalse = null;
         }
+
+
 
     }
 }
