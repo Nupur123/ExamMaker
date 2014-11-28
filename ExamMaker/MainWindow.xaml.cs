@@ -130,6 +130,7 @@ namespace ExamMaker
                 lbCorrectAnswers.Items.Clear();
                 lbOtherOptions.Items.Clear();
                 txtFillBlanks.IsReadOnly = true;
+                btnUpdateFillin.Visibility = System.Windows.Visibility.Hidden;
                 btnAddFillinCorrectAnswers.Visibility = System.Windows.Visibility.Hidden;
                 btnRemoveCorrectAnswers.Visibility = System.Windows.Visibility.Hidden;
                 btnAddFillinOptions.Visibility = System.Windows.Visibility.Hidden;
@@ -1158,6 +1159,7 @@ namespace ExamMaker
             status.Text = ID.ToString();
             isEdit = true;
             ActivateFillinGrid();
+            btnUpdateFillin.Visibility = System.Windows.Visibility.Visible;
             btnSubmitFillin.Visibility = System.Windows.Visibility.Visible;
         }
 
