@@ -197,7 +197,7 @@
                 <Button x:Name="btnAddUnderline" Content="Add line" HorizontalAlignment="Left" Margin="480,43,0,0" VerticalAlignment="Top" Width="55" Click="btnAddUnderline_Click"/>
                 <Label Content="Options:" HorizontalAlignment="Left" Margin="44,73,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.526,0.385"/>
                 <ListBox x:Name="lbCorrectAnswers" HorizontalAlignment="Left" Height="86" Margin="169,147,0,0" VerticalAlignment="Top" Width="155" SelectionChanged="lbCorrectAnswers_SelectionChanged" />
-                <ListBox x:Name="lbOtherOptions" HorizontalAlignment="Left" Height="86" Margin="429,147,0,0" VerticalAlignment="Top" Width="155"/>
+                <ListBox x:Name="lbOtherOptions" HorizontalAlignment="Left" Height="86" Margin="429,147,0,0" VerticalAlignment="Top" Width="155" SelectionChanged="lbOtherOptions_SelectionChanged"/>
                 <TextBox x:Name="txtOptionFillin" HorizontalAlignment="Left" Height="23" Margin="104,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="385"/>
                 <Label Content="Correct Answers:" HorizontalAlignment="Left" Margin="79,121,0,0" VerticalAlignment="Top"/>
                 <Label Content="Other Options:" HorizontalAlignment="Left" Margin="341,123,0,0" VerticalAlignment="Top"/>
@@ -205,7 +205,7 @@
                 <Button x:Name="btnAddFillinCorrectAnswers" Content="Add" Click="btnAddCorrectAnswers_Click" Margin="79,152,491,72"/>
                 <Button x:Name="btnRemoveCorrectAnswers" Content="Remove" HorizontalAlignment="Left" Margin="79,196,0,0" VerticalAlignment="Top" Width="75" Height="37" Click="btnRemoveCorrectAnswers_Click"/>
                 <Button x:Name="btnRemoveFillinOptions" Content="Remove" HorizontalAlignment="Left" Margin="339,196,0,0" VerticalAlignment="Top" Width="75" Height="37" Click="btnRemoveFillinOptions_Click"/>
-                <Border BorderBrush="Beige" BorderThickness="2" Margin="10,29,-10,-29">
+                <Border BorderBrush="Beige" BorderThickness="2" Margin="10,0,-10,-29" Height="263" VerticalAlignment="Bottom">
                     <Button x:Name="btnDeleteFillin" Content="Delete" Visibility="Hidden" HorizontalAlignment="Left" Margin="582,149,-16,90" Width="75" RenderTransformOrigin="0.548,1.429" Click="btnDeleteFillin_Click" />
 
                 </Border>
