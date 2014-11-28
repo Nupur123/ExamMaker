@@ -188,7 +188,7 @@
                 </ComboBox>
             </Grid>
             <Grid Visibility="Hidden" x:Name="gridEditDelete" Grid.Column="1" HorizontalAlignment="Left" Height="100" Margin="340,293,0,0" VerticalAlignment="Top" Width="100"/>
-            <Grid x:Name="gridFillBlanks" Visibility="Hidden" HorizontalAlignment="Left" Height="263" Margin="10,203,0,-16" VerticalAlignment="Top" Width="645" RenderTransformOrigin="0.5,0.258" Grid.ColumnSpan="2" d:IsHidden="False">
+            <Grid x:Name="gridFillBlanks" Visibility="Visible"  HorizontalAlignment="Left" Height="263" Margin="10,203,0,-16" VerticalAlignment="Top" Width="645" RenderTransformOrigin="0.5,0.258" Grid.ColumnSpan="2">
                 <Border BorderBrush="Beige" BorderThickness="2" d:IsHidden="True"></Border>
                 <Label Content="Fill Blanks Question:" FontSize="14" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Width="170"/>
                 <TextBox x:Name="txtFillBlanks" TextWrapping="Wrap" HorizontalAlignment="Left" Height="30" Margin="50,43,0,0" Text="" VerticalAlignment="Top" Width="425"/>
@@ -196,12 +196,11 @@
 
                 <Button x:Name="btnAddUnderline" Content="Add line" HorizontalAlignment="Left" Margin="480,43,0,0" VerticalAlignment="Top" Width="55" Click="btnAddUnderline_Click"/>
                 <Label Content="Options:" HorizontalAlignment="Left" Margin="44,73,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.526,0.385"/>
-                <ListBox x:Name="lbCorrectAnswers" HorizontalAlignment="Left" Height="86" Margin="169,147,0,0" VerticalAlignment="Top" Width="155" />
+                <ListBox x:Name="lbCorrectAnswers" HorizontalAlignment="Left" Height="86" Margin="169,147,0,0" VerticalAlignment="Top" Width="155" SelectionChanged="lbCorrectAnswers_SelectionChanged" />
                 <ListBox x:Name="lbOtherOptions" HorizontalAlignment="Left" Height="86" Margin="429,147,0,0" VerticalAlignment="Top" Width="155"/>
-                <TextBox x:Name="txtCorrectAnswers" HorizontalAlignment="Left" Height="23" Margin="79,98,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <TextBox x:Name="txtOptionFillin" HorizontalAlignment="Left" Height="23" Margin="104,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="385"/>
                 <Label Content="Correct Answers:" HorizontalAlignment="Left" Margin="79,121,0,0" VerticalAlignment="Top"/>
                 <Label Content="Other Options:" HorizontalAlignment="Left" Margin="341,123,0,0" VerticalAlignment="Top"/>
-                <TextBox x:Name="txtFillinOptions" HorizontalAlignment="Left" Height="23" Margin="341,99,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
                 <Button x:Name="btnAddFillinOptions" Content="Add" HorizontalAlignment="Left" Margin="339,152,0,0" VerticalAlignment="Top" Width="75" Click="btnAddFillinOptions_Click" Height="39"/>
                 <Button x:Name="btnAddFillinCorrectAnswers" Content="Add" Click="btnAddCorrectAnswers_Click" Margin="79,152,491,72"/>
                 <Button x:Name="btnRemoveCorrectAnswers" Content="Remove" HorizontalAlignment="Left" Margin="79,196,0,0" VerticalAlignment="Top" Width="75" Height="37" Click="btnRemoveCorrectAnswers_Click"/>
@@ -213,6 +212,7 @@
                 <Button x:Name="btnEditFillin" Content="Edit" Visibility="Hidden" HorizontalAlignment="Left" Margin="594,151,-24,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.533,2.85" Click="btnEditFillin_Click">
                     
                 </Button>
+                <Button x:Name="btnUpdateFillin" Content="Update" Click="btnUpdateFillin_Click" Margin="524,100,61,140" RenderTransformOrigin="1.6,0.205"/>
 
             </Grid>
             <Grid Visibility="Hidden" x:Name="gridTrueFalse" HorizontalAlignment="Left" Height="160" Margin="39,245,0,0" VerticalAlignment="Top" Width="695" RenderTransformOrigin="0.485,0.35" Grid.ColumnSpan="2">

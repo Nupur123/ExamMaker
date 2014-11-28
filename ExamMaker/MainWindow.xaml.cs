@@ -44,6 +44,7 @@ namespace ExamMaker
         XmlNode QuestionsNode;
         private int ID = 0;
         private int QuizId = 0;
+        private string FillInOptionOld;
 
         public MainWindow()
         {
@@ -133,8 +134,7 @@ namespace ExamMaker
                 btnRemoveCorrectAnswers.Visibility = System.Windows.Visibility.Hidden;
                 btnAddFillinOptions.Visibility = System.Windows.Visibility.Hidden;
                 btnRemoveFillinOptions.Visibility = System.Windows.Visibility.Hidden;
-                txtCorrectAnswers.Visibility = System.Windows.Visibility.Hidden;
-                txtFillinOptions.Visibility = System.Windows.Visibility.Hidden;
+                txtOptionFillin.Visibility = System.Windows.Visibility.Hidden;
                 btnSubmitFillin.Visibility = System.Windows.Visibility.Hidden;
                 GridQuestionType.Visibility = System.Windows.Visibility.Hidden;
                 btnEditFillin.Visibility = System.Windows.Visibility.Visible;
@@ -420,8 +420,7 @@ namespace ExamMaker
             Question.AppendChild(Options);
 
             txtFillBlanks.Text = "";
-            txtCorrectAnswers.Text = "";
-            txtFillinOptions.Text = "";
+            txtOptionFillin.Text = "";
             lbCorrectAnswers.Items.Clear();
             lbOtherOptions.Items.Clear();
         }
@@ -579,87 +578,34 @@ namespace ExamMaker
                 {
                     if (xn2.Name == "Options")
                     {
-                        foreach (XmlNode xn3 in xn2)
+
+                        xn2.RemoveAll(); // clear all previous nodes,, start new nodes
+                        for (int i = 0; i < lbCorrectAnswers.Items.Count; i++)
                         {
-                            if ((xn3.Attributes["Correct"] != null) && (xn3.Attributes["Correct"].Value) == "yes")
-                            {
+                            XmlElement OptionCorrect = xmlDoc.CreateElement("Option", xmlNS);
+                            OptionCorrect.InnerText = lbCorrectAnswers.Items[i].ToString();
+                            xn2.AppendChild(OptionCorrect);
 
-                                ////NewCorrectAnswer.InnerText = lbCorrectAnswers.Items.Contains(xn3.InnerText).ToString();
-                                ////xn3.ReplaceChild(NewCorrectAnswer, xn3["Option"]);
-                                ////lbCorrectAnswers.Items.Add(xn3.InnerText);
-                                //XmlNode NewCorrectAnswer = xmlDoc.CreateElement("Option", xmlNS);
-
-                                //foreach (var listBoxItem in lbCorrectAnswers.Items)
-                                //{
-                                //    //XmlNode NewCorrectAnswer = xmlDoc.CreateElement("Option", xmlNS);
-                                //    //NewCorrectAnswer.InnerText = listBoxItem.ToString();
-                                //    //xn3.ReplaceChild(NewCorrectAnswer, xn3["Option"]);
-                                //    // use the currently iterated list box item
-
-                                //    XmlAttribute Correct = xmlDoc.CreateAttribute("Correct");
-                                //    Correct.Value = "yes";
-                                //    NewCorrectAnswer.Attributes.Append(Correct);
-                                //    NewCorrectAnswer.InnerText = listBoxItem.ToString();
-
-                                //    //xn3.ReplaceChild(NewCorrectAnswer, xn3["Option"]);
-                                //    //MessageBox.Show(string.Format("{0} is not in stock!", listBoxItem.ToString()));
-
-                                //}
-                                //xn2.ReplaceChild(NewCorrectAnswer, xn2["Option"]);
-
-                                for (int i = 0; i < lbCorrectAnswers.Items.Count; i++)
-                                {
-                                    XmlElement OptionCorrect = xmlDoc.CreateElement("Option", xmlNS);
-                                    OptionCorrect.InnerText = lbCorrectAnswers.Items[i].ToString();
-                                    xn2.ReplaceChild(OptionCorrect, xn3["Option"]);
-
-                                    XmlAttribute Correct = xmlDoc.CreateAttribute("Correct");
-                                    Correct.Value = "yes";
-                                    OptionCorrect.Attributes.Append(Correct);
-
-
-                                }
-                                //for (int i = 0; i < lbOtherOptions.Items.Count; i++)
-                                //{
-                                //    XmlElement OtherOptions = xmlDoc.CreateElement("Option", xmlNS);
-                                //    OtherOptions.InnerText = lbOtherOptions.Items[i].ToString();
-                                //    xn2.AppendChild(OtherOptions);
-                                //}
-
-                                break;
-                            }
-
-                            else
-                            {
-                                //XmlNode NewOtherOptions = xmlDoc.CreateElement("Option", xmlNS);
-                                ////lbOtherOptions.Items.Add(xn3.InnerText);
-                                //foreach (var listBoxItem in lbOtherOptions.Items)
-                                //{
-                                //    //XmlNode NewCorrectAnswer = xmlDoc.CreateElement("Option", xmlNS);
-                                //    //NewCorrectAnswer.InnerText = listBoxItem.ToString();
-                                //    //xn3.ReplaceChild(NewCorrectAnswer, xn3["Option"]);
-                                //    // use the currently iterated list box item
-
-                                //    NewOtherOptions.InnerText = listBoxItem.ToString();
-                                //    //xn3.ReplaceChild(NewOtherOptions, xn3["Option"]);
-                                //    //MessageBox.Show(string.Format("{0} is not in stock!", listBoxItem.ToString()));
-
-                                //}
-                                //xn2.ReplaceChild(NewOtherOptions, xn2["Option"]);
-                                for (int i = 0; i < lbOtherOptions.Items.Count; i++)
-                                {
-                                    XmlElement OtherOptions = xmlDoc.CreateElement("Option", xmlNS);
-                                    OtherOptions.InnerText = lbOtherOptions.Items[i].ToString();
-                                    xn2.AppendChild(OtherOptions);
-                                }
-                                break;
-
-                            }
+                            XmlAttribute Correct = xmlDoc.CreateAttribute("Correct");
+                            Correct.Value = "yes";
+                            OptionCorrect.Attributes.Append(Correct);
+                            xn2.AppendChild(OptionCorrect);
                         }
+                        for (int i = 0; i < lbOtherOptions.Items.Count; i++)
+                        {
+                            XmlElement OtherOptions = xmlDoc.CreateElement("Option", xmlNS);
+                            OtherOptions.InnerText = lbOtherOptions.Items[i].ToString();
+                            xn2.AppendChild(OtherOptions);
+                        }
+
+                        //Question.AppendChild(Questi);
+                        //Question.AppendChild(Options);
+
                     }
                 }
             }
         }
+
         // this button adds True False Question
         private void btnTrueFalse_Click(object sender, RoutedEventArgs e)
         {
@@ -1002,8 +948,7 @@ namespace ExamMaker
             btnRemoveCorrectAnswers.Visibility = System.Windows.Visibility.Visible;
             btnAddFillinOptions.Visibility = System.Windows.Visibility.Visible;
             btnRemoveFillinOptions.Visibility = System.Windows.Visibility.Visible;
-            txtCorrectAnswers.Visibility = System.Windows.Visibility.Visible;
-            txtFillinOptions.Visibility = System.Windows.Visibility.Visible;
+            txtOptionFillin.Visibility = System.Windows.Visibility.Visible;
             btnSubmitFillin.Visibility = System.Windows.Visibility.Visible;
             GridQuestionType.Visibility = System.Windows.Visibility.Visible;
         }
@@ -1047,8 +992,7 @@ namespace ExamMaker
             btnRemoveCorrectAnswers.Visibility = System.Windows.Visibility.Visible;
             btnAddFillinOptions.Visibility = System.Windows.Visibility.Visible;
             btnRemoveFillinOptions.Visibility = System.Windows.Visibility.Visible;
-            txtCorrectAnswers.Visibility = System.Windows.Visibility.Visible;
-            txtFillinOptions.Visibility = System.Windows.Visibility.Visible;
+            txtOptionFillin.Visibility = System.Windows.Visibility.Visible;
             btnSubmitFillin.Visibility = System.Windows.Visibility.Visible;
             GridQuestionType.Visibility = System.Windows.Visibility.Visible;
 
@@ -1184,17 +1128,17 @@ namespace ExamMaker
             isEdit = true;
             ActivateTrueFalseGrid();
             btnTrueFalse.Visibility = System.Windows.Visibility.Visible;
-           
+
         }
 
         private void btnAddCorrectAnswers_Click(object sender, RoutedEventArgs e)
         {
-            lbCorrectAnswers.Items.Add(txtCorrectAnswers.Text);
+            lbCorrectAnswers.Items.Add(txtOptionFillin.Text);
         }
 
         private void btnAddFillinOptions_Click(object sender, RoutedEventArgs e)
         {
-            lbOtherOptions.Items.Add(txtFillinOptions.Text);
+            lbOtherOptions.Items.Add(txtOptionFillin.Text);
         }
 
         private void btnRemoveCorrectAnswers_Click(object sender, RoutedEventArgs e)
@@ -1235,6 +1179,32 @@ namespace ExamMaker
             xmlDoc.Save(wr);
             wr.Close();
             LoadTreeView();
+        }
+
+        private void btnUpdateFillin_Click(object sender, RoutedEventArgs e)
+        {
+            if (FillInOptionOld != null)
+            {
+                if (this.lbCorrectAnswers.SelectedIndex >= 0)
+                {
+                    lbCorrectAnswers.Items.Remove(FillInOptionOld);
+                    //lbCorrectAnswers.Items.RemoveAt(lbCorrectAnswers.SelectedIndex);
+                    lbCorrectAnswers.Items.Add(txtOptionFillin.Text);
+                }
+            }
+            txtOptionFillin.Visibility = System.Windows.Visibility.Hidden;
+
+        }
+
+        private void lbCorrectAnswers_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (lbCorrectAnswers.SelectedIndex != -1)
+            {
+                txtOptionFillin.Visibility = System.Windows.Visibility.Visible;
+                FillInOptionOld = lbCorrectAnswers.SelectedItem.ToString();
+                txtOptionFillin.Text = lbCorrectAnswers.SelectedItem.ToString();
+            }
+
         }
     }
 }
