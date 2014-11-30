@@ -210,7 +210,7 @@
 
                 </Button>
                 <Button x:Name="btnUpdateFillin" Content="Update" Visibility="Hidden" Click="btnUpdateFillin_Click" Margin="399,100,230,165" RenderTransformOrigin="1.6,0.205"/>
-                <Button x:Name="btnDeleteFillin" Content="Delete" Visibility="Hidden" HorizontalAlignment="Left" Margin="549,172,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.533,2.85" Click="btnEditFillin_Click"/>
+                <Button x:Name="btnDeleteFillin" Content="Delete" Visibility="Hidden" HorizontalAlignment="Left" Margin="549,172,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.533,2.85" Click="btnDeleteFillin_Click"/>
 
             </Grid>
             <Grid Visibility="Hidden" x:Name="gridTrueFalse" HorizontalAlignment="Left" Height="160" Margin="39,245,0,0" VerticalAlignment="Top" Width="695" RenderTransformOrigin="0.485,0.35" Grid.ColumnSpan="2">
