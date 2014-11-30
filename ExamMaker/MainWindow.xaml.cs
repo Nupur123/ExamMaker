@@ -130,6 +130,7 @@ namespace ExamMaker
                 lbCorrectAnswers.Items.Clear();
                 lbOtherOptions.Items.Clear();
                 txtFillBlanks.IsReadOnly = true;
+                btnUpdateFillin.Visibility = System.Windows.Visibility.Hidden;
                 btnAddFillinCorrectAnswers.Visibility = System.Windows.Visibility.Hidden;
                 btnRemoveCorrectAnswers.Visibility = System.Windows.Visibility.Hidden;
                 btnAddFillinOptions.Visibility = System.Windows.Visibility.Hidden;
@@ -1158,6 +1159,7 @@ namespace ExamMaker
             status.Text = ID.ToString();
             isEdit = true;
             ActivateFillinGrid();
+            btnUpdateFillin.Visibility = System.Windows.Visibility.Visible;
             btnSubmitFillin.Visibility = System.Windows.Visibility.Visible;
         }
 
@@ -1191,6 +1193,12 @@ namespace ExamMaker
                     //lbCorrectAnswers.Items.RemoveAt(lbCorrectAnswers.SelectedIndex);
                     lbCorrectAnswers.Items.Add(txtOptionFillin.Text);
                 }
+                if (this.lbOtherOptions.SelectedIndex >= 0)
+                {
+                    lbOtherOptions.Items.Remove(FillInOptionOld);
+                    //lbCorrectAnswers.Items.RemoveAt(lbCorrectAnswers.SelectedIndex);
+                    lbOtherOptions.Items.Add(txtOptionFillin.Text);
+                }
             }
             txtOptionFillin.Visibility = System.Windows.Visibility.Hidden;
 
@@ -1205,6 +1213,16 @@ namespace ExamMaker
                 txtOptionFillin.Text = lbCorrectAnswers.SelectedItem.ToString();
             }
 
+        }
+
+        private void lbOtherOptions_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (lbOtherOptions.SelectedIndex != -1)
+            {
+                txtOptionFillin.Visibility = System.Windows.Visibility.Visible;
+                FillInOptionOld = lbOtherOptions.SelectedItem.ToString();
+                txtOptionFillin.Text = lbOtherOptions.SelectedItem.ToString();
+            }
         }
     }
 }
