@@ -44,6 +44,7 @@ namespace ExamMaker
         XmlNode QuestionsNode;
         private int ID = 0;
         private int QuizId = 0;
+        private string FillInOptionOld;
 
         public MainWindow()
         {
@@ -101,17 +102,7 @@ namespace ExamMaker
                         cmbDiff.SelectedValue = "Advanced";
                         break;
                 }
-
-                //xmlSources.Load(xsd);
                 cmbCourse.SelectedValue = Course;
-                //switch (Course)
-                //{
-                //    case "Software and Database Developer":
-                //        cmbCourse.SelectedValue = "Software and Database Developer";
-                //        break;
-                //    default:
-                //        break;
-                //}
             }
             if (QuestionId != null)
             {
@@ -129,12 +120,12 @@ namespace ExamMaker
                 lbCorrectAnswers.Items.Clear();
                 lbOtherOptions.Items.Clear();
                 txtFillBlanks.IsReadOnly = true;
+                btnUpdateFillin.Visibility = System.Windows.Visibility.Hidden;
                 btnAddFillinCorrectAnswers.Visibility = System.Windows.Visibility.Hidden;
                 btnRemoveCorrectAnswers.Visibility = System.Windows.Visibility.Hidden;
                 btnAddFillinOptions.Visibility = System.Windows.Visibility.Hidden;
                 btnRemoveFillinOptions.Visibility = System.Windows.Visibility.Hidden;
-                txtCorrectAnswers.Visibility = System.Windows.Visibility.Hidden;
-                txtFillinOptions.Visibility = System.Windows.Visibility.Hidden;
+                txtOptionFillin.Visibility = System.Windows.Visibility.Hidden;
                 btnSubmitFillin.Visibility = System.Windows.Visibility.Hidden;
                 GridQuestionType.Visibility = System.Windows.Visibility.Hidden;
                 btnEditFillin.Visibility = System.Windows.Visibility.Visible;
@@ -193,28 +184,17 @@ namespace ExamMaker
                         txtTrueFalse.Text = xn["Questi"].InnerText;
                         XmlNodeList GetTF = xmlDoc.SelectNodes("/ns:Quiz/ns:Questions/ns:TrueFalse/ns:Question[@ID=" + QuestionId + "]", ns);
                         //TrueFalse;
-                        foreach (XmlNode xno in GetTF)
+                        string Answer = xn["Answer"].InnerText;
+                        switch (Answer)
                         {
-                            string[] Answer = new string[3];
-                            int x = 0;
-                            foreach (XmlNode xno2 in xno)
-                            {
-                                Answer[x] = xno2.InnerText;
-                                if (xno2.Name == "Answer")
-                                {
-                                    switch (x)
-                                    {
-                                        case 0: rbTrue.IsChecked = true;
-                                            break;
-                                        case 1: rbFalse.IsChecked = true;
-                                            break;
-                                    }
-                                }
-                                x++;
-                            }
+                            case "True": rbTrue.IsChecked = true;
+                                break;
+                            case "False": rbFalse.IsChecked = true;
+                                break;
                         }
                     }
                 }
+
                 else if (a == 0 && b == 0 && c != 0)
                 {
                     lbCorrectAnswers.Items.Clear();
@@ -420,8 +400,7 @@ namespace ExamMaker
             Question.AppendChild(Options);
 
             txtFillBlanks.Text = "";
-            txtCorrectAnswers.Text = "";
-            txtFillinOptions.Text = "";
+            txtOptionFillin.Text = "";
             lbCorrectAnswers.Items.Clear();
             lbOtherOptions.Items.Clear();
         }
@@ -461,7 +440,11 @@ namespace ExamMaker
             if (!CheckErrors("multi"))
             {
                 if (!File.Exists(NewFilePath))
+                {
                     CreateQuiz();
+                    MessageBox.Show("Question created successfully");
+                }
+                    
                 else
                     isNew = false;
                 if (ItemID == "1")
@@ -491,11 +474,16 @@ namespace ExamMaker
             if (!File.Exists(NewFilePath))
             {
                 CreateQuiz();
+                MessageBox.Show("Question created successfully");
             }
             else
                 isNew = false;
             if (isEdit)
+            {
                 UpdateFillinQuestion();
+                MessageBox.Show("Your Question has been saved to the Tree View");
+            }
+                
             else
             {
                 AddFillBlanks();
@@ -573,56 +561,54 @@ namespace ExamMaker
             foreach (XmlNode xn in nodes)
             {
                 XmlNode NewQuesti = xmlDoc.CreateElement("Questi", xmlNS);
-                NewQuesti.InnerText = txtQuestion.Text;
+                NewQuesti.InnerText = txtFillBlanks.Text;
                 xn.ReplaceChild(NewQuesti, xn["Questi"]);
                 foreach (XmlNode xn2 in xn)
                 {
                     if (xn2.Name == "Options")
                     {
-                        for (int Counter = 0; Counter <= 3; Counter++)
+
+                        xn2.RemoveAll(); // clear all previous nodes,, start new nodes
+                        for (int i = 0; i < lbCorrectAnswers.Items.Count; i++)
                         {
-                            XmlNodeList xna = xn2.ChildNodes;
-                            XmlNode ab = xna.Item(Counter);
-                            XmlNode y = xna.Item(Counter);
+                            XmlElement OptionCorrect = xmlDoc.CreateElement("Option", xmlNS);
+                            OptionCorrect.InnerText = lbCorrectAnswers.Items[i].ToString();
+                            xn2.AppendChild(OptionCorrect);
+
                             XmlAttribute Correct = xmlDoc.CreateAttribute("Correct");
                             Correct.Value = "yes";
-                            XmlNode Option = xmlDoc.CreateElement("Option", xmlNS);
-                            switch (Counter)
-                            {
-                                case 0: Option.InnerText = txtOption1.Text;
-                                    if (rbOption1.IsChecked == true)
-                                        Option.Attributes.Append(Correct);
-                                    break;
-                                case 1: Option.InnerText = txtOption2.Text;
-                                    if (rbOption2.IsChecked == true)
-                                        Option.Attributes.Append(Correct);
-                                    break;
-                                case 2: Option.InnerText = txtOption3.Text;
-                                    if (rbOption3.IsChecked == true)
-                                        Option.Attributes.Append(Correct);
-                                    break;
-                                case 3: Option.InnerText = txtOption4.Text;
-                                    if (rbOption4.IsChecked == true)
-                                        Option.Attributes.Append(Correct);
-                                    break;
-                            }
-                            xn2.ReplaceChild(Option, y);
+                            OptionCorrect.Attributes.Append(Correct);
+                            xn2.AppendChild(OptionCorrect);
                         }
+                        for (int i = 0; i < lbOtherOptions.Items.Count; i++)
+                        {
+                            XmlElement OtherOptions = xmlDoc.CreateElement("Option", xmlNS);
+                            OtherOptions.InnerText = lbOtherOptions.Items[i].ToString();
+                            xn2.AppendChild(OtherOptions);
+                        }
+
+                        //Question.AppendChild(Questi);
+                        //Question.AppendChild(Options);
+
                     }
                 }
             }
         }
+
         // this button adds True False Question
         private void btnTrueFalse_Click(object sender, RoutedEventArgs e)
         {
             if (!File.Exists(NewFilePath))
             {
                 CreateQuiz();
+                MessageBox.Show("Question created successfully");
             }
             else
                 isNew = false;
             if (isEdit)
+            {
                 TrueFalseUpdateQuestion();
+            }                
             else
                 AddTrueFalse();
             if (btnTrueFalseEdit.IsEnabled)
@@ -659,10 +645,10 @@ namespace ExamMaker
                     {
                         if
                             (rbFalse.IsChecked == true)
-                            Answer.InnerText = "false";
+                            Answer.InnerText = "False";
                         else
                             if (rbTrue.IsChecked == true)
-                                Answer.InnerText = "true";
+                                Answer.InnerText = "True";
                     }
                 }
                 xn2.ReplaceChild(Answer, xn2["Answer"]);
@@ -799,6 +785,13 @@ namespace ExamMaker
             txtOption3.Clear();
             txtOption4.Clear();
             txtTrueFalse.Clear();
+            rbOption1.IsEnabled = false;
+            rbOption2.IsEnabled = false;
+            rbOption3.IsEnabled = false;
+            rbOption4.IsEnabled = false;
+            txtFillBlanks.Clear();
+            lbCorrectAnswers.Items.Clear();
+            lbOtherOptions.Items.Clear();
         }
         private void TreeViewItem_Selected(object sender, RoutedEventArgs e)
         {//any item selected in the treeview will result on loopings where it begins at the bottom hierarchy(current node selected) until it reaches the parent node
@@ -823,9 +816,9 @@ namespace ExamMaker
                         cmbQuestionType.SelectedValue = "Multiple Choice";
                     else if (item.Header.ToString().IndexOf("FillBlanks") == 0) //if it is a fill in type
                         cmbQuestionType.SelectedValue = "Fill in the blanks";
-                    else if (item.Header.ToString().IndexOf("longAnswer") == 0) //if it is a long Answer type
-                        cmbQuestionType.SelectedValue = "Long Answer";
-                    else if (item.Header.ToString().IndexOf("TrueFalse") == 0) //if it is a long Answer type
+                    //else if (item.Header.ToString().IndexOf("longAnswer") == 0) //if it is a long Answer type
+                    //    cmbQuestionType.SelectedValue = "Long Answer";
+                    else if (item.Header.ToString().IndexOf("TrueFalse") == 0) //if it is a True/False type
                         cmbQuestionType.SelectedValue = "True False";
                     isAddNew = false;// show the gridAddDelete
                 }
@@ -954,8 +947,7 @@ namespace ExamMaker
             btnRemoveCorrectAnswers.Visibility = System.Windows.Visibility.Visible;
             btnAddFillinOptions.Visibility = System.Windows.Visibility.Visible;
             btnRemoveFillinOptions.Visibility = System.Windows.Visibility.Visible;
-            txtCorrectAnswers.Visibility = System.Windows.Visibility.Visible;
-            txtFillinOptions.Visibility = System.Windows.Visibility.Visible;
+            txtOptionFillin.Visibility = System.Windows.Visibility.Visible;
             btnSubmitFillin.Visibility = System.Windows.Visibility.Visible;
             GridQuestionType.Visibility = System.Windows.Visibility.Visible;
         }
@@ -999,8 +991,7 @@ namespace ExamMaker
             btnRemoveCorrectAnswers.Visibility = System.Windows.Visibility.Visible;
             btnAddFillinOptions.Visibility = System.Windows.Visibility.Visible;
             btnRemoveFillinOptions.Visibility = System.Windows.Visibility.Visible;
-            txtCorrectAnswers.Visibility = System.Windows.Visibility.Visible;
-            txtFillinOptions.Visibility = System.Windows.Visibility.Visible;
+            txtOptionFillin.Visibility = System.Windows.Visibility.Visible;
             btnSubmitFillin.Visibility = System.Windows.Visibility.Visible;
             GridQuestionType.Visibility = System.Windows.Visibility.Visible;
 
@@ -1128,6 +1119,7 @@ namespace ExamMaker
             wr.Formatting = Formatting.None; // no new line spaces;
             xmlDoc.Save(wr);
             wr.Close();
+            HideGridPanels();
             LoadTreeView();
         }
         private void TrueFalseEdit_Click(object sender, RoutedEventArgs e)
@@ -1136,17 +1128,17 @@ namespace ExamMaker
             isEdit = true;
             ActivateTrueFalseGrid();
             btnTrueFalse.Visibility = System.Windows.Visibility.Visible;
-           
+
         }
 
         private void btnAddCorrectAnswers_Click(object sender, RoutedEventArgs e)
         {
-            lbCorrectAnswers.Items.Add(txtCorrectAnswers.Text);
+            lbCorrectAnswers.Items.Add(txtOptionFillin.Text);
         }
 
         private void btnAddFillinOptions_Click(object sender, RoutedEventArgs e)
         {
-            lbOtherOptions.Items.Add(txtFillinOptions.Text);
+            lbOtherOptions.Items.Add(txtOptionFillin.Text);
         }
 
         private void btnRemoveCorrectAnswers_Click(object sender, RoutedEventArgs e)
@@ -1186,7 +1178,61 @@ namespace ExamMaker
             wr.Formatting = Formatting.None; // no new line spaces;
             xmlDoc.Save(wr);
             wr.Close();
+            ClearAll();
             LoadTreeView();
+            HideGridPanels();
+        }
+
+        private void btnUpdateFillin_Click(object sender, RoutedEventArgs e)
+        {
+            if (FillInOptionOld != null)
+            {
+                if (this.lbCorrectAnswers.SelectedIndex >= 0)
+                {
+                    lbCorrectAnswers.Items.Remove(FillInOptionOld);
+                    //lbCorrectAnswers.Items.RemoveAt(lbCorrectAnswers.SelectedIndex);
+                    lbCorrectAnswers.Items.Add(txtOptionFillin.Text);
+                }
+                if (this.lbOtherOptions.SelectedIndex >= 0)
+                {
+                    lbOtherOptions.Items.Remove(FillInOptionOld);
+                    //lbCorrectAnswers.Items.RemoveAt(lbCorrectAnswers.SelectedIndex);
+                    lbOtherOptions.Items.Add(txtOptionFillin.Text);
+                }
+            }
+            txtOptionFillin.Visibility = System.Windows.Visibility.Hidden;
+            btnUpdateFillin.Visibility = System.Windows.Visibility.Hidden;
+        }
+
+        private void lbCorrectAnswers_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (lbCorrectAnswers.SelectedIndex != -1)
+            {
+                if (btnSubmitFillin.IsVisible)
+                {
+                    txtOptionFillin.Visibility = System.Windows.Visibility.Visible;
+                    FillInOptionOld = lbCorrectAnswers.SelectedItem.ToString();
+                    txtOptionFillin.Text = lbCorrectAnswers.SelectedItem.ToString();
+                    btnUpdateFillin.Visibility = System.Windows.Visibility.Visible;
+                }
+                lbOtherOptions.SelectedIndex = -1;
+            }
+
+        }
+
+        private void lbOtherOptions_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (lbOtherOptions.SelectedIndex != -1)
+            {
+                if (btnSubmitFillin.IsVisible)
+                {
+                    txtOptionFillin.Visibility = System.Windows.Visibility.Visible;
+                    FillInOptionOld = lbOtherOptions.SelectedItem.ToString();
+                    txtOptionFillin.Text = lbOtherOptions.SelectedItem.ToString();
+                    btnUpdateFillin.Visibility = System.Windows.Visibility.Visible;
+                }
+                lbCorrectAnswers.SelectedIndex = -1;
+            }
         }
     }
 }

@@ -8,6 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("sourcexml.xml")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("exammaker.ico")]
 
 
