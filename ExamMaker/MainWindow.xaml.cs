@@ -102,17 +102,7 @@ namespace ExamMaker
                         cmbDiff.SelectedValue = "Advanced";
                         break;
                 }
-
-                //xmlSources.Load(xsd);
                 cmbCourse.SelectedValue = Course;
-                //switch (Course)
-                //{
-                //    case "Software and Database Developer":
-                //        cmbCourse.SelectedValue = "Software and Database Developer";
-                //        break;
-                //    default:
-                //        break;
-                //}
             }
             if (QuestionId != null)
             {
@@ -194,28 +184,17 @@ namespace ExamMaker
                         txtTrueFalse.Text = xn["Questi"].InnerText;
                         XmlNodeList GetTF = xmlDoc.SelectNodes("/ns:Quiz/ns:Questions/ns:TrueFalse/ns:Question[@ID=" + QuestionId + "]", ns);
                         //TrueFalse;
-                        foreach (XmlNode xno in GetTF)
+                        string Answer = xn["Answer"].InnerText;
+                        switch (Answer)
                         {
-                            string[] Answer = new string[3];
-                            int x = 0;
-                            foreach (XmlNode xno2 in xno)
-                            {
-                                Answer[x] = xno2.InnerText;
-                                if (xno2.Name == "Answer")
-                                {
-                                    switch (x)
-                                    {
-                                        case 0: rbTrue.IsChecked = true;
-                                            break;
-                                        case 1: rbFalse.IsChecked = true;
-                                            break;
-                                    }
-                                }
-                                x++;
-                            }
+                            case "True": rbTrue.IsChecked = true;
+                                break;
+                            case "False": rbFalse.IsChecked = true;
+                                break;
                         }
                     }
                 }
+
                 else if (a == 0 && b == 0 && c != 0)
                 {
                     lbCorrectAnswers.Items.Clear();
@@ -654,10 +633,10 @@ namespace ExamMaker
                     {
                         if
                             (rbFalse.IsChecked == true)
-                            Answer.InnerText = "false";
+                            Answer.InnerText = "False";
                         else
                             if (rbTrue.IsChecked == true)
-                                Answer.InnerText = "true";
+                                Answer.InnerText = "True";
                     }
                 }
                 xn2.ReplaceChild(Answer, xn2["Answer"]);
@@ -794,6 +773,13 @@ namespace ExamMaker
             txtOption3.Clear();
             txtOption4.Clear();
             txtTrueFalse.Clear();
+            rbOption1.IsEnabled = false;
+            rbOption2.IsEnabled = false;
+            rbOption3.IsEnabled = false;
+            rbOption4.IsEnabled = false;
+            txtFillBlanks.Clear();
+            lbCorrectAnswers.Items.Clear();
+            lbOtherOptions.Items.Clear();
         }
         private void TreeViewItem_Selected(object sender, RoutedEventArgs e)
         {//any item selected in the treeview will result on loopings where it begins at the bottom hierarchy(current node selected) until it reaches the parent node
@@ -820,7 +806,7 @@ namespace ExamMaker
                         cmbQuestionType.SelectedValue = "Fill in the blanks";
                     //else if (item.Header.ToString().IndexOf("longAnswer") == 0) //if it is a long Answer type
                     //    cmbQuestionType.SelectedValue = "Long Answer";
-                    else if (item.Header.ToString().IndexOf("TrueFalse") == 0) //if it is a long Answer type
+                    else if (item.Header.ToString().IndexOf("TrueFalse") == 0) //if it is a True/False type
                         cmbQuestionType.SelectedValue = "True False";
                     isAddNew = false;// show the gridAddDelete
                 }
@@ -1121,6 +1107,7 @@ namespace ExamMaker
             wr.Formatting = Formatting.None; // no new line spaces;
             xmlDoc.Save(wr);
             wr.Close();
+            HideGridPanels();
             LoadTreeView();
         }
         private void TrueFalseEdit_Click(object sender, RoutedEventArgs e)
@@ -1159,7 +1146,6 @@ namespace ExamMaker
             status.Text = ID.ToString();
             isEdit = true;
             ActivateFillinGrid();
-            btnUpdateFillin.Visibility = System.Windows.Visibility.Visible;
             btnSubmitFillin.Visibility = System.Windows.Visibility.Visible;
         }
 
@@ -1180,7 +1166,9 @@ namespace ExamMaker
             wr.Formatting = Formatting.None; // no new line spaces;
             xmlDoc.Save(wr);
             wr.Close();
+            ClearAll();
             LoadTreeView();
+            HideGridPanels();
         }
 
         private void btnUpdateFillin_Click(object sender, RoutedEventArgs e)
@@ -1201,16 +1189,21 @@ namespace ExamMaker
                 }
             }
             txtOptionFillin.Visibility = System.Windows.Visibility.Hidden;
-
+            btnUpdateFillin.Visibility = System.Windows.Visibility.Hidden;
         }
 
         private void lbCorrectAnswers_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (lbCorrectAnswers.SelectedIndex != -1)
             {
-                txtOptionFillin.Visibility = System.Windows.Visibility.Visible;
-                FillInOptionOld = lbCorrectAnswers.SelectedItem.ToString();
-                txtOptionFillin.Text = lbCorrectAnswers.SelectedItem.ToString();
+                if (btnSubmitFillin.IsVisible)
+                {
+                    txtOptionFillin.Visibility = System.Windows.Visibility.Visible;
+                    FillInOptionOld = lbCorrectAnswers.SelectedItem.ToString();
+                    txtOptionFillin.Text = lbCorrectAnswers.SelectedItem.ToString();
+                    btnUpdateFillin.Visibility = System.Windows.Visibility.Visible;
+                }
+                lbOtherOptions.SelectedIndex = -1;
             }
 
         }
@@ -1219,9 +1212,14 @@ namespace ExamMaker
         {
             if (lbOtherOptions.SelectedIndex != -1)
             {
-                txtOptionFillin.Visibility = System.Windows.Visibility.Visible;
-                FillInOptionOld = lbOtherOptions.SelectedItem.ToString();
-                txtOptionFillin.Text = lbOtherOptions.SelectedItem.ToString();
+                if (btnSubmitFillin.IsVisible)
+                {
+                    txtOptionFillin.Visibility = System.Windows.Visibility.Visible;
+                    FillInOptionOld = lbOtherOptions.SelectedItem.ToString();
+                    txtOptionFillin.Text = lbOtherOptions.SelectedItem.ToString();
+                    btnUpdateFillin.Visibility = System.Windows.Visibility.Visible;
+                }
+                lbCorrectAnswers.SelectedIndex = -1;
             }
         }
     }
