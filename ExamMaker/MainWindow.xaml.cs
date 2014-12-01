@@ -440,7 +440,11 @@ namespace ExamMaker
             if (!CheckErrors("multi"))
             {
                 if (!File.Exists(NewFilePath))
+                {
                     CreateQuiz();
+                    MessageBox.Show("Question created successfully");
+                }
+                    
                 else
                     isNew = false;
                 if (ItemID == "1")
@@ -470,11 +474,16 @@ namespace ExamMaker
             if (!File.Exists(NewFilePath))
             {
                 CreateQuiz();
+                MessageBox.Show("Question created successfully");
             }
             else
                 isNew = false;
             if (isEdit)
+            {
                 UpdateFillinQuestion();
+                MessageBox.Show("Your Question has been saved to the Tree View");
+            }
+                
             else
             {
                 AddFillBlanks();
@@ -592,11 +601,15 @@ namespace ExamMaker
             if (!File.Exists(NewFilePath))
             {
                 CreateQuiz();
+                MessageBox.Show("Question created successfully");
             }
             else
                 isNew = false;
             if (isEdit)
+            {
                 TrueFalseUpdateQuestion();
+                MessageBox.Show("Your Question has been saved to the Tree View");
+            }                
             else
                 AddTrueFalse();
             if (btnTrueFalseEdit.IsEnabled)
