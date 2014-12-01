@@ -608,7 +608,6 @@ namespace ExamMaker
             if (isEdit)
             {
                 TrueFalseUpdateQuestion();
-                MessageBox.Show("Your Question has been saved to the Tree View");
             }                
             else
                 AddTrueFalse();
