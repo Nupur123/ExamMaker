@@ -38,11 +38,6 @@ C:\Users\KevinEmmanuel\Documents\GitHub\ExamMaker\ExamMaker\obj\Debug\HelpWindow
 C:\Users\KevinEmmanuel\Documents\GitHub\ExamMaker\ExamMaker\obj\Debug\ErrorLog.baml
 C:\Users\KevinEmmanuel\Documents\GitHub\ExamMaker\ExamMaker\obj\Debug\ErrorLog.g.cs
 C:\Users\KevinEmmanuel\Documents\GitHub\ExamMaker\ExamMaker\obj\Debug\GeneratedInternalTypeHelper.g.cs
-C:\Users\adrian\Documents\GitHub\ExamMaker\ExamMaker\bin\Debug\ExamMaker.exe.config
-C:\Users\adrian\Documents\GitHub\ExamMaker\ExamMaker\obj\Debug\ExamMaker.exe
-C:\Users\adrian\Documents\GitHub\ExamMaker\ExamMaker\obj\Debug\ExamMaker.pdb
-C:\Users\adrian\Documents\GitHub\ExamMaker\ExamMaker\bin\Debug\ExamMaker.exe
-C:\Users\adrian\Documents\GitHub\ExamMaker\ExamMaker\bin\Debug\ExamMaker.pdb
 C:\Users\adrian\Documents\GitHub\ExamMaker\ExamMaker\obj\Debug\ErrorLog.baml
 C:\Users\adrian\Documents\GitHub\ExamMaker\ExamMaker\obj\Debug\HelpWindow.baml
 C:\Users\adrian\Documents\GitHub\ExamMaker\ExamMaker\obj\Debug\ErrorLog.g.cs
@@ -50,11 +45,7 @@ C:\Users\adrian\Documents\GitHub\ExamMaker\ExamMaker\obj\Debug\HelpWindow.g.cs
 C:\Users\adrian\Documents\GitHub\ExamMaker\ExamMaker\obj\Debug\MainWindow.g.cs
 C:\Users\adrian\Documents\GitHub\ExamMaker\ExamMaker\obj\Debug\App.g.cs
 C:\Users\adrian\Documents\GitHub\ExamMaker\ExamMaker\obj\Debug\GeneratedInternalTypeHelper.g.cs
-C:\Users\adrian\Documents\GitHub\ExamMaker\ExamMaker\obj\Debug\ExamMaker_MarkupCompile.cache
-C:\Users\adrian\Documents\GitHub\ExamMaker\ExamMaker\obj\Debug\ExamMaker_MarkupCompile.lref
 C:\Users\adrian\Documents\GitHub\ExamMaker\ExamMaker\obj\Debug\MainWindow.baml
-C:\Users\adrian\Documents\GitHub\ExamMaker\ExamMaker\obj\Debug\ExamMaker.g.resources
-C:\Users\adrian\Documents\GitHub\ExamMaker\ExamMaker\obj\Debug\ExamMaker.Properties.Resources.resources
 C:\Users\adrian\Documents\GitHub\ExamMaker\ExamMaker\obj\Debug\ExamMaker.csproj.GenerateResource.Cache
 C:\Users\adrian\Documents\GitHub\ExamMaker\ExamMaker\obj\Debug\ExamMaker.csprojResolveAssemblyReference.cache
 C:\Users\JanryAlex\Documents\GitHub\ExamMaker\ExamMaker\obj\Debug\ExamMaker.csprojResolveAssemblyReference.cache
@@ -85,3 +76,12 @@ C:\Users\JanryAlex\Documents\GitHub\ExamMaker\ExamMaker\obj\Debug\QuizMaker_Mark
 C:\Users\JanryAlex\Documents\GitHub\ExamMaker\ExamMaker\obj\Debug\QuizMaker.g.resources
 C:\Users\JanryAlex\Documents\GitHub\ExamMaker\ExamMaker\obj\Debug\QuizMaker.Properties.Resources.resources
 C:\Users\JanryAlex\Documents\GitHub\ExamMaker\ExamMaker\obj\Debug\QuizMaker.exe
+C:\Users\adrian\Documents\GitHub\ExamMaker\ExamMaker\bin\Debug\QuizMaker.exe.config
+C:\Users\adrian\Documents\GitHub\ExamMaker\ExamMaker\obj\Debug\QuizMaker.exe
+C:\Users\adrian\Documents\GitHub\ExamMaker\ExamMaker\obj\Debug\QuizMaker.pdb
+C:\Users\adrian\Documents\GitHub\ExamMaker\ExamMaker\bin\Debug\QuizMaker.exe
+C:\Users\adrian\Documents\GitHub\ExamMaker\ExamMaker\bin\Debug\QuizMaker.pdb
+C:\Users\adrian\Documents\GitHub\ExamMaker\ExamMaker\obj\Debug\QuizMaker_MarkupCompile.cache
+C:\Users\adrian\Documents\GitHub\ExamMaker\ExamMaker\obj\Debug\QuizMaker_MarkupCompile.lref
+C:\Users\adrian\Documents\GitHub\ExamMaker\ExamMaker\obj\Debug\QuizMaker.g.resources
+C:\Users\adrian\Documents\GitHub\ExamMaker\ExamMaker\obj\Debug\QuizMaker.Properties.Resources.resources

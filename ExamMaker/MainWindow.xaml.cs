@@ -785,10 +785,10 @@ namespace ExamMaker
             txtOption3.Clear();
             txtOption4.Clear();
             txtTrueFalse.Clear();
-            rbOption1.IsEnabled = false;
-            rbOption2.IsEnabled = false;
-            rbOption3.IsEnabled = false;
-            rbOption4.IsEnabled = false;
+            rbOption1.IsEnabled = true;
+            rbOption2.IsEnabled = true;
+            rbOption3.IsEnabled = true;
+            rbOption4.IsEnabled = true;
             txtFillBlanks.Clear();
             lbCorrectAnswers.Items.Clear();
             lbOtherOptions.Items.Clear();
@@ -977,6 +977,7 @@ namespace ExamMaker
             txtOption2.IsReadOnly = false;
             txtOption3.IsReadOnly = false;
             txtOption4.IsReadOnly = false;
+            rbOption1.IsEnabled = true;
         }
         private void ActivateTrueFalseGrid()
         {
