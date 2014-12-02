@@ -472,34 +472,37 @@ namespace ExamMaker
         // this button adds Fill Blanks Question
         private void btnSubmitFillin_Click(object sender, RoutedEventArgs e)
         {
-            if (!File.Exists(NewFilePath))
+            if (!CheckErrors("FillIn"))
             {
-                CreateQuiz();
-                MessageBox.Show("Question created successfully");
+                if (!File.Exists(NewFilePath))
+                {
+                    CreateQuiz();
+                    MessageBox.Show("Question created successfully");
+                }
+                else
+                    isNew = false;
+                if (isEdit)
+                {
+                    UpdateFillinQuestion();
+                    MessageBox.Show("Your Question has been saved to the Tree View");
+                    gridFillBlanks.Visibility = System.Windows.Visibility.Hidden;
+                }
+
+                else
+                {
+                    AddFillBlanks();
+                }
+
+
+
+                XmlTextWriter wr = new XmlTextWriter(NewFilePath, null);
+                wr.Formatting = Formatting.None; // no new line spaces;
+
+                xmlDoc.Save(wr);
+                filename = NewFilePath;
+                wr.Close();
+                LoadTreeView();
             }
-            else
-                isNew = false;
-            if (isEdit)
-            {
-                UpdateFillinQuestion();
-                MessageBox.Show("Your Question has been saved to the Tree View");
-                gridFillBlanks.Visibility = System.Windows.Visibility.Hidden;
-            }
-                
-            else
-            {
-                AddFillBlanks();
-            }
-
-
-
-            XmlTextWriter wr = new XmlTextWriter(NewFilePath, null);
-            wr.Formatting = Formatting.None; // no new line spaces;
-
-            xmlDoc.Save(wr);
-            filename = NewFilePath;
-            wr.Close();
-            LoadTreeView();
         }
         private void UpdateQuestion()
         {
@@ -1046,8 +1049,8 @@ namespace ExamMaker
         {
             if (CheckErrors("multi"))
                 MessageBox.Show("Errors found");
-            if (CheckErrors())
-                MessageBox.Show("e");
+            if (CheckErrors("FillIn"))
+                MessageBox.Show("Errors found");
         }
         private bool CheckErrors(string choice = null)
         {
@@ -1081,6 +1084,14 @@ namespace ExamMaker
                         isValid = false;       //all validations pass
                     break;
                 case "FillIn":
+                    BindingExpression fillin = txtFillBlanks.GetBindingExpression(TextBox.TextProperty);
+                    fillin.UpdateSource();
+                    //BindingExpression fillinCorrect = lbCorrectAnswers.GetBindingExpression(ListBox.property);
+                    //mult1.UpdateSource();
+                    if (be.HasError || be1.HasError || be2.HasError || be3.HasError || be4.HasError || fillin.HasError)
+                        isValid = true;        //return true if there is an error
+                    else
+                        isValid = false;       //all validations pass
                     break;
             }
             return isValid;
