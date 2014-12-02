@@ -663,11 +663,16 @@ namespace ExamMaker
             if (!File.Exists(NewFilePath))
             {
                 CreateQuiz();
+                MessageBox.Show("Question created successfully");
             }
             else
                 isNew = false;
             if (isEdit)
+            {
+                MessageBox.Show("Your Question has been saved to the Tree View");
                 UpdateFillinQuestion();
+            }
+                
             else
             {
                 AddFillBlanks();
