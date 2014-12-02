@@ -468,7 +468,10 @@ namespace ExamMaker
             if (!CheckErrors("multi"))
             {
                 if (!File.Exists(NewFilePath))
+                {
                     CreateQuiz();
+                    MessageBox.Show("Question created successfully");
+                }
                 else
                     isNew = false;
                 if (ItemID == "1")
@@ -479,6 +482,7 @@ namespace ExamMaker
                 if (btnEdit.IsEnabled)
                 {
                     MessageBox.Show("Your Question has been saved to the Tree View");
+                    gridMultipleChoice.Visibility = System.Windows.Visibility.Hidden;
                 }
                 else
                     AddMultipleChoice();
@@ -495,33 +499,41 @@ namespace ExamMaker
         // this button adds Fill Blanks Question
         private void btnSubmitFillin_Click(object sender, RoutedEventArgs e)
         {
-            if (!File.Exists(NewFilePath))
+            if (!CheckErrors("FillIn"))
             {
-                CreateQuiz();
-            }
-            else
-                isNew = false;
-            if (isEdit)
-                UpdateFillinQuestion();
-            else
-            {
-                AddFillBlanks();
-            }
-            try
-            {
-                XmlTextWriter wr = new XmlTextWriter(NewFilePath, null);
-                wr.Formatting = Formatting.None; // no new line spaces;
+                if (!File.Exists(NewFilePath))
+                {
+                    CreateQuiz();
+                    MessageBox.Show("Question created successfully");
+                }
+                else
+                    isNew = false;
+                if (isEdit)
+                {
+                    UpdateFillinQuestion();
+                    MessageBox.Show("Your Question has been saved to the Tree View");
+                    gridFillBlanks.Visibility = System.Windows.Visibility.Hidden;
+                }
+                else
+                {
+                    AddFillBlanks();
+                }
+                try
+                {
+                    XmlTextWriter wr = new XmlTextWriter(NewFilePath, null);
+                    wr.Formatting = Formatting.None; // no new line spaces;
 
-                xmlDoc.Save(wr);
-                filename = NewFilePath;
-                wr.Close();
-                LoadTreeView();
-                MessageBox.Show("Question Added/Updated");
-                txtOptionFillin.Clear();
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Error in updating the question");
+                    xmlDoc.Save(wr);
+                    filename = NewFilePath;
+                    wr.Close();
+                    LoadTreeView();
+                    MessageBox.Show("Question Added/Updated");
+                    txtOptionFillin.Clear();
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Error in updating the question");
+                }
             }
 
         }
@@ -637,6 +649,7 @@ namespace ExamMaker
             if (btnTrueFalseEdit.IsEnabled)
             {
                 MessageBox.Show("Your Question has been saved to the Tree View");
+                gridTrueFalse.Visibility = System.Windows.Visibility.Hidden;
             }
             else
                 AddTrueFalse();
@@ -678,30 +691,35 @@ namespace ExamMaker
             }
         }
         // this button adds Fill Blanks Question
-        //private void btnFillBlanks_Click(object sender, RoutedEventArgs e)
-        //{
-        //    if (!File.Exists(NewFilePath))
-        //    {
-        //        CreateQuiz();
-        //    }
-        //    else
-        //        isNew = false;
-        //    if (isEdit)
-        //        UpdateFillinQuestion();
-        //    else
-        //    {
-        //        AddFillBlanks();
-        //    }
+        private void btnFillBlanks_Click(object sender, RoutedEventArgs e)
+        {
+            if (!File.Exists(NewFilePath))
+            {
+                CreateQuiz();
+                MessageBox.Show("Question created successfully");
+            }
+            else
+                isNew = false;
+            if (isEdit)
+            {
+                MessageBox.Show("Your Question has been saved to the Tree View");
+                UpdateFillinQuestion();
+            }
+
+            else
+            {
+                AddFillBlanks();
+            }
 
 
-        //    XmlTextWriter wr = new XmlTextWriter(NewFilePath, null);
-        //    wr.Formatting = Formatting.None; // no new line spaces;
+            XmlTextWriter wr = new XmlTextWriter(NewFilePath, null);
+            wr.Formatting = Formatting.None; // no new line spaces;
 
-        //    xmlDoc.Save(wr);
-        //    filename = NewFilePath;
-        //    wr.Close();
-        //    LoadTreeView();
-        //}
+            xmlDoc.Save(wr);
+            filename = NewFilePath;
+            wr.Close();
+            LoadTreeView();
+        }
         private void Open_Click(object sender, RoutedEventArgs e)
         {
             OpenDialog();
@@ -1071,8 +1089,8 @@ namespace ExamMaker
         {
             if (CheckErrors("multi"))
                 MessageBox.Show("Errors found");
-            if (CheckErrors())
-                MessageBox.Show("e");
+            if (CheckErrors("FillIn"))
+                MessageBox.Show("Errors found");
         }
         private bool CheckErrors(string choice = null)
         {
@@ -1106,6 +1124,14 @@ namespace ExamMaker
                         isValid = false;       //all validations pass
                     break;
                 case "FillIn":
+                    BindingExpression fillin = txtFillBlanks.GetBindingExpression(TextBox.TextProperty);
+                    fillin.UpdateSource();
+                    //BindingExpression fillinCorrect = lbCorrectAnswers.GetBindingExpression(ListBox.property);
+                    //mult1.UpdateSource();
+                    if (be.HasError || be1.HasError || be2.HasError || be3.HasError || be4.HasError || fillin.HasError)
+                        isValid = true;        //return true if there is an error
+                    else
+                        isValid = false;       //all validations pass
                     break;
             }
             return isValid;
