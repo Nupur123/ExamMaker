@@ -937,6 +937,7 @@ namespace ExamMaker
             ActivateMultipleGrid();
             btnSubmit.Visibility = System.Windows.Visibility.Visible;
             txtTrueFalse.IsReadOnly = false;
+            
 
             //Fill in the Blanks
             txtFillBlanks.Text = "";
