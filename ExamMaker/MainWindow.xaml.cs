@@ -455,6 +455,7 @@ namespace ExamMaker
                 if (btnEdit.IsEnabled)
                 {
                     MessageBox.Show("Your Question has been saved to the Tree View");
+                    gridMultipleChoice.Visibility = System.Windows.Visibility.Hidden;
                 }
                 else
                     AddMultipleChoice();
@@ -482,6 +483,7 @@ namespace ExamMaker
             {
                 UpdateFillinQuestion();
                 MessageBox.Show("Your Question has been saved to the Tree View");
+                gridFillBlanks.Visibility = System.Windows.Visibility.Hidden;
             }
                 
             else
@@ -614,6 +616,7 @@ namespace ExamMaker
             if (btnTrueFalseEdit.IsEnabled)
             {
                 MessageBox.Show("Your Question has been saved to the Tree View");
+                gridTrueFalse.Visibility = System.Windows.Visibility.Hidden;
             }
             else
                 AddTrueFalse();
