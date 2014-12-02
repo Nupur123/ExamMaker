@@ -106,33 +106,7 @@ namespace ExamMaker
             }
             if (QuestionId != null)
             {
-                txtQuestion.IsReadOnly = true;
-                txtOption1.IsReadOnly = true;
-                txtOption2.IsReadOnly = true;
-                txtOption3.IsReadOnly = true;
-                txtOption4.IsReadOnly = true;
-
-                //True False
-                txtTrueFalse.IsReadOnly = true;
-                GridQuestionType.Visibility = System.Windows.Visibility.Hidden;
-
-                //Fill in the Blanks
-                lbCorrectAnswers.Items.Clear();
-                lbOtherOptions.Items.Clear();
-                txtFillBlanks.IsReadOnly = true;
-                btnUpdateFillin.Visibility = System.Windows.Visibility.Hidden;
-                btnAddFillinCorrectAnswers.Visibility = System.Windows.Visibility.Hidden;
-                btnRemoveCorrectAnswers.Visibility = System.Windows.Visibility.Hidden;
-                btnAddFillinOptions.Visibility = System.Windows.Visibility.Hidden;
-                btnRemoveFillinOptions.Visibility = System.Windows.Visibility.Hidden;
-                txtOptionFillin.Visibility = System.Windows.Visibility.Hidden;
-                btnSubmitFillin.Visibility = System.Windows.Visibility.Hidden;
-                GridQuestionType.Visibility = System.Windows.Visibility.Hidden;
-                btnEditFillin.Visibility = System.Windows.Visibility.Visible;
-                btnDeleteFillin.Visibility = System.Windows.Visibility.Visible;
-
-
-                //loading for Multiple Type
+                //loading for Question Type
                 XmlNodeList GetQuestionMulti = xmlDoc.SelectNodes("/ns:Quiz/ns:Questions/ns:MultipleChoice/ns:Question[@ID=" + QuestionId + "]", ns);
                 XmlNodeList GetTrueFalse = xmlDoc.SelectNodes("/ns:Quiz/ns:Questions/ns:TrueFalse/ns:Question[@ID=" + QuestionId + "]", ns);
                 XmlNodeList GetFillIn = xmlDoc.SelectNodes("/ns:Quiz/ns:Questions/ns:FillBlanks/ns:Question[@ID=" + QuestionId + "]", ns);
@@ -141,6 +115,7 @@ namespace ExamMaker
                 int c = GetFillIn.Count;
                 if (a != 0 && b == 0 && c == 0)
                 {//it is a Multiple
+                    UseMultiple(); //load Multiple choice panel
                     foreach (XmlNode xn in GetQuestionMulti)
                     {
                         txtQuestion.Text = xn["Questi"].InnerText;
@@ -179,6 +154,7 @@ namespace ExamMaker
                 else if (a == 0 && b != 0 && c == 0)
                 {//if it is TrueFalse;
                     //New code!!!
+                    UseTrueFalse();
                     foreach (XmlNode xn in GetTrueFalse)
                     {
                         txtTrueFalse.Text = xn["Questi"].InnerText;
@@ -197,6 +173,7 @@ namespace ExamMaker
 
                 else if (a == 0 && b == 0 && c != 0)
                 {
+                    UseFillIn(); //Load Grid for Fill In
                     lbCorrectAnswers.Items.Clear();
                     lbOtherOptions.Items.Clear();
                     //if it is Fill in the Blanks
@@ -223,6 +200,57 @@ namespace ExamMaker
                 }
 
             }
+        }
+        private void UseMultiple()
+        {
+            txtQuestion.IsReadOnly = true;
+            txtOption1.IsReadOnly = true;
+            txtOption2.IsReadOnly = true;
+            txtOption3.IsReadOnly = true;
+            txtOption4.IsReadOnly = true;
+
+            //True False
+            txtTrueFalse.IsReadOnly = true;
+            GridQuestionType.Visibility = System.Windows.Visibility.Hidden;
+
+            //Fill in the Blanks
+            lbCorrectAnswers.Items.Clear();
+            lbOtherOptions.Items.Clear();
+            txtFillBlanks.IsReadOnly = true;
+            btnUpdateFillin.Visibility = System.Windows.Visibility.Hidden;
+            btnAddFillinCorrectAnswers.Visibility = System.Windows.Visibility.Hidden;
+            btnRemoveCorrectAnswers.Visibility = System.Windows.Visibility.Hidden;
+            btnAddFillinOptions.Visibility = System.Windows.Visibility.Hidden;
+            btnRemoveFillinOptions.Visibility = System.Windows.Visibility.Hidden;
+            txtOptionFillin.Visibility = System.Windows.Visibility.Hidden;
+            btnSubmitFillin.Visibility = System.Windows.Visibility.Hidden;
+            GridQuestionType.Visibility = System.Windows.Visibility.Hidden;
+            btnEditFillin.Visibility = System.Windows.Visibility.Visible;
+            btnDeleteFillin.Visibility = System.Windows.Visibility.Visible;
+
+        }
+        private void UseFillIn()
+        {
+            gridMultipleChoice.Visibility = System.Windows.Visibility.Hidden;
+            //True False
+            txtTrueFalse.IsReadOnly = true;
+            GridQuestionType.Visibility = System.Windows.Visibility.Hidden;
+
+            //Fill in the Blanks
+            gridFillBlanks.Visibility = System.Windows.Visibility.Visible;
+            txtOptionFillin.Visibility = System.Windows.Visibility.Hidden;
+
+        }
+        private void UseTrueFalse()
+        {
+            gridMultipleChoice.Visibility = System.Windows.Visibility.Hidden;
+            //True False
+            txtTrueFalse.IsReadOnly = true;
+            GridQuestionType.Visibility = System.Windows.Visibility.Visible ;
+
+            //Fill in the Blanks
+            gridFillBlanks.Visibility = System.Windows.Visibility.Hidden;
+
         }
         // method to create and write to xml file 
         private void CreateQuiz()
@@ -479,16 +507,23 @@ namespace ExamMaker
             {
                 AddFillBlanks();
             }
+            try
+            {
+                XmlTextWriter wr = new XmlTextWriter(NewFilePath, null);
+                wr.Formatting = Formatting.None; // no new line spaces;
 
+                xmlDoc.Save(wr);
+                filename = NewFilePath;
+                wr.Close();
+                LoadTreeView();
+                MessageBox.Show("Question Added/Updated");
+                txtOptionFillin.Clear();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Error in updating the question");
+            }
 
-
-            XmlTextWriter wr = new XmlTextWriter(NewFilePath, null);
-            wr.Formatting = Formatting.None; // no new line spaces;
-
-            xmlDoc.Save(wr);
-            filename = NewFilePath;
-            wr.Close();
-            LoadTreeView();
         }
         private void UpdateQuestion()
         {
@@ -643,30 +678,30 @@ namespace ExamMaker
             }
         }
         // this button adds Fill Blanks Question
-        private void btnFillBlanks_Click(object sender, RoutedEventArgs e)
-        {
-            if (!File.Exists(NewFilePath))
-            {
-                CreateQuiz();
-            }
-            else
-                isNew = false;
-            if (isEdit)
-                UpdateFillinQuestion();
-            else
-            {
-                AddFillBlanks();
-            }
+        //private void btnFillBlanks_Click(object sender, RoutedEventArgs e)
+        //{
+        //    if (!File.Exists(NewFilePath))
+        //    {
+        //        CreateQuiz();
+        //    }
+        //    else
+        //        isNew = false;
+        //    if (isEdit)
+        //        UpdateFillinQuestion();
+        //    else
+        //    {
+        //        AddFillBlanks();
+        //    }
 
 
-            XmlTextWriter wr = new XmlTextWriter(NewFilePath, null);
-            wr.Formatting = Formatting.None; // no new line spaces;
+        //    XmlTextWriter wr = new XmlTextWriter(NewFilePath, null);
+        //    wr.Formatting = Formatting.None; // no new line spaces;
 
-            xmlDoc.Save(wr);
-            filename = NewFilePath;
-            wr.Close();
-            LoadTreeView();
-        }
+        //    xmlDoc.Save(wr);
+        //    filename = NewFilePath;
+        //    wr.Close();
+        //    LoadTreeView();
+        //}
         private void Open_Click(object sender, RoutedEventArgs e)
         {
             OpenDialog();
@@ -773,13 +808,24 @@ namespace ExamMaker
             txtOption3.Clear();
             txtOption4.Clear();
             txtTrueFalse.Clear();
+            txtFillBlanks.Clear();
+            lbCorrectAnswers.Items.Clear();
+            lbOtherOptions.Items.Clear();
+            rbOptionDisable();
+        }
+        private void rbOptionEnable()
+        {
+            rbOption1.IsEnabled = true;
+            rbOption2.IsEnabled = true;
+            rbOption3.IsEnabled = true;
+            rbOption4.IsEnabled = true;
+        }
+        private void rbOptionDisable()
+        {
             rbOption1.IsEnabled = false;
             rbOption2.IsEnabled = false;
             rbOption3.IsEnabled = false;
             rbOption4.IsEnabled = false;
-            txtFillBlanks.Clear();
-            lbCorrectAnswers.Items.Clear();
-            lbOtherOptions.Items.Clear();
         }
         private void TreeViewItem_Selected(object sender, RoutedEventArgs e)
         {//any item selected in the treeview will result on loopings where it begins at the bottom hierarchy(current node selected) until it reaches the parent node
@@ -952,6 +998,7 @@ namespace ExamMaker
             isEdit = true;
             ActivateMultipleGrid();
             btnSubmit.Visibility = System.Windows.Visibility.Visible;
+            rbOptionEnable();
         }
         private void HowTo_Click(object sender, RoutedEventArgs e)
         {
@@ -979,7 +1026,7 @@ namespace ExamMaker
             btnRemoveCorrectAnswers.Visibility = System.Windows.Visibility.Visible;
             btnAddFillinOptions.Visibility = System.Windows.Visibility.Visible;
             btnRemoveFillinOptions.Visibility = System.Windows.Visibility.Visible;
-            txtOptionFillin.Visibility = System.Windows.Visibility.Visible;
+            //txtOptionFillin.Visibility = System.Windows.Visibility.Visible;
             btnSubmitFillin.Visibility = System.Windows.Visibility.Visible;
             GridQuestionType.Visibility = System.Windows.Visibility.Visible;
 
@@ -1092,23 +1139,27 @@ namespace ExamMaker
         }
         private void btnTrueFalseDelete_Click(object sender, RoutedEventArgs e)
         {
-            XmlNamespaceManager ns = new XmlNamespaceManager(xmlDoc.NameTable);
-            ns.AddNamespace("ns", "urn:Question-Schema");
+            MessageBoxResult msg = MessageBox.Show("Are you sure you want to delete this item?", "Confirmation", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
+            if (msg == MessageBoxResult.Yes)
+            {
+                XmlNamespaceManager ns = new XmlNamespaceManager(xmlDoc.NameTable);
+                ns.AddNamespace("ns", "urn:Question-Schema");
 
-            XmlNodeList nodes = xmlDoc.SelectNodes("/ns:Quiz/ns:Questions/ns:TrueFalse/ns:Question[@ID=" + ID + "]", ns);
+                XmlNodeList nodes = xmlDoc.SelectNodes("/ns:Quiz/ns:Questions/ns:TrueFalse/ns:Question[@ID=" + ID + "]", ns);
 
-            XmlNode node = nodes[0];
+                XmlNode node = nodes[0];
 
-            node.ParentNode.RemoveChild(node);
+                node.ParentNode.RemoveChild(node);
 
-            MessageBox.Show("The Selected Question Has Been Deleted");
+                MessageBox.Show("The Selected Question Has Been Deleted");
 
-            XmlTextWriter wr = new XmlTextWriter(filename, null);
-            wr.Formatting = Formatting.None; // no new line spaces;
-            xmlDoc.Save(wr);
-            wr.Close();
-            HideGridPanels();
-            LoadTreeView();
+                XmlTextWriter wr = new XmlTextWriter(filename, null);
+                wr.Formatting = Formatting.None; // no new line spaces;
+                xmlDoc.Save(wr);
+                wr.Close();
+                HideGridPanels();
+                LoadTreeView();
+            }
         }
         private void TrueFalseEdit_Click(object sender, RoutedEventArgs e)
         {
@@ -1121,24 +1172,46 @@ namespace ExamMaker
 
         private void btnAddCorrectAnswers_Click(object sender, RoutedEventArgs e)
         {
-            lbCorrectAnswers.Items.Add(txtOptionFillin.Text);
+            if (txtOptionFillin.Text.Trim().Length != 0)
+            {
+                lbCorrectAnswers.Items.Add(txtOptionFillin.Text);
+            }
         }
 
         private void btnAddFillinOptions_Click(object sender, RoutedEventArgs e)
         {
-            lbOtherOptions.Items.Add(txtOptionFillin.Text);
+            if (txtOptionFillin.Text.Trim().Length != 0)
+            {
+                lbOtherOptions.Items.Add(txtOptionFillin.Text);
+            }
         }
 
         private void btnRemoveCorrectAnswers_Click(object sender, RoutedEventArgs e)
         {
-            if (this.lbCorrectAnswers.SelectedIndex >= 0)
-                this.lbCorrectAnswers.Items.RemoveAt(this.lbCorrectAnswers.SelectedIndex);
+            MessageBoxResult msg = MessageBox.Show("Are you sure you want to delete this option?", "Confirmation", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
+            if (msg == MessageBoxResult.Yes)
+            {
+                if (this.lbCorrectAnswers.SelectedIndex >= 0)
+                {
+                    this.lbCorrectAnswers.Items.RemoveAt(this.lbCorrectAnswers.SelectedIndex);
+                    btnUpdateFillin.Visibility = System.Windows.Visibility.Hidden;
+                    MessageBox.Show("Option Deleted.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            }
         }
 
         private void btnRemoveFillinOptions_Click(object sender, RoutedEventArgs e)
         {
-            if (this.lbOtherOptions.SelectedIndex >= 0)
-                this.lbOtherOptions.Items.RemoveAt(this.lbOtherOptions.SelectedIndex);
+            MessageBoxResult msg = MessageBox.Show("Are you sure you want to delete this option?", "Confirmation", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
+            if (msg == MessageBoxResult.Yes)
+            {
+                if (this.lbOtherOptions.SelectedIndex >= 0)
+                {
+                    this.lbOtherOptions.Items.RemoveAt(this.lbOtherOptions.SelectedIndex);
+                    btnUpdateFillin.Visibility = System.Windows.Visibility.Hidden;
+                    MessageBox.Show("Option Deleted.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            }
         }
 
         private void btnEditFillin_Click(object sender, RoutedEventArgs e)
@@ -1151,45 +1224,52 @@ namespace ExamMaker
 
         private void btnDeleteFillin_Click(object sender, RoutedEventArgs e)
         {
-            XmlNamespaceManager ns = new XmlNamespaceManager(xmlDoc.NameTable);
-            ns.AddNamespace("ns", "urn:Question-Schema");
+            MessageBoxResult msg = MessageBox.Show("Are you sure you want to delete this item?", "Confirmation", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
+            if (msg == MessageBoxResult.Yes)
+            {
+                XmlNamespaceManager ns = new XmlNamespaceManager(xmlDoc.NameTable);
+                ns.AddNamespace("ns", "urn:Question-Schema");
 
-            XmlNodeList nodes = xmlDoc.SelectNodes("/ns:Quiz/ns:Questions/ns:FillBlanks/ns:Question[@ID=" + ID + "]", ns);
+                XmlNodeList nodes = xmlDoc.SelectNodes("/ns:Quiz/ns:Questions/ns:FillBlanks/ns:Question[@ID=" + ID + "]", ns);
 
-            XmlNode node = nodes[0];
+                XmlNode node = nodes[0];
 
-            node.ParentNode.RemoveChild(node);
+                node.ParentNode.RemoveChild(node);
 
-            MessageBox.Show("The Selected Question Has Been Deleted");
+                MessageBox.Show("The Selected Question Has Been Deleted");
 
-            XmlTextWriter wr = new XmlTextWriter(filename, null);
-            wr.Formatting = Formatting.None; // no new line spaces;
-            xmlDoc.Save(wr);
-            wr.Close();
-            ClearAll();
-            LoadTreeView();
-            HideGridPanels();
+                XmlTextWriter wr = new XmlTextWriter(filename, null);
+                wr.Formatting = Formatting.None; // no new line spaces;
+                xmlDoc.Save(wr);
+                wr.Close();
+                ClearAll();
+                LoadTreeView();
+                HideGridPanels();
+            }
         }
 
         private void btnUpdateFillin_Click(object sender, RoutedEventArgs e)
         {
-            if (FillInOptionOld != null)
+            if (txtOptionFillin.Text.Trim().Length != 0)
             {
-                if (this.lbCorrectAnswers.SelectedIndex >= 0)
+                if (FillInOptionOld != null)
                 {
-                    lbCorrectAnswers.Items.Remove(FillInOptionOld);
-                    //lbCorrectAnswers.Items.RemoveAt(lbCorrectAnswers.SelectedIndex);
-                    lbCorrectAnswers.Items.Add(txtOptionFillin.Text);
+                    if (this.lbCorrectAnswers.SelectedIndex >= 0)
+                    {
+                        lbCorrectAnswers.Items.Remove(FillInOptionOld);
+                        //lbCorrectAnswers.Items.RemoveAt(lbCorrectAnswers.SelectedIndex);
+                        lbCorrectAnswers.Items.Add(txtOptionFillin.Text);
+                    }
+                    if (this.lbOtherOptions.SelectedIndex >= 0)
+                    {
+                        lbOtherOptions.Items.Remove(FillInOptionOld);
+                        //lbCorrectAnswers.Items.RemoveAt(lbCorrectAnswers.SelectedIndex);
+                        lbOtherOptions.Items.Add(txtOptionFillin.Text);
+                    }
                 }
-                if (this.lbOtherOptions.SelectedIndex >= 0)
-                {
-                    lbOtherOptions.Items.Remove(FillInOptionOld);
-                    //lbCorrectAnswers.Items.RemoveAt(lbCorrectAnswers.SelectedIndex);
-                    lbOtherOptions.Items.Add(txtOptionFillin.Text);
-                }
+                txtOptionFillin.Visibility = System.Windows.Visibility.Hidden;
+                btnUpdateFillin.Visibility = System.Windows.Visibility.Hidden;
             }
-            txtOptionFillin.Visibility = System.Windows.Visibility.Hidden;
-            btnUpdateFillin.Visibility = System.Windows.Visibility.Hidden;
         }
 
         private void lbCorrectAnswers_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -1205,7 +1285,6 @@ namespace ExamMaker
                 }
                 lbOtherOptions.SelectedIndex = -1;
             }
-
         }
 
         private void lbOtherOptions_SelectionChanged(object sender, SelectionChangedEventArgs e)
