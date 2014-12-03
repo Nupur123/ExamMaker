@@ -254,7 +254,8 @@ namespace ExamMaker
             gridMultipleChoice.Visibility = System.Windows.Visibility.Hidden;
             //True False
             txtTrueFalse.IsReadOnly = true;
-            GridQuestionType.Visibility = System.Windows.Visibility.Visible ;
+            GridQuestionType.Visibility = System.Windows.Visibility.Visible;
+            gridTrueFalse.Visibility = System.Windows.Visibility.Visible;
 
             //Fill in the Blanks
             gridFillBlanks.Visibility = System.Windows.Visibility.Hidden;
@@ -644,31 +645,34 @@ namespace ExamMaker
         // this button adds True False Question
         private void btnTrueFalse_Click(object sender, RoutedEventArgs e)
         {
-            if (!File.Exists(NewFilePath))
+            if (!CheckErrors("TrueFalse"))
             {
-                CreateQuiz();
-            }
-            else
-                isNew = false;
-            if (isEdit)
-                TrueFalseUpdateQuestion();
-            else
-                AddTrueFalse();
-            if (btnTrueFalseEdit.IsEnabled)
-            {
-                MessageBox.Show("Your Question has been saved to the Tree View");
-                gridTrueFalse.Visibility = System.Windows.Visibility.Hidden;
-            }
-            else
-                AddTrueFalse();
+                if (!File.Exists(NewFilePath))
+                {
+                    CreateQuiz();
+                }
+                else
+                    isNew = false;
+                if (isEdit)
+                    TrueFalseUpdateQuestion();
+                else
+                    AddTrueFalse();
+                if (btnTrueFalseEdit.IsEnabled)
+                {
+                    MessageBox.Show("Your Question has been saved to the Tree View");
+                    gridTrueFalse.Visibility = System.Windows.Visibility.Hidden;
+                }
+                else
+                    AddTrueFalse();
 
-            XmlTextWriter wr = new XmlTextWriter(NewFilePath, null);
-            wr.Formatting = Formatting.None; // no new line spaces;
+                XmlTextWriter wr = new XmlTextWriter(NewFilePath, null);
+                wr.Formatting = Formatting.None; // no new line spaces;
 
-            xmlDoc.Save(wr);
-            filename = NewFilePath;
-            wr.Close();
-            LoadTreeView();
+                xmlDoc.Save(wr);
+                filename = NewFilePath;
+                wr.Close();
+                LoadTreeView();
+            }
         }
         private void TrueFalseUpdateQuestion()
         {
@@ -912,7 +916,7 @@ namespace ExamMaker
                         gridMultipleChoice.Visibility = System.Windows.Visibility.Visible;
                         gridFillBlanks.Visibility = System.Windows.Visibility.Hidden;
                         gridTrueFalse.Visibility = System.Windows.Visibility.Hidden;
-                        
+
                         break;
 
                     case "Fill in the blanks":
@@ -1115,7 +1119,7 @@ namespace ExamMaker
             be3.UpdateSource();
             BindingExpression be4 = cmbDiff.GetBindingExpression(ComboBox.SelectedValueProperty);
             be4.UpdateSource();
-            bool isValid = false;     //return false, user's cant save the file if there are no question created, we cant have empty file!
+            bool isNotValid = false;     //return false, user's cant save the file if there are no question created, we cant have empty file!
             switch (choice)
             {
                 case "multi":
@@ -1129,23 +1133,51 @@ namespace ExamMaker
                     mult3.UpdateSource();
                     BindingExpression mult4 = txtOption4.GetBindingExpression(TextBox.TextProperty);
                     mult4.UpdateSource();
-                    if (be.HasError || be1.HasError || be2.HasError || be3.HasError || be4.HasError || mult.HasError || mult1.HasError || mult2.HasError || mult3.HasError || mult4.HasError)
-                        isValid = true;        //return true if there is an error
+                    
+                    if (be.HasError || be1.HasError || be2.HasError || be3.HasError || be4.HasError || mult.HasError || mult1.HasError || mult2.HasError || mult3.HasError || mult4.HasError || (rbOption1.IsChecked != true && rbOption2.IsChecked != true && rbOption3.IsChecked != true && rbOption4.IsChecked != true))
+                        isNotValid = true;        //return true if there is an error
                     else
-                        isValid = false;       //all validations pass
+                        isNotValid = false;       //all validations pass
                     break;
                 case "FillIn":
                     BindingExpression fillin = txtFillBlanks.GetBindingExpression(TextBox.TextProperty);
                     fillin.UpdateSource();
-                    //BindingExpression fillinCorrect = lbCorrectAnswers.GetBindingExpression(ListBox.property);
-                    //mult1.UpdateSource();
-                    if (be.HasError || be1.HasError || be2.HasError || be3.HasError || be4.HasError || fillin.HasError)
-                        isValid = true;        //return true if there is an error
+
+                    bool withCorrectResponse = false;
+                    if (lbCorrectAnswers.Items.Count != 0)
+                        withCorrectResponse = false;
                     else
-                        isValid = false;       //all validations pass
+                    {
+                        withCorrectResponse = true;
+                        MessageBox.Show("One or more CORRECT answer(s) are required.");
+                    }
+                    bool withOtherResponse = false;
+                    if (lbOtherOptions.Items.Count != 0)
+                        withOtherResponse = false;
+                    else
+                    {
+                        withOtherResponse = true;
+                        MessageBox.Show("One or more OTHER answer(s) are required.");
+                    }
+                    //lbCorrectAnswers.GetBindingExpression(ListBox.ItemsSourceProperty).UpdateTarget();
+                    //BindingExpression fillinCorrect = lbCorrectAnswers.GetBindingExpression(ListBox.SelectedItemProperty);
+                    //fillinCorrect.UpdateSource();
+                    if (be.HasError || be1.HasError || be2.HasError || be3.HasError || be4.HasError || fillin.HasError || withCorrectResponse || withOtherResponse)
+                        isNotValid = true;        //return true if there is an error
+                    else
+                        isNotValid = false;       //all validations pass
+                    break;
+
+                case "TrueFalse":
+                    BindingExpression TrueFalseQuestion = txtTrueFalse.GetBindingExpression(TextBox.TextProperty);
+                    TrueFalseQuestion.UpdateSource();
+                    if (be.HasError || be1.HasError || be2.HasError || be3.HasError || be4.HasError || TrueFalseQuestion.HasError)
+                        isNotValid = true;        //return true if there is an error
+                    else
+                        isNotValid = false;       //all validations pass
                     break;
             }
-            return isValid;
+            return isNotValid;
         }
         private void Save_As_Click(object sender, RoutedEventArgs e)
         {
@@ -1214,7 +1246,7 @@ namespace ExamMaker
                 lbCorrectAnswers.Items.Add(txtOptionFillin.Text);
                 txtOptionFillin.Clear();
             }
-            
+
         }
 
         private void btnAddFillinOptions_Click(object sender, RoutedEventArgs e)
