@@ -174,6 +174,12 @@ namespace ExamMaker
                 else if (a == 0 && b == 0 && c != 0)
                 {
                     UseFillIn(); //Load Grid for Fill In
+                    btnAddFillinCorrectAnswers.Visibility = System.Windows.Visibility.Hidden;
+                    btnAddFillinOptions.Visibility = System.Windows.Visibility.Hidden;
+                    btnRemoveCorrectAnswers.Visibility = System.Windows.Visibility.Hidden;
+                    btnRemoveFillinOptions.Visibility = System.Windows.Visibility.Hidden;
+                    btnUpdateFillin.Visibility = System.Windows.Visibility.Hidden;
+                    txtOptionFillin.Clear();
                     lbCorrectAnswers.Items.Clear();
                     lbOtherOptions.Items.Clear();
                     //if it is Fill in the Blanks
@@ -208,6 +214,8 @@ namespace ExamMaker
             txtOption2.IsReadOnly = true;
             txtOption3.IsReadOnly = true;
             txtOption4.IsReadOnly = true;
+            rbOptionDisable();
+            gridMultipleChoice.Visibility = System.Windows.Visibility.Visible;
 
             //True False
             txtTrueFalse.IsReadOnly = true;
@@ -224,13 +232,13 @@ namespace ExamMaker
             btnRemoveFillinOptions.Visibility = System.Windows.Visibility.Hidden;
             txtOptionFillin.Visibility = System.Windows.Visibility.Hidden;
             btnSubmitFillin.Visibility = System.Windows.Visibility.Hidden;
-            GridQuestionType.Visibility = System.Windows.Visibility.Hidden;
             btnEditFillin.Visibility = System.Windows.Visibility.Visible;
             btnDeleteFillin.Visibility = System.Windows.Visibility.Visible;
-
         }
         private void UseFillIn()
         {
+            btnEditFillin.Visibility = System.Windows.Visibility.Visible;
+            btnDeleteFillin.Visibility = System.Windows.Visibility.Visible;
             gridMultipleChoice.Visibility = System.Windows.Visibility.Hidden;
             //True False
             txtTrueFalse.IsReadOnly = true;
@@ -883,6 +891,7 @@ namespace ExamMaker
                 btnTrueFalseEdit.Visibility = System.Windows.Visibility.Visible;
                 btnEdit.Visibility = System.Windows.Visibility.Visible;
                 btnDelete.Visibility = System.Windows.Visibility.Visible;
+                btnSubmitFillin.Visibility = System.Windows.Visibility.Hidden;
             }
         }
         private void cmbQuestionType_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -903,6 +912,7 @@ namespace ExamMaker
                         gridMultipleChoice.Visibility = System.Windows.Visibility.Visible;
                         gridFillBlanks.Visibility = System.Windows.Visibility.Hidden;
                         gridTrueFalse.Visibility = System.Windows.Visibility.Hidden;
+                        
                         break;
 
                     case "Fill in the blanks":
@@ -927,6 +937,7 @@ namespace ExamMaker
                         break;
                 }
                 ClearAll();
+                rbOptionEnable();
             }
             // retrieving UID from selected ComboBox Item and saving it in a public string
             ActivateGridEditDelete();
@@ -1201,7 +1212,9 @@ namespace ExamMaker
             if (txtOptionFillin.Text.Trim().Length != 0)
             {
                 lbCorrectAnswers.Items.Add(txtOptionFillin.Text);
+                txtOptionFillin.Clear();
             }
+            
         }
 
         private void btnAddFillinOptions_Click(object sender, RoutedEventArgs e)
@@ -1209,6 +1222,7 @@ namespace ExamMaker
             if (txtOptionFillin.Text.Trim().Length != 0)
             {
                 lbOtherOptions.Items.Add(txtOptionFillin.Text);
+                txtOptionFillin.Clear();
             }
         }
 
@@ -1222,6 +1236,7 @@ namespace ExamMaker
                     this.lbCorrectAnswers.Items.RemoveAt(this.lbCorrectAnswers.SelectedIndex);
                     btnUpdateFillin.Visibility = System.Windows.Visibility.Hidden;
                     MessageBox.Show("Option Deleted.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                    txtOptionFillin.Clear();
                 }
             }
         }
@@ -1236,6 +1251,7 @@ namespace ExamMaker
                     this.lbOtherOptions.Items.RemoveAt(this.lbOtherOptions.SelectedIndex);
                     btnUpdateFillin.Visibility = System.Windows.Visibility.Hidden;
                     MessageBox.Show("Option Deleted.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                    txtOptionFillin.Clear();
                 }
             }
         }
@@ -1246,6 +1262,7 @@ namespace ExamMaker
             isEdit = true;
             ActivateFillinGrid();
             btnSubmitFillin.Visibility = System.Windows.Visibility.Visible;
+            txtOptionFillin.Visibility = System.Windows.Visibility.Visible;
         }
 
         private void btnDeleteFillin_Click(object sender, RoutedEventArgs e)

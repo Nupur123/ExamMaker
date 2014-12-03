@@ -191,7 +191,15 @@
             <Grid x:Name="gridFillBlanks" Visibility="Hidden"  HorizontalAlignment="Left" Height="288" Margin="20,220,0,-58" VerticalAlignment="Top" Width="734" RenderTransformOrigin="0.5,0.258" Grid.ColumnSpan="2">
                 <Border BorderBrush="Beige" BorderThickness="2" d:IsHidden="True"></Border>
                 <Label Content="Fill Blanks Question:" FontSize="14" HorizontalAlignment="Left" Margin="10,9,0,0" VerticalAlignment="Top" Width="170"/>
-                <TextBox x:Name="txtFillBlanks" TextWrapping="Wrap" HorizontalAlignment="Left" Height="auto"  Margin="79,43,0,0" Text="" VerticalAlignment="Top" Width="425" MaxHeight="50" VerticalScrollBarVisibility="Auto"/>
+                <TextBox Name="txtFillBlanks" TextWrapping="Wrap" HorizontalAlignment="Left" Height="auto"  Margin="79,43,0,0" VerticalAlignment="Top" Width="425" MaxHeight="50" VerticalScrollBarVisibility="Auto" Validation.ErrorTemplate="{StaticResource SubjectErrorTemplate}">
+                    <TextBox.Text>
+                        <Binding Source="{StaticResource myValidation}" Path="FillBlanksQuestion" UpdateSourceTrigger="Explicit" >
+                            <Binding.ValidationRules>
+                                <ExceptionValidationRule />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
                 <Button x:Name="btnSubmitFillin" Content="Submit Question" HorizontalAlignment="Left" Margin="244,253,0,0" VerticalAlignment="Top" Width="120" Height="25" Click="btnSubmitFillin_Click"/>
 
                 <Button x:Name="btnAddUnderline" Content="Add line" HorizontalAlignment="Left" Margin="524,43,0,0" VerticalAlignment="Top" Width="65" Click="btnAddUnderline_Click" Height="30"/>
