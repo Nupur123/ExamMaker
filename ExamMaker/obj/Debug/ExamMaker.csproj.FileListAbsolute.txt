@@ -24,7 +24,6 @@ C:\Users\anshulika\Documents\GitHub\ExamMaker\ExamMaker\obj\Debug\ExamMaker.Prop
 C:\Users\anshulika\Documents\GitHub\ExamMaker\ExamMaker\obj\Debug\ExamMaker.csproj.GenerateResource.Cache
 C:\Users\anshulika\Documents\GitHub\ExamMaker\ExamMaker\bin\Debug\ExamMaker.exe
 C:\Users\anshulika\Documents\GitHub\ExamMaker\ExamMaker\bin\Debug\ExamMaker.pdb
-C:\Users\KevinEmmanuel\Documents\GitHub\ExamMaker\ExamMaker\obj\Debug\ExamMaker.csprojResolveAssemblyReference.cache
 C:\Users\KevinEmmanuel\Documents\GitHub\ExamMaker\ExamMaker\obj\Debug\MainWindow.baml
 C:\Users\KevinEmmanuel\Documents\GitHub\ExamMaker\ExamMaker\obj\Debug\MainWindow.g.cs
 C:\Users\KevinEmmanuel\Documents\GitHub\ExamMaker\ExamMaker\obj\Debug\App.g.cs
