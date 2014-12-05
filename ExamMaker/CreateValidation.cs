@@ -10,6 +10,7 @@ namespace ExamMaker
 {
     public class CreateValidation
     {
+        //MultipleChoice
         private string _subject;
         private string _title;
         private int _time;
@@ -21,7 +22,10 @@ namespace ExamMaker
         private string _option3;
         private string _option4;
         private string _TrueFalse;
-
+        //FillIn
+        private string _fillInQuestion;
+        //TrueFalse
+        private string _TrueFalseQuestion;
 
         public string Subject
         {
@@ -152,6 +156,46 @@ namespace ExamMaker
             }
 
         }
+
+        public string fillInQuestion
+        {
+            get { return _fillInQuestion; }
+            set
+            {
+                _fillInQuestion = value;
+                if (String.IsNullOrEmpty(value))
+                {
+                    throw new Exception("Fill in Question is mandatory.");
+                }
+            }
+        }
+
+        public string TrueFalseQuestion
+        {
+            get { return _TrueFalseQuestion; }
+            set
+            {
+                _TrueFalseQuestion = value;
+                if (String.IsNullOrEmpty(value))
+                {
+                    throw new Exception("Fill in Question is mandatory.");
+                }
+            }
+        }
+
+        //public List<ListBoxItem> FillInCorrect
+        //{
+        //    get { return _CorrectOptions; }
+        //    set
+        //    {
+        //        _CorrectOptions = value;
+        //        if (string.IsNullOrEmpty(value))
+        //            if (_CorrectOptions.Count == 0)
+        //            {
+        //                throw new Exception("One or more correct answers are required.");
+        //            }
+        //    }
+        //}
 
 
 
