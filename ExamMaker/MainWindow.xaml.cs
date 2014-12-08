@@ -916,13 +916,14 @@ namespace ExamMaker
                         gridMultipleChoice.Visibility = System.Windows.Visibility.Visible;
                         gridFillBlanks.Visibility = System.Windows.Visibility.Hidden;
                         gridTrueFalse.Visibility = System.Windows.Visibility.Hidden;
-
+                        btnSubmit.Visibility = System.Windows.Visibility.Visible;
                         break;
 
                     case "Fill in the blanks":
                         gridFillBlanks.Visibility = System.Windows.Visibility.Visible;
                         gridMultipleChoice.Visibility = System.Windows.Visibility.Hidden;
                         gridTrueFalse.Visibility = System.Windows.Visibility.Hidden;
+                        btnSubmitFillin.Visibility = System.Windows.Visibility.Visible;
                         break;
 
                     case "True False":
@@ -1019,6 +1020,11 @@ namespace ExamMaker
                 btnRemoveFillinOptions.Visibility = System.Windows.Visibility.Visible;
                 txtOptionFillin.Visibility = System.Windows.Visibility.Visible;
                 btnSubmitFillin.Visibility = System.Windows.Visibility.Visible;
+                GridQuestionType.Visibility = System.Windows.Visibility.Visible;
+            }
+            if (gridMultipleChoice.Visibility == System.Windows.Visibility.Hidden||gridTrueFalse.Visibility==System.Windows.Visibility.Hidden||
+                gridFillBlanks.Visibility==System.Windows.Visibility.Hidden)
+            {
                 GridQuestionType.Visibility = System.Windows.Visibility.Visible;
             }
             
