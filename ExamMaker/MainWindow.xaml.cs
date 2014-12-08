@@ -996,27 +996,32 @@ namespace ExamMaker
         }
         private void btnAddNew_Click(object sender, RoutedEventArgs e)
         {
-            GridQuestionType.Visibility = System.Windows.Visibility.Visible;
-            ClearAll("2");
-            HideGridPanels();
-            isAddNew = true;
-            cmbQuestionType.SelectedIndex = -1;  //set the default choice to null
-            ActivateMultipleGrid();
-            btnSubmit.Visibility = System.Windows.Visibility.Visible;
-            txtTrueFalse.IsReadOnly = false;
+            if (gridMultipleChoice.Visibility == System.Windows.Visibility.Hidden&&gridTrueFalse.Visibility==System.Windows.Visibility.Hidden&&
+                gridFillBlanks.Visibility==System.Windows.Visibility.Hidden)
+            {
+                GridQuestionType.Visibility = System.Windows.Visibility.Visible;
+                ClearAll("2");
+                HideGridPanels();
+                isAddNew = true;
+                cmbQuestionType.SelectedIndex = -1;  //set the default choice to null
+                ActivateMultipleGrid();
+                btnSubmit.Visibility = System.Windows.Visibility.Visible;
+                txtTrueFalse.IsReadOnly = false;
 
-            //Fill in the Blanks
-            txtFillBlanks.Text = "";
-            lbCorrectAnswers.Items.Clear();
-            lbOtherOptions.Items.Clear();
-            txtFillBlanks.IsReadOnly = false;
-            btnAddFillinCorrectAnswers.Visibility = System.Windows.Visibility.Visible;
-            btnRemoveCorrectAnswers.Visibility = System.Windows.Visibility.Visible;
-            btnAddFillinOptions.Visibility = System.Windows.Visibility.Visible;
-            btnRemoveFillinOptions.Visibility = System.Windows.Visibility.Visible;
-            txtOptionFillin.Visibility = System.Windows.Visibility.Visible;
-            btnSubmitFillin.Visibility = System.Windows.Visibility.Visible;
-            GridQuestionType.Visibility = System.Windows.Visibility.Visible;
+                //Fill in the Blanks
+                txtFillBlanks.Text = "";
+                lbCorrectAnswers.Items.Clear();
+                lbOtherOptions.Items.Clear();
+                txtFillBlanks.IsReadOnly = false;
+                btnAddFillinCorrectAnswers.Visibility = System.Windows.Visibility.Visible;
+                btnRemoveCorrectAnswers.Visibility = System.Windows.Visibility.Visible;
+                btnAddFillinOptions.Visibility = System.Windows.Visibility.Visible;
+                btnRemoveFillinOptions.Visibility = System.Windows.Visibility.Visible;
+                txtOptionFillin.Visibility = System.Windows.Visibility.Visible;
+                btnSubmitFillin.Visibility = System.Windows.Visibility.Visible;
+                GridQuestionType.Visibility = System.Windows.Visibility.Visible;
+            }
+            
         }
         private void HideGridPanels()
         {
@@ -1342,8 +1347,10 @@ namespace ExamMaker
                         lbOtherOptions.Items.Add(txtOptionFillin.Text);
                     }
                 }
-                txtOptionFillin.Visibility = System.Windows.Visibility.Hidden;
+                txtOptionFillin.Visibility = System.Windows.Visibility.Visible;
                 btnUpdateFillin.Visibility = System.Windows.Visibility.Hidden;
+                txtOptionFillin.Text = "";
+                
             }
         }
 
