@@ -67,7 +67,7 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
-        
+
         <Style TargetType="{x:Type ListBox}">
             <Style.Triggers>
                 <Trigger Property="Validation.HasError" Value="true">
@@ -114,14 +114,14 @@
                 </TreeView.ItemContainerStyle>
             </TreeView>
         </DockPanel>
-        <Image Height="150" VerticalAlignment="Top" Source="Pictures/RobertsonBanner.jpg" Margin="146,0,69,0"/>
+        <Image Height="110" VerticalAlignment="Top" Source="Pictures/NewLogo.png" Margin="0,25,-26,0"/>
 
         <Grid x:Name="MainGrid" HorizontalAlignment="Left" Height="450" Margin="241,152,0,0" VerticalAlignment="Top" Width="764">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="275*"/>
                 <ColumnDefinition Width="504*"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Name="Title" HorizontalAlignment="Left" Margin="5,10,0,0" FontSize="30" Foreground="#F62217"  TextWrapping="Wrap" Text="Welcome to Robertson Quiz Maker!" VerticalAlignment="Top" RenderTransformOrigin="0.476,0.526" Grid.ColumnSpan="2"/>
+            <TextBlock Name="Title" HorizontalAlignment="Center"  Margin="10,0,0,0" FontSize="24" Foreground="#504A4B"  TextWrapping="Wrap" Text="Robertson Quiz Maker App" VerticalAlignment="Top" RenderTransformOrigin="0.476,0.526" Grid.ColumnSpan="2" Height="40"/>
             <Grid x:Name="gridQuizSummary" Visibility="Hidden"  HorizontalAlignment="Left" Height="170" Margin="15,45,0,0" VerticalAlignment="Top" Width="749" RenderTransformOrigin="0.497,0.323" Grid.ColumnSpan="2">
                 <Border BorderBrush="Beige" BorderThickness="2"/>
 
