@@ -154,6 +154,7 @@ namespace ExamMaker
                 else if (a == 0 && b != 0 && c == 0)
                 {//if it is TrueFalse;
                     //New code!!!
+                    cmbQuestionType.Visibility = System.Windows.Visibility.Hidden;
                     UseTrueFalse();
                     foreach (XmlNode xn in GetTrueFalse)
                     {
@@ -179,6 +180,7 @@ namespace ExamMaker
                     btnRemoveCorrectAnswers.Visibility = System.Windows.Visibility.Hidden;
                     btnRemoveFillinOptions.Visibility = System.Windows.Visibility.Hidden;
                     btnUpdateFillin.Visibility = System.Windows.Visibility.Hidden;
+                    cmbQuestionType.Visibility = System.Windows.Visibility.Visible;
                     txtOptionFillin.Clear();
                     lbCorrectAnswers.Items.Clear();
                     lbOtherOptions.Items.Clear();
