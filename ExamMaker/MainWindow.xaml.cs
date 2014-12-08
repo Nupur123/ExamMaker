@@ -1026,6 +1026,13 @@ namespace ExamMaker
                 gridFillBlanks.Visibility==System.Windows.Visibility.Hidden)
             {
                 GridQuestionType.Visibility = System.Windows.Visibility.Visible;
+                ClearAll("2");
+                HideGridPanels();
+                isAddNew = true;
+                cmbQuestionType.SelectedIndex = -1;  //set the default choice to null
+                ActivateMultipleGrid();
+                btnSubmit.Visibility = System.Windows.Visibility.Visible;
+                txtTrueFalse.IsReadOnly = false;
             }
             
         }
@@ -1072,7 +1079,7 @@ namespace ExamMaker
             btnRemoveFillinOptions.Visibility = System.Windows.Visibility.Visible;
             //txtOptionFillin.Visibility = System.Windows.Visibility.Visible;
             btnSubmitFillin.Visibility = System.Windows.Visibility.Visible;
-            GridQuestionType.Visibility = System.Windows.Visibility.Visible;
+           
 
         }
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
