@@ -257,7 +257,7 @@ namespace ExamMaker
             gridMultipleChoice.Visibility = System.Windows.Visibility.Hidden;
             //True False
             txtTrueFalse.IsReadOnly = true;
-            GridQuestionType.Visibility = System.Windows.Visibility.Visible;
+            GridQuestionType.Visibility = System.Windows.Visibility.Hidden;
             gridTrueFalse.Visibility = System.Windows.Visibility.Visible;
 
             //Fill in the Blanks
@@ -946,7 +946,7 @@ namespace ExamMaker
                         gridTrueFalse.Visibility = System.Windows.Visibility.Visible;
                         gridMultipleChoice.Visibility = System.Windows.Visibility.Hidden;
                         gridFillBlanks.Visibility = System.Windows.Visibility.Hidden;
-                        GridQuestionType.Visibility = System.Windows.Visibility.Hidden;
+                        
                         break;
                     default:
                         gridFillBlanks.Visibility = System.Windows.Visibility.Hidden;
@@ -1093,7 +1093,7 @@ namespace ExamMaker
             {
                 txtTrueFalse.Text = "";
 
-                GridQuestionType.Visibility = System.Windows.Visibility.Visible;
+                
                 btnTrueFalse.Visibility = System.Windows.Visibility.Visible;
                 btnTrueFalseEdit.Visibility = System.Windows.Visibility.Hidden;
                 btnTrueFalseDelete.Visibility = System.Windows.Visibility.Hidden;
