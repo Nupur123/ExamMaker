@@ -154,7 +154,8 @@ namespace ExamMaker
                 else if (a == 0 && b != 0 && c == 0)
                 {//if it is TrueFalse;
                     //New code!!!
-                    cmbQuestionType.Visibility = System.Windows.Visibility.Hidden;
+
+                    GridQuestionType.Visibility = System.Windows.Visibility.Hidden;
                     UseTrueFalse();
                     foreach (XmlNode xn in GetTrueFalse)
                     {
@@ -1043,6 +1044,8 @@ namespace ExamMaker
                 txtOption2.IsReadOnly = false;
                 txtOption3.IsReadOnly = false;
                 txtOption4.IsReadOnly = false;
+                txtTrueFalse.IsReadOnly = false;
+
             }
             
         }
