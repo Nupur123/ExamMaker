@@ -947,7 +947,6 @@ namespace ExamMaker
                         gridMultipleChoice.Visibility = System.Windows.Visibility.Hidden;
                         gridFillBlanks.Visibility = System.Windows.Visibility.Hidden;
                         GridQuestionType.Visibility = System.Windows.Visibility.Hidden;
-                   
                         break;
                     default:
                         gridFillBlanks.Visibility = System.Windows.Visibility.Hidden;
@@ -1055,6 +1054,10 @@ namespace ExamMaker
                 txtOption2.Text = "";
                 txtOption3.Text = "";
                 txtOption4.Text = "";
+                rbOption1.IsChecked = false;
+                rbOption2.IsChecked = false;
+                rbOption3.IsChecked = false;
+                rbOption4.IsChecked = false;
                 btnEdit.Visibility = System.Windows.Visibility.Hidden;
                 btnDelete.Visibility = System.Windows.Visibility.Hidden;
                 gridMultipleChoice.Visibility = System.Windows.Visibility.Visible;
@@ -1098,7 +1101,8 @@ namespace ExamMaker
                 gridMultipleChoice.Visibility = System.Windows.Visibility.Hidden;
                 gridFillBlanks.Visibility = System.Windows.Visibility.Hidden;
 
-              
+                rbTrue.IsChecked = false;
+                rbFalse.IsChecked = false;
                 rbOptionEnable();
             }
 
