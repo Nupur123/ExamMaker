@@ -1395,6 +1395,7 @@ namespace ExamMaker
             status.Text = ID.ToString();
             isEdit = true;
             ActivateFillinGrid();
+            txtOptionFillin.IsReadOnly = false;
             btnSubmitFillin.Visibility = System.Windows.Visibility.Visible;
             btnAddUnderline.Visibility = System.Windows.Visibility.Visible;
             txtOptionFillin.Visibility = System.Windows.Visibility.Visible;
