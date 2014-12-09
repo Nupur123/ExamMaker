@@ -1,0 +1,56 @@
+<?xml version="1.0"?><Quiz QuizId="441365" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema">
+<Details>
+<Title>Crazy Hard</Title>
+<Subject>Things</Subject>
+<Course>Software and Database Developer</Course>
+<Time>23</Time>
+<Difficulty>Advanced</Difficulty>
+</Details>
+<Questions><MultipleChoice><Question ID="1">
+<Questi>The success of the Norman Invasion depended on logistical operation in planning it William the Conqueror wisely left no detail</Questi>
+<Options>
+<Option> a puzzling and untarnished</Option>
+<Option>an intricate and overlooked</Option>
+<Option Correct="yes">a realistic and unsupervised</Option>
+<Option>an erroneous and ignored</Option>
+</Options>
+</Question>
+<Question ID="2"><Questi>On average how long does a cat sleep everyday?</Questi>
+<Options>
+<Option>10 to 12 Hours</Option>
+<Option>14 to 16 Hours</Option>
+<Option>12 to 14 Hours</Option>
+<Option Correct="yes">16 to 18 Hours</Option>
+</Options>
+</Question>
+<Question ID="3"><Questi>On average how many sesame seeds are there on a McDonalds Big Mac?</Questi>
+<Options>
+<Option>178 Sunflower Seeds</Option>
+<Option>4000 Sesame Seeds</Option>
+<Option>162 Sesame Seeds</Option>
+<Option Correct="yes">214 Sunflower Seeds</Option>
+</Options>
+</Question>
+<Question ID="4"><Questi>At which part of the year do kids grow fastest?</Questi>
+<Options>
+<Option>Winter</Option>
+<Option>Summer</Option>
+<Option Correct="yes">Spring</Option>
+<Option>Fall</Option>
+</Options>
+</Question>
+<Question ID="5"><Questi>Which of these mammals are the only mammal that can not jump?</Questi>
+<Options>
+<Option>Elephant</Option>
+<Option Correct="yes">Giraffe</Option>
+<Option>Armadillo</Option>
+<Option>Rhinocerous</Option>
+</Options>
+</Question>
+</MultipleChoice><FillBlanks><Question ID="11"><Questi>Queation 0ne ________________ </Questi>
+<Options><Option Correct="yes">yes</Option>
+<Option>no</Option>
+<Option>maybe</Option>
+</Options>
+</Question>
+<Question ID="12"><Questi>Question Two ________________ </Questi><Options><Option Correct="yes">what</Option><Option Correct="yes">where</Option><Option> who</Option><Option>when</Option><Option>why</Option></Options></Question><Question ID="13"><Questi>house ________________ </Questi><Options><Option Correct="yes">goat</Option><Option Correct="yes">dog</Option><Option>pet</Option><Option>mouse</Option><Option>another house</Option></Options></Question><Question ID="14"><Questi>red ________________ </Questi><Options><Option Correct="yes">rocks</Option><Option Correct="yes">blood</Option><Option>pink</Option><Option>poo</Option></Options></Question><Question ID="15"><Questi>hello ________________ </Questi><Options><Option Correct="yes">world</Option><Option Correct="yes">mars</Option><Option>earth</Option><Option>poo</Option></Options></Question></FillBlanks><TrueFalse><Question ID="6"><Questi>Marilyn Monroe had 11 toes.</Questi><Answer>True</Answer></Question><Question ID="7"><Questi>Alfred Hitchcock had a bellybutton.</Questi><Answer>False</Answer></Question><Question ID="8"><Questi>A jiffy is an actual unit of time.</Questi><Answer>True</Answer></Question><Question ID="9"><Questi>"Dreamt" is the only English word that ends in the letters "mt".</Questi><Answer>False</Answer></Question><Question ID="10"><Questi>The number or word, "One" appears on a U.S.A dollar bill 16 times.</Questi><Answer>True</Answer></Question></TrueFalse></Questions></Quiz>
