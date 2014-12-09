@@ -781,7 +781,7 @@ namespace ExamMaker
                 status.Background = System.Windows.Media.Brushes.White;
                 ErrorLogContent.Error = "";
                 Save_As.IsEnabled = true;
-                Save.IsEnabled = true;
+               // Save.IsEnabled = true;
                 gridQuizSummary.Visibility = System.Windows.Visibility.Visible;
                 FrontGrid.Visibility = Visibility.Hidden;
             }
@@ -812,11 +812,11 @@ namespace ExamMaker
             reader.Close(); //needed to close the reader so there will be no conflict on saving the file
             if (filename != null)
             {
-                Save_As.IsEnabled = true; Save.IsEnabled = true;
+                Save_As.IsEnabled = true; //Save.IsEnabled = true;
             }
             else
             {
-                Save_As.IsEnabled = false; Save.IsEnabled = false;
+                Save_As.IsEnabled = false; //Save.IsEnabled = false;
             }
         }
         public void ClearAll(string selection = null)
@@ -1004,7 +1004,7 @@ namespace ExamMaker
                 NewFilePath = filename;
                 this.filename = NewFilePath;
                 Save_As.IsEnabled = true;
-                Save.IsEnabled = true;
+                //Save.IsEnabled = true;
             }
             gridQuizSummary.Visibility = System.Windows.Visibility.Visible;
         }
