@@ -946,7 +946,8 @@ namespace ExamMaker
                         gridTrueFalse.Visibility = System.Windows.Visibility.Visible;
                         gridMultipleChoice.Visibility = System.Windows.Visibility.Hidden;
                         gridFillBlanks.Visibility = System.Windows.Visibility.Hidden;
-
+                        GridQuestionType.Visibility = System.Windows.Visibility.Hidden;
+                   
                         break;
                     default:
                         gridFillBlanks.Visibility = System.Windows.Visibility.Hidden;
@@ -1047,7 +1048,60 @@ namespace ExamMaker
                 txtTrueFalse.IsReadOnly = false;
 
             }
-            
+            if(gridMultipleChoice.Visibility == System.Windows.Visibility.Visible)
+            {
+                txtQuestion.Text = "";
+                txtOption1.Text = "";
+                txtOption2.Text = "";
+                txtOption3.Text = "";
+                txtOption4.Text = "";
+                btnEdit.Visibility = System.Windows.Visibility.Hidden;
+                btnDelete.Visibility = System.Windows.Visibility.Hidden;
+                gridMultipleChoice.Visibility = System.Windows.Visibility.Visible;
+                gridFillBlanks.Visibility = System.Windows.Visibility.Hidden;
+                gridTrueFalse.Visibility = System.Windows.Visibility.Hidden;
+                btnSubmit.Visibility = System.Windows.Visibility.Visible;
+
+                rbOptionEnable();
+            }
+            if(gridFillBlanks.Visibility == System.Windows.Visibility.Visible)
+            {
+                txtFillBlanks.Text = "";
+                txtOptionFillin.Text = "";
+                lbCorrectAnswers.Items.Clear();
+                lbOtherOptions.Items.Clear();
+
+                gridFillBlanks.Visibility = System.Windows.Visibility.Visible;
+                gridMultipleChoice.Visibility = System.Windows.Visibility.Hidden;
+                gridTrueFalse.Visibility = System.Windows.Visibility.Hidden;
+                btnSubmitFillin.Visibility = System.Windows.Visibility.Visible;
+                btnEditFillin.Visibility = System.Windows.Visibility.Hidden;
+                btnDeleteFillin.Visibility = System.Windows.Visibility.Hidden;
+                //Fill in the Blanks
+                txtFillBlanks.IsReadOnly = false;
+                btnAddFillinCorrectAnswers.Visibility = System.Windows.Visibility.Visible;
+                btnRemoveCorrectAnswers.Visibility = System.Windows.Visibility.Visible;
+                btnAddFillinOptions.Visibility = System.Windows.Visibility.Visible;
+                btnRemoveFillinOptions.Visibility = System.Windows.Visibility.Visible;
+                txtOptionFillin.Visibility = System.Windows.Visibility.Visible;
+                btnSubmitFillin.Visibility = System.Windows.Visibility.Visible;
+            }
+            if(gridTrueFalse.Visibility == System.Windows.Visibility.Visible)
+            {
+                txtTrueFalse.Text = "";
+
+                GridQuestionType.Visibility = System.Windows.Visibility.Visible;
+                btnTrueFalse.Visibility = System.Windows.Visibility.Visible;
+                btnTrueFalseEdit.Visibility = System.Windows.Visibility.Hidden;
+                btnTrueFalseDelete.Visibility = System.Windows.Visibility.Hidden;
+                gridTrueFalse.Visibility = System.Windows.Visibility.Visible;
+                gridMultipleChoice.Visibility = System.Windows.Visibility.Hidden;
+                gridFillBlanks.Visibility = System.Windows.Visibility.Hidden;
+
+              
+                rbOptionEnable();
+            }
+
         }
         private void HideGridPanels()
         {
