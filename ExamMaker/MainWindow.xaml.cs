@@ -926,6 +926,16 @@ namespace ExamMaker
                         gridMultipleChoice.Visibility = System.Windows.Visibility.Hidden;
                         gridTrueFalse.Visibility = System.Windows.Visibility.Hidden;
                         btnSubmitFillin.Visibility = System.Windows.Visibility.Visible;
+                        btnEditFillin.Visibility = System.Windows.Visibility.Hidden;
+                        btnDeleteFillin.Visibility = System.Windows.Visibility.Hidden;
+                        //Fill in the Blanks
+                        txtFillBlanks.IsReadOnly = false;
+                        btnAddFillinCorrectAnswers.Visibility = System.Windows.Visibility.Visible;
+                        btnRemoveCorrectAnswers.Visibility = System.Windows.Visibility.Visible;
+                        btnAddFillinOptions.Visibility = System.Windows.Visibility.Visible;
+                        btnRemoveFillinOptions.Visibility = System.Windows.Visibility.Visible;
+                        txtOptionFillin.Visibility = System.Windows.Visibility.Visible;
+                        btnSubmitFillin.Visibility = System.Windows.Visibility.Visible;
                         break;
 
                     case "True False":
@@ -1024,17 +1034,15 @@ namespace ExamMaker
                 btnSubmitFillin.Visibility = System.Windows.Visibility.Visible;
                 GridQuestionType.Visibility = System.Windows.Visibility.Visible;
             }
-            if (gridMultipleChoice.Visibility == System.Windows.Visibility.Hidden||gridTrueFalse.Visibility==System.Windows.Visibility.Hidden||
-                gridFillBlanks.Visibility==System.Windows.Visibility.Hidden)
+            if (gridMultipleChoice.Visibility == System.Windows.Visibility.Hidden || gridTrueFalse.Visibility == System.Windows.Visibility.Hidden ||
+                gridFillBlanks.Visibility == System.Windows.Visibility.Hidden)
             {
                 GridQuestionType.Visibility = System.Windows.Visibility.Visible;
-                ClearAll("2");
-                HideGridPanels();
-                isAddNew = true;
-                cmbQuestionType.SelectedIndex = -1;  //set the default choice to null
-                ActivateMultipleGrid();
-                btnSubmit.Visibility = System.Windows.Visibility.Visible;
-                txtTrueFalse.IsReadOnly = false;
+                txtQuestion.IsReadOnly = false;
+                txtOption1.IsReadOnly = false;
+                txtOption2.IsReadOnly = false;
+                txtOption3.IsReadOnly = false;
+                txtOption4.IsReadOnly = false;
             }
             
         }
