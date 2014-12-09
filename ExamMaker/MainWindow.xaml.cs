@@ -182,6 +182,8 @@ namespace ExamMaker
                     btnRemoveFillinOptions.Visibility = System.Windows.Visibility.Hidden;
                     btnUpdateFillin.Visibility = System.Windows.Visibility.Hidden;
                     cmbQuestionType.Visibility = System.Windows.Visibility.Visible;
+                    txtFillBlanks.IsReadOnly = true;
+                    txtOptionFillin.IsReadOnly = true;
                     txtOptionFillin.Clear();
                     lbCorrectAnswers.Items.Clear();
                     lbOtherOptions.Items.Clear();
@@ -937,6 +939,7 @@ namespace ExamMaker
                         btnRemoveFillinOptions.Visibility = System.Windows.Visibility.Visible;
                         txtOptionFillin.Visibility = System.Windows.Visibility.Visible;
                         btnSubmitFillin.Visibility = System.Windows.Visibility.Visible;
+                        txtOptionFillin.IsReadOnly = false;
                         break;
 
                     case "True False":
@@ -1088,6 +1091,7 @@ namespace ExamMaker
                 btnRemoveFillinOptions.Visibility = System.Windows.Visibility.Visible;
                 txtOptionFillin.Visibility = System.Windows.Visibility.Visible;
                 btnSubmitFillin.Visibility = System.Windows.Visibility.Visible;
+                txtOptionFillin.IsReadOnly = false;
             }
             if(gridTrueFalse.Visibility == System.Windows.Visibility.Visible)
             {
