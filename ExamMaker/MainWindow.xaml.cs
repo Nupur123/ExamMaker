@@ -154,7 +154,7 @@ namespace ExamMaker
                 else if (a == 0 && b != 0 && c == 0)
                 {//if it is TrueFalse;
                     //New code!!!
-
+                    
                     GridQuestionType.Visibility = System.Windows.Visibility.Hidden;
                     UseTrueFalse();
                     foreach (XmlNode xn in GetTrueFalse)
@@ -261,6 +261,8 @@ namespace ExamMaker
             txtTrueFalse.IsReadOnly = true;
             GridQuestionType.Visibility = System.Windows.Visibility.Hidden;
             gridTrueFalse.Visibility = System.Windows.Visibility.Visible;
+            rbTrue.IsEnabled = false;
+            rbFalse.IsEnabled = false;
 
             //Fill in the Blanks
             gridFillBlanks.Visibility = System.Windows.Visibility.Hidden;
@@ -1105,6 +1107,8 @@ namespace ExamMaker
                 gridMultipleChoice.Visibility = System.Windows.Visibility.Hidden;
                 gridFillBlanks.Visibility = System.Windows.Visibility.Hidden;
 
+                rbTrue.IsEnabled = true;
+                rbFalse.IsEnabled = true;
                 rbTrue.IsChecked = false;
                 rbFalse.IsChecked = false;
                 rbOptionEnable();
@@ -1329,6 +1333,8 @@ namespace ExamMaker
             isEdit = true;
             ActivateTrueFalseGrid();
             btnTrueFalse.Visibility = System.Windows.Visibility.Visible;
+            rbTrue.IsEnabled = true;
+            rbFalse.IsEnabled = true;
 
         }
 
