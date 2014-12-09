@@ -182,6 +182,7 @@ namespace ExamMaker
                     btnRemoveFillinOptions.Visibility = System.Windows.Visibility.Hidden;
                     btnUpdateFillin.Visibility = System.Windows.Visibility.Hidden;
                     cmbQuestionType.Visibility = System.Windows.Visibility.Visible;
+                    btnAddUnderline.Visibility = System.Windows.Visibility.Hidden;
                     txtFillBlanks.IsReadOnly = true;
                     txtOptionFillin.IsReadOnly = true;
                     txtOptionFillin.Clear();
@@ -933,6 +934,7 @@ namespace ExamMaker
                         btnSubmitFillin.Visibility = System.Windows.Visibility.Visible;
                         btnEditFillin.Visibility = System.Windows.Visibility.Hidden;
                         btnDeleteFillin.Visibility = System.Windows.Visibility.Hidden;
+                        btnAddUnderline.Visibility = System.Windows.Visibility.Visible;
                         //Fill in the Blanks
                         txtFillBlanks.IsReadOnly = false;
                         btnAddFillinCorrectAnswers.Visibility = System.Windows.Visibility.Visible;
@@ -1085,6 +1087,7 @@ namespace ExamMaker
                 btnSubmitFillin.Visibility = System.Windows.Visibility.Visible;
                 btnEditFillin.Visibility = System.Windows.Visibility.Hidden;
                 btnDeleteFillin.Visibility = System.Windows.Visibility.Hidden;
+                btnAddUnderline.Visibility = System.Windows.Visibility.Visible;
                 //Fill in the Blanks
                 txtFillBlanks.IsReadOnly = false;
                 btnAddFillinCorrectAnswers.Visibility = System.Windows.Visibility.Visible;
@@ -1393,6 +1396,7 @@ namespace ExamMaker
             isEdit = true;
             ActivateFillinGrid();
             btnSubmitFillin.Visibility = System.Windows.Visibility.Visible;
+            btnAddUnderline.Visibility = System.Windows.Visibility.Visible;
             txtOptionFillin.Visibility = System.Windows.Visibility.Visible;
         }
 
