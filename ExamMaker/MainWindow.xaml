@@ -67,7 +67,7 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
-        
+
         <Style TargetType="{x:Type ListBox}">
             <Style.Triggers>
                 <Trigger Property="Validation.HasError" Value="true">
@@ -114,14 +114,14 @@
                 </TreeView.ItemContainerStyle>
             </TreeView>
         </DockPanel>
-        <Image Height="150" VerticalAlignment="Top" Source="Pictures/RobertsonBanner.jpg" Margin="146,0,69,0"/>
+        <Image Height="110" VerticalAlignment="Top" Source="Pictures/NewLogo.png" Margin="0,25,-26,0"/>
 
         <Grid x:Name="MainGrid" HorizontalAlignment="Left" Height="450" Margin="241,152,0,0" VerticalAlignment="Top" Width="764">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="275*"/>
                 <ColumnDefinition Width="504*"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Name="Title" HorizontalAlignment="Left" Margin="5,10,0,0" FontSize="30" Foreground="#F62217"  TextWrapping="Wrap" Text="Welcome to Robertson Quiz Maker!" VerticalAlignment="Top" RenderTransformOrigin="0.476,0.526" Grid.ColumnSpan="2"/>
+            <TextBlock Name="Title" HorizontalAlignment="Center"  Margin="10,0,0,0" FontSize="24" Foreground="#504A4B"  TextWrapping="Wrap" Text="Robertson Quiz Maker App" VerticalAlignment="Top" RenderTransformOrigin="0.476,0.526" Grid.ColumnSpan="2" Height="40"/>
             <Grid x:Name="gridQuizSummary" Visibility="Hidden"  HorizontalAlignment="Left" Height="170" Margin="15,45,0,0" VerticalAlignment="Top" Width="749" RenderTransformOrigin="0.497,0.323" Grid.ColumnSpan="2">
                 <Border BorderBrush="Beige" BorderThickness="2"/>
 
@@ -201,7 +201,7 @@
             <Grid x:Name="gridFillBlanks" Visibility="Hidden"  HorizontalAlignment="Left" Height="288" Margin="20,220,0,-58" VerticalAlignment="Top" Width="734" RenderTransformOrigin="0.5,0.258" Grid.ColumnSpan="2">
                 <Border BorderBrush="Beige" BorderThickness="2" d:IsHidden="True"/>
                 <Label Content="Fill Blanks Question:" FontSize="14" HorizontalAlignment="Left" Margin="10,9,0,0" VerticalAlignment="Top" Width="170"/>
-                <TextBox Name="txtFillBlanks" TextWrapping="Wrap" HorizontalAlignment="Left" Height="auto"  Margin="79,43,0,0" VerticalAlignment="Top" Width="425" MaxHeight="50" VerticalScrollBarVisibility="Auto" Validation.ErrorTemplate="{StaticResource SubjectErrorTemplate}">
+                <TextBox Name="txtFillBlanks" TextWrapping="Wrap" HorizontalAlignment="Left" Height="auto"  Margin="79,43,0,0" VerticalAlignment="Top" Width="425" MaxHeight="50" VerticalScrollBarVisibility="Auto" Validation.ErrorTemplate="{StaticResource SubjectErrorTemplate}" TabIndex="0">
                     <TextBox.Text>
                         <Binding Source="{StaticResource myValidation}" Path="fillInQuestion" UpdateSourceTrigger="Explicit" >
                             <Binding.ValidationRules>
@@ -210,9 +210,9 @@
                         </Binding>
                     </TextBox.Text>
                 </TextBox>
-                <Button x:Name="btnSubmitFillin" Content="Submit Question" HorizontalAlignment="Left" Margin="244,253,0,0" VerticalAlignment="Top" Width="120" Height="25" Click="btnSubmitFillin_Click"/>
+                <Button x:Name="btnSubmitFillin" Content="Submit Question" HorizontalAlignment="Left" Margin="244,253,0,0" VerticalAlignment="Top" Width="120" Height="25" Click="btnSubmitFillin_Click" TabIndex="7"/>
 
-                <Button x:Name="btnAddUnderline" Content="Add line" HorizontalAlignment="Left" Margin="524,43,0,0" VerticalAlignment="Top" Width="65" Click="btnAddUnderline_Click" Height="30"/>
+                <Button x:Name="btnAddUnderline" Content="Add line" HorizontalAlignment="Left" Margin="524,43,0,0" VerticalAlignment="Top" Width="65" Click="btnAddUnderline_Click" Height="30" TabIndex="1"/>
                 <Label Content="Options:" HorizontalAlignment="Left" Margin="54,97,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.526,0.385"/>
                 <ListBox x:Name="lbCorrectAnswers" HorizontalAlignment="Left" Height="66" Margin="79,147,0,0" VerticalAlignment="Top" Width="170" SelectionChanged="lbCorrectAnswers_SelectionChanged" Validation.ErrorTemplate="{StaticResource SubjectErrorTemplate}">
                     <ListBoxItem>
@@ -224,13 +224,13 @@
                     </ListBoxItem>
                 </ListBox>
                 <ListBox x:Name="lbOtherOptions" HorizontalAlignment="Left" Height="66" Margin="334,147,0,0" VerticalAlignment="Top" Width="170" SelectionChanged="lbOtherOptions_SelectionChanged"/>
-                <TextBox x:Name="txtOptionFillin" HorizontalAlignment="Left" Height="23" Margin="114,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="280"/>
+                <TextBox x:Name="txtOptionFillin" HorizontalAlignment="Left" Height="23" Margin="114,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="280" TabIndex="2"/>
                 <Label Content="Correct Answers:" HorizontalAlignment="Left" Margin="114,121,0,0" VerticalAlignment="Top"/>
                 <Label Content="Other Options:" HorizontalAlignment="Left" Margin="376,121,0,0" VerticalAlignment="Top"/>
-                <Button x:Name="btnAddFillinOptions" Content="Add" HorizontalAlignment="Left" Margin="334,221,0,0" VerticalAlignment="Top" Width="80" Click="btnAddFillinOptions_Click" Height="22"/>
-                <Button x:Name="btnAddFillinCorrectAnswers" Content="Add" Click="btnAddCorrectAnswers_Click" Margin="79,221,575,45"/>
-                <Button x:Name="btnRemoveCorrectAnswers" Content="Remove" HorizontalAlignment="Left" Margin="169,221,0,0" VerticalAlignment="Top" Width="80" Height="22" Click="btnRemoveCorrectAnswers_Click"/>
-                <Button x:Name="btnRemoveFillinOptions" Content="Remove" HorizontalAlignment="Left" Margin="424,221,0,0" VerticalAlignment="Top" Width="80" Height="22" Click="btnRemoveFillinOptions_Click"/>
+                <Button x:Name="btnAddFillinOptions" Content="Add" HorizontalAlignment="Left" Margin="334,221,0,0" VerticalAlignment="Top" Width="80" Click="btnAddFillinOptions_Click" Height="22" TabIndex="5"/>
+                <Button x:Name="btnAddFillinCorrectAnswers" Content="Add" Click="btnAddCorrectAnswers_Click" Margin="79,221,575,45" TabIndex="3"/>
+                <Button x:Name="btnRemoveCorrectAnswers" Content="Remove" HorizontalAlignment="Left" Margin="169,221,0,0" VerticalAlignment="Top" Width="80" Height="22" Click="btnRemoveCorrectAnswers_Click" TabIndex="4"/>
+                <Button x:Name="btnRemoveFillinOptions" Content="Remove" HorizontalAlignment="Left" Margin="424,221,0,0" VerticalAlignment="Top" Width="80" Height="22" Click="btnRemoveFillinOptions_Click" TabIndex="6"/>
 
                 <Button x:Name="btnEditFillin" Content="Edit" Visibility="Hidden" HorizontalAlignment="Left" Margin="549,147,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.533,2.85" Click="btnEditFillin_Click"/>
                 <Button x:Name="btnUpdateFillin" Content="Update" Visibility="Hidden" Click="btnUpdateFillin_Click" Margin="399,100,230,165" RenderTransformOrigin="1.6,0.205"/>
@@ -262,7 +262,7 @@
                 </Border>
                 <Label Content="Multiple Choice Question Text:" FontSize="14" HorizontalAlignment="Left" Margin="24,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.395,0.192" Width="215" Height="30">
                 </Label>
-                <TextBox x:Name="txtOption1" HorizontalAlignment="Left" Height="23" Margin="84,88,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="190" Validation.ErrorTemplate="{StaticResource SubjectErrorTemplate}">
+                <TextBox x:Name="txtOption1" HorizontalAlignment="Left" Height="23" Margin="84,88,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="190" Validation.ErrorTemplate="{StaticResource SubjectErrorTemplate}" TabIndex="1">
                     <TextBox.Text>
                         <Binding Source="{StaticResource myValidation}" Path="Option1" UpdateSourceTrigger="Explicit" >
                             <Binding.ValidationRules>
@@ -273,7 +273,7 @@
                 </TextBox>
                 <RadioButton x:Name="rbOption1" GroupName="RBGroup" Content="1." HorizontalAlignment="Left" Margin="36,91,0,0" VerticalAlignment="Top"/>
                 <RadioButton x:Name="rbOption2" GroupName="RBGroup" Content="2." HorizontalAlignment="Left" Margin="36,132,0,0" VerticalAlignment="Top"/>
-                <TextBox x:Name="txtOption2" HorizontalAlignment="Left" Height="23" Margin="84,127,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="190" RenderTransformOrigin="0.51,0.348" Validation.ErrorTemplate="{StaticResource SubjectErrorTemplate}">
+                <TextBox x:Name="txtOption2" HorizontalAlignment="Left" Height="23" Margin="84,127,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="190" RenderTransformOrigin="0.51,0.348" Validation.ErrorTemplate="{StaticResource SubjectErrorTemplate}" TabIndex="2">
                     <TextBox.Text>
                         <Binding Source="{StaticResource myValidation}" Path="Option2" UpdateSourceTrigger="Explicit" >
                             <Binding.ValidationRules>
@@ -284,7 +284,7 @@
                 </TextBox>
                 <RadioButton x:Name="rbOption3" GroupName="RBGroup" Content="3." HorizontalAlignment="Left" Margin="309,91,0,0" VerticalAlignment="Top"/>
                 <RadioButton x:Name="rbOption4" GroupName="RBGroup" Content="4." HorizontalAlignment="Left" Margin="309,135,0,0" VerticalAlignment="Top"/>
-                <TextBox x:Name="txtOption3" HorizontalAlignment="Left" Height="23" Margin="354,88,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="190" Validation.ErrorTemplate="{StaticResource SubjectErrorTemplate}">
+                <TextBox x:Name="txtOption3" HorizontalAlignment="Left" Height="23" Margin="354,88,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="190" Validation.ErrorTemplate="{StaticResource SubjectErrorTemplate}" TabIndex="3">
                     <TextBox.Text>
                         <Binding Source="{StaticResource myValidation}" Path="Option3" UpdateSourceTrigger="Explicit" >
                             <Binding.ValidationRules>
@@ -293,7 +293,7 @@
                         </Binding>
                     </TextBox.Text>
                 </TextBox>
-                <TextBox x:Name="txtOption4" HorizontalAlignment="Left" Height="23" Margin="354,132,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="190" Validation.ErrorTemplate="{StaticResource SubjectErrorTemplate}" >
+                <TextBox x:Name="txtOption4" HorizontalAlignment="Left" Height="23" Margin="354,132,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="190" Validation.ErrorTemplate="{StaticResource SubjectErrorTemplate}" TabIndex="4">
                     <TextBox.Text>
                         <Binding Source="{StaticResource myValidation}" Path="Option4" UpdateSourceTrigger="Explicit" >
                             <Binding.ValidationRules>
@@ -303,7 +303,7 @@
                     </TextBox.Text>
                 </TextBox>
 
-                <TextBox x:Name="txtQuestion" HorizontalAlignment="Left" Height="23" Margin="24,45,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="505" Validation.ErrorTemplate="{StaticResource SubjectErrorTemplate}">
+                <TextBox x:Name="txtQuestion" HorizontalAlignment="Left" Height="23" Margin="24,45,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="505" Validation.ErrorTemplate="{StaticResource SubjectErrorTemplate}" TabIndex="0">
                     <TextBox.Text>
                         <Binding Source="{StaticResource myValidation}" Path="MultiQuestion" UpdateSourceTrigger="Explicit" >
                             <Binding.ValidationRules>
@@ -312,7 +312,7 @@
                         </Binding>
                     </TextBox.Text>
                 </TextBox>
-                <Button x:Name="btnSubmit" Content="Submit Question" HorizontalAlignment="Left" Margin="284,193,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.431,-0.233" Click="btnSubmit_Click" Height="25"/>
+                <Button x:Name="btnSubmit" Content="Submit Question" HorizontalAlignment="Left" Margin="284,193,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.431,-0.233" Click="btnSubmit_Click" Height="25" TabIndex="5"/>
                 <Button x:Name="btnEdit" Content="Edit" Visibility="Hidden" HorizontalAlignment="Left" Margin="589,63,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.533,2.85" Click="btnEdit_Click">
                     <Button.RenderTransform>
                         <TransformGroup>
