@@ -154,7 +154,7 @@ namespace ExamMaker
                 else if (a == 0 && b != 0 && c == 0)
                 {//if it is TrueFalse;
                     //New code!!!
-                    
+
                     GridQuestionType.Visibility = System.Windows.Visibility.Hidden;
                     UseTrueFalse();
                     foreach (XmlNode xn in GetTrueFalse)
@@ -551,6 +551,7 @@ namespace ExamMaker
                 {
                     MessageBox.Show("Error in updating the question");
                 }
+                gridFillBlanks.Visibility = System.Windows.Visibility.Hidden;
             }
 
         }
@@ -781,7 +782,7 @@ namespace ExamMaker
                 status.Background = System.Windows.Media.Brushes.White;
                 ErrorLogContent.Error = "";
                 Save_As.IsEnabled = true;
-               // Save.IsEnabled = true;
+                // Save.IsEnabled = true;
                 gridQuizSummary.Visibility = System.Windows.Visibility.Visible;
                 FrontGrid.Visibility = Visibility.Hidden;
             }
@@ -953,7 +954,7 @@ namespace ExamMaker
                         gridTrueFalse.Visibility = System.Windows.Visibility.Visible;
                         gridMultipleChoice.Visibility = System.Windows.Visibility.Hidden;
                         gridFillBlanks.Visibility = System.Windows.Visibility.Hidden;
-                        
+
                         break;
                     default:
                         gridFillBlanks.Visibility = System.Windows.Visibility.Hidden;
@@ -1017,14 +1018,14 @@ namespace ExamMaker
         }
         private void btnAddNew_Click(object sender, RoutedEventArgs e)
         {
-            if (gridMultipleChoice.Visibility == System.Windows.Visibility.Hidden&&gridTrueFalse.Visibility==System.Windows.Visibility.Hidden&&
-                gridFillBlanks.Visibility==System.Windows.Visibility.Hidden)
+            if (gridMultipleChoice.Visibility == System.Windows.Visibility.Hidden && gridTrueFalse.Visibility == System.Windows.Visibility.Hidden &&
+                gridFillBlanks.Visibility == System.Windows.Visibility.Hidden)
             {
                 GridQuestionType.Visibility = System.Windows.Visibility.Visible;
                 ClearAll("2");
                 HideGridPanels();
                 isAddNew = true;
-                cmbQuestionType.SelectedIndex = -1;  //set the default choice to null
+                //cmbQuestionType.SelectedIndex = -1;  //set the default choice to null
                 ActivateMultipleGrid();
                 btnSubmit.Visibility = System.Windows.Visibility.Visible;
                 txtTrueFalse.IsReadOnly = false;
@@ -1034,12 +1035,12 @@ namespace ExamMaker
                 lbCorrectAnswers.Items.Clear();
                 lbOtherOptions.Items.Clear();
                 txtFillBlanks.IsReadOnly = false;
-                btnAddFillinCorrectAnswers.Visibility = System.Windows.Visibility.Visible;
-                btnRemoveCorrectAnswers.Visibility = System.Windows.Visibility.Visible;
-                btnAddFillinOptions.Visibility = System.Windows.Visibility.Visible;
-                btnRemoveFillinOptions.Visibility = System.Windows.Visibility.Visible;
-                txtOptionFillin.Visibility = System.Windows.Visibility.Visible;
-                btnSubmitFillin.Visibility = System.Windows.Visibility.Visible;
+                //btnAddFillinCorrectAnswers.Visibility = System.Windows.Visibility.Visible;
+                //btnRemoveCorrectAnswers.Visibility = System.Windows.Visibility.Visible;
+                //btnAddFillinOptions.Visibility = System.Windows.Visibility.Visible;
+                //btnRemoveFillinOptions.Visibility = System.Windows.Visibility.Visible;
+                //txtOptionFillin.Visibility = System.Windows.Visibility.Visible;
+                //btnSubmitFillin.Visibility = System.Windows.Visibility.Visible;
                 GridQuestionType.Visibility = System.Windows.Visibility.Visible;
             }
             if (gridMultipleChoice.Visibility == System.Windows.Visibility.Hidden || gridTrueFalse.Visibility == System.Windows.Visibility.Hidden ||
@@ -1054,7 +1055,7 @@ namespace ExamMaker
                 txtTrueFalse.IsReadOnly = false;
 
             }
-            if(gridMultipleChoice.Visibility == System.Windows.Visibility.Visible)
+            if (gridMultipleChoice.Visibility == System.Windows.Visibility.Visible || cmbQuestionType.SelectedIndex == 0)
             {
                 txtQuestion.Text = "";
                 txtOption1.Text = "";
@@ -1074,7 +1075,7 @@ namespace ExamMaker
 
                 rbOptionEnable();
             }
-            if(gridFillBlanks.Visibility == System.Windows.Visibility.Visible)
+            if (gridFillBlanks.Visibility == System.Windows.Visibility.Visible || cmbQuestionType.SelectedIndex == 1)
             {
                 txtFillBlanks.Text = "";
                 txtOptionFillin.Text = "";
@@ -1098,11 +1099,11 @@ namespace ExamMaker
                 btnSubmitFillin.Visibility = System.Windows.Visibility.Visible;
                 txtOptionFillin.IsReadOnly = false;
             }
-            if(gridTrueFalse.Visibility == System.Windows.Visibility.Visible)
+            if (gridTrueFalse.Visibility == System.Windows.Visibility.Visible || cmbQuestionType.SelectedIndex == 2)
             {
                 txtTrueFalse.Text = "";
 
-                
+
                 btnTrueFalse.Visibility = System.Windows.Visibility.Visible;
                 btnTrueFalseEdit.Visibility = System.Windows.Visibility.Hidden;
                 btnTrueFalseDelete.Visibility = System.Windows.Visibility.Hidden;
@@ -1161,7 +1162,7 @@ namespace ExamMaker
             btnRemoveFillinOptions.Visibility = System.Windows.Visibility.Visible;
             //txtOptionFillin.Visibility = System.Windows.Visibility.Visible;
             btnSubmitFillin.Visibility = System.Windows.Visibility.Visible;
-           
+
 
         }
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -1233,8 +1234,14 @@ namespace ExamMaker
                     mult3.UpdateSource();
                     BindingExpression mult4 = txtOption4.GetBindingExpression(TextBox.TextProperty);
                     mult4.UpdateSource();
+
+                    bool answerNotSelected = false;
+                    if(rbOption1.IsChecked != true && rbOption2.IsChecked != true && rbOption3.IsChecked != true && rbOption4.IsChecked != true)
+                    {answerNotSelected=true;
+                    MessageBox.Show("Select correct option first.");
+                    }
                     
-                    if (be.HasError || be1.HasError || be2.HasError || be3.HasError || be4.HasError || mult.HasError || mult1.HasError || mult2.HasError || mult3.HasError || mult4.HasError || (rbOption1.IsChecked != true && rbOption2.IsChecked != true && rbOption3.IsChecked != true && rbOption4.IsChecked != true))
+                    if (be.HasError || be1.HasError || be2.HasError || be3.HasError || be4.HasError || mult.HasError || mult1.HasError || mult2.HasError || mult3.HasError || mult4.HasError || answerNotSelected)
                         isNotValid = true;        //return true if there is an error
                     else
                         isNotValid = false;       //all validations pass
@@ -1449,7 +1456,7 @@ namespace ExamMaker
                 txtOptionFillin.Visibility = System.Windows.Visibility.Visible;
                 btnUpdateFillin.Visibility = System.Windows.Visibility.Hidden;
                 txtOptionFillin.Text = "";
-                
+
             }
         }
 
